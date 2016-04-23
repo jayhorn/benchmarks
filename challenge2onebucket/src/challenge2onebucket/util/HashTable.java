@@ -37,22 +37,19 @@ public class HashTable implements Map<String, String>
     }
     
     //counter for worst case complexity
-    private int counter = 0;
-    
-    // return a counter
-    public int getCounter(){
-    	return counter;
-    }
+    public int str_counter = 0;
+    public int char_counter = 0;
    
      
      public boolean myEquals(char v1[], char v2[]) {
          int n = v1.length;
          if (n == v2.length) {
         	 int i = 0;
-        	 while (n-- != 0) {
-        		 counter += 1;
-        		 if (v1[i] != v2[i])
+        	 while (n-- != 0) {	
+         		 char_counter += 1; 
+        		 if (v1[i] != v2[i]){
         			 return false;
+        		 }
         		 i++;
         	 }
         	 return true;
@@ -68,7 +65,7 @@ public class HashTable implements Map<String, String>
       char Obj1 [] = strObj.toCharArray();
       
         for (Entry next = this.mTable[n]; next != null; next = next.next) {
-        	counter +=1;
+        	str_counter +=1;
           System.out.println("before equals");
           char Obj2 [] = next.key.toCharArray(); // get second array of chars
           if (myEquals(Obj1, Obj2)){

@@ -1,8 +1,3 @@
-/**
- * @author corina pasareanu corina.pasareanu@sv.cmu.edu
- *
- */
-
 package challenge2onebucket;
 
 import java.util.Random;
@@ -43,8 +38,12 @@ public class TestApp {
 //    System.out.println("calling get");
 //    System.out.println("size of hashtable " + hashTable.size());
     hashTable.get(new String(input));
-    int counter = hashTable.getCounter();
-    assert(counter == 4*N);
+    int str_counter = hashTable.str_counter;
+    int char_counter = hashTable.char_counter;
+    System.out.println("Str Counter " + str_counter);
+    System.out.println("Char Counter " + char_counter);
+//    System.out.println("Worst " + 4*N);
+//    assert((char_counter + str_counter) == 4*N);
     
 //    System.err.println("Goodbye!");
   }
