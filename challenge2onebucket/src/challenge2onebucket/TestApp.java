@@ -25,6 +25,8 @@ public class TestApp {
     	char c = (char)(rand.nextInt(26) + 'a');
         input[s] = c;
       }
+     // input[3] = (char)i;
+     System.out.println("Size string " + input.length);
 //      System.out.println("calling put #" + i);  
       hashTable.put(new String(input), "value");
     }   
@@ -35,15 +37,20 @@ public class TestApp {
       char c = (char)(rand.nextInt(26) + 'a');
       input[s] = c;
     }
+  //  input[3] = '1';
 //    System.out.println("calling get");
 //    System.out.println("size of hashtable " + hashTable.size());
     hashTable.get(new String(input));
+    
     int str_counter = hashTable.str_counter;
     int char_counter = hashTable.char_counter;
+    
     System.out.println("Str Counter " + str_counter);
     System.out.println("Char Counter " + char_counter);
-//    System.out.println("Worst " + 4*N);
-//    assert((char_counter + str_counter) == 4*N);
+    
+    System.out.println("Worst " + 4*N);
+    //assert(char_counter <= 4*N);
+    assert(false);
     
 //    System.err.println("Goodbye!");
   }

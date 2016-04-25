@@ -36,11 +36,15 @@ public class HashTable implements Map<String, String>
         return this.findEntry(o, this.getBucketAbs((String)o), b);
     }
     
+    private Entry findEntryGet(final Object o, final boolean b) {
+        return this.findEntryGet(o, this.getBucketAbs((String)o), b);
+    }
+    
     //counter for worst case complexity
     public int str_counter = 0;
     public int char_counter = 0;
    
-     
+    
      public boolean myEquals(char v1[], char v2[]) {
          int n = v1.length;
          if (n == v2.length) {
@@ -65,10 +69,9 @@ public class HashTable implements Map<String, String>
       char Obj1 [] = strObj.toCharArray();
       
         for (Entry next = this.mTable[n]; next != null; next = next.next) {
-        	str_counter +=1;
-          System.out.println("before equals");
+          System.out.println("before equals ");
           char Obj2 [] = next.key.toCharArray(); // get second array of chars
-          if (myEquals(Obj1, Obj2)){
+          if (next.key.equals(obj)){
         	  return next;
           }
 
@@ -83,6 +86,30 @@ public class HashTable implements Map<String, String>
         return null;
     }
     
+    //Interesting method for worst case complexity
+    private Entry findEntryGet(final Object obj, final int n, final boolean b) {
+      int i = 0;
+      String strObj = (String)obj;
+      char Obj1 [] = strObj.toCharArray();
+      
+        for (Entry next = this.mTable[n]; next != null; next = next.next) {
+          str_counter +=1;
+          System.out.println("String counter " + str_counter);
+          char Obj2 [] = next.key.toCharArray(); // get second array of chars
+          if (myEquals(Obj1, Obj2)){
+        	  return next;
+          }
+          System.out.println("Comparisons " + char_counter);
+            System.out.println("loop in findentry");
+            i++;
+        }
+        System.out.println("after loop in findentry. iterated " + i);
+        if (b) {
+          System.out.println("Collision!");
+            return this.mTable[n] = new Entry((String)obj, null, null, this.mTable[n]);
+        }
+        return null;
+    }
     
     public void clear() {
         for (int i = 0; i < this.mTable.length; ++i) {
@@ -110,7 +137,7 @@ public class HashTable implements Map<String, String>
     }
     
     public String get(final Object o) {
-        final Entry entry = this.findEntry(o, false);
+        final Entry entry = this.findEntryGet(o, false);
         if (entry == null) {
             return null;
         }
