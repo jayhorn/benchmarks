@@ -15,7 +15,7 @@ public class BufferedImage //extends java.awt.Image
 //                           implements WritableRenderedImage, Transparency
 {
 	//Simple model: just int width and height, plus 2-dimensional array of pixels.
-	int width;
+	public int width;
 	int height;
 	int pixels[][];
 	
@@ -24,20 +24,20 @@ public class BufferedImage //extends java.awt.Image
 	static int nextID = 0;
 	
 	// has all these defines
-    public static final int TYPE_CUSTOM = 0;
-    public static final int TYPE_INT_RGB = 1;
+//    public static final int TYPE_CUSTOM = 0;
+//    public static final int TYPE_INT_RGB = 1;
     public static final int TYPE_INT_ARGB = 2;
-    public static final int TYPE_INT_ARGB_PRE = 3;
-    public static final int TYPE_INT_BGR = 4;
-    public static final int TYPE_3BYTE_BGR = 5;
-    public static final int TYPE_4BYTE_ABGR = 6;
-    public static final int TYPE_4BYTE_ABGR_PRE = 7;
-    public static final int TYPE_USHORT_565_RGB = 8;
-    public static final int TYPE_USHORT_555_RGB = 9;
-    public static final int TYPE_BYTE_GRAY = 10;
-    public static final int TYPE_USHORT_GRAY = 11;
-    public static final int TYPE_BYTE_BINARY = 12;
-    public static final int TYPE_BYTE_INDEXED = 13;
+//    public static final int TYPE_INT_ARGB_PRE = 3;
+//    public static final int TYPE_INT_BGR = 4;
+//    public static final int TYPE_3BYTE_BGR = 5;
+//    public static final int TYPE_4BYTE_ABGR = 6;
+//    public static final int TYPE_4BYTE_ABGR_PRE = 7;
+//    public static final int TYPE_USHORT_565_RGB = 8;
+//    public static final int TYPE_USHORT_555_RGB = 9;
+//    public static final int TYPE_BYTE_GRAY = 10;
+//    public static final int TYPE_USHORT_GRAY = 11;
+//    public static final int TYPE_BYTE_BINARY = 12;
+//    public static final int TYPE_BYTE_INDEXED = 13;
 
     public BufferedImage(int width,
                          int height,
@@ -56,7 +56,7 @@ public class BufferedImage //extends java.awt.Image
 //    	}
         
         // Don't do anything, except update costs
-        CostModel.bytes += 4; // * width * height;
+        CostModel.bytes += 4 * width * height;
     }
 
     public int getType() {
@@ -141,4 +141,8 @@ public class BufferedImage //extends java.awt.Image
     	}
     	return copy;
     }
+    
+//    public void getCopyCosts() {
+//    	CostModel.bytes += 4;// * width * height;
+//    }
 }

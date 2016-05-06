@@ -1,23 +1,27 @@
 import model.BufferedImage;
-import java.awt.image.Kernel;
+//import java.awt.image.Kernel;
 
 import cost.CostModel;
 
 public class CannyEdgeDetect
 {
-    private static final Kernel SobelV;
-    private static final Kernel SobelH;
-    
+	// these are problematic for JayHorn. Also, bitwise operations and Enum.
+//    private static final Kernel SobelV = new Kernel(3, 3, new float[] { 1.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, -2.0f, -1.0f });
+//    private static final Kernel SobelH = new Kernel(3, 3, new float[] { 1.0f, 0.0f, -1.0f, 2.0f, 0.0f, -2.0f, 1.0f, 0.0f, -1.0f });
+//    
     private static BufferedImage getSobelH(final BufferedImage image) {
-        return Convolve.convolve(image, CannyEdgeDetect.SobelH);
+//        return Convolve.convolve(image, CannyEdgeDetect.SobelH);
+    	return Convolve.convolve(image, null);
     }
     
     private static BufferedImage getSobelV(final BufferedImage image) {
-        return Convolve.convolve(image, CannyEdgeDetect.SobelV);
+//        return Convolve.convolve(image, CannyEdgeDetect.SobelV);
+        return Convolve.convolve(image, null);
     }
     
     private static BufferedImage getAngles(final BufferedImage Gx, final BufferedImage Gy) {
-        final BufferedImage angles = new BufferedImage(Gx.getWidth(), Gx.getHeight(), 10);
+    	// had to change to RGB to avoid exception, no idea why...
+       BufferedImage angles = new BufferedImage(Gx.getWidth(), Gx.getHeight(), BufferedImage.TYPE_INT_ARGB);
         for (int i = 0; i < Gx.getWidth(); ++i) {
             for (int j = 0; j < Gx.getHeight(); ++j) {
                 int gx = ARGB.rawB(Gx.getRGB(i, j));
@@ -33,19 +37,19 @@ public class CannyEdgeDetect
                     tanpi8gx *= gx;
                     tan3pi8gx *= gx;
                     if (gy > -tan3pi8gx && gy < -tanpi8gx) {
-                        setExpandedValue(angles, i, j, Direction.UP45.ordinal());
+                        setExpandedValue(angles, i, j, /*Direction.UP45.ordinal()*/1);
                         continue;
                     }
                     if (gy > -tanpi8gx && gy < tanpi8gx) {
-                        setExpandedValue(angles, i, j, Direction.HORIZONTAL.ordinal());
+                        setExpandedValue(angles, i, j, /*Direction.HORIZONTAL.ordinal()*/3);
                         continue;
                     }
                     if (gy > tanpi8gx && gy < tan3pi8gx) {
-                        setExpandedValue(angles, i, j, Direction.DOWN45.ordinal());
+                        setExpandedValue(angles, i, j, /*Direction.DOWN45.ordinal()*/2);
                         continue;
                     }
                 }
-                setExpandedValue(angles, i, j, Direction.VERTICAL.ordinal());
+                setExpandedValue(angles, i, j, /*Direction.VERTICAL.ordinal()*/4);
             }
         }
         return angles;
@@ -56,56 +60,68 @@ public class CannyEdgeDetect
     }
     
     private static BufferedImage getGradient(final BufferedImage Gx, final BufferedImage Gy) {
-        final BufferedImage gradient = new BufferedImage(Gx.getWidth(), Gx.getHeight(), 10);
-        for (int i = 0; i < Gx.getWidth(); ++i) {
-            for (int j = 0; j < Gx.getHeight(); ++j) {
-                final int gx = ARGB.rawB(Gx.getRGB(i, j));
-                final int gy = ARGB.rawB(Gy.getRGB(i, j));
-                setExpandedValue(gradient, i, j, (int)Math.sqrt(gy * gy + gx * gx));
-            }
-        }
-        return gradient;
+    	// solver fails on this next line, related to getWidth and getHeight
+//        final BufferedImage gradient = new BufferedImage(Gx.getWidth(), Gx.getHeight(), BufferedImage.TYPE_INT_ARGB);
+    	
+    	// instead, account for costs here
+//    	CostModel.bytes += 4;// * Gx.getWidth() * Gx.getHeight();
+    	
+//        for (int i = 0; i < Gx.getWidth(); ++i) {
+//            for (int j = 0; j < Gx.getHeight(); ++j) {
+//                final int gx = ARGB.rawB(Gx.getRGB(i, j));
+//                final int gy = ARGB.rawB(Gy.getRGB(i, j));
+////                setExpandedValue(gradient, i, j, (int)Math.sqrt(gy * gy + gx * gx));
+//                //sqrt not supported
+//                setExpandedValue(gradient, i, j, 0);
+//            }
+//        }
+//        return gradient;
+    	return Gx;
     }
     
     private static BufferedImage nonMaxSupression(final BufferedImage angles, final BufferedImage gradient) {
 //        final BufferedImage nms = new BufferedImage(angles.getWidth(), angles.getHeight(), angles.getType());
 //        nms.setData(gradient.copyData(null));
-    	BufferedImage nms = angles.getCopy();
-        for (int i = 0; i < angles.getWidth(); ++i) {
-            for (int j = 0; j < angles.getHeight(); ++j) {
-                final int[] magnitudes = getMags(i, j, ARGB.rawB(angles.getRGB(i, j))/*Direction.getDirection(ARGB.rawB(angles.getRGB(i, j)))*/, gradient);
-                if (Math.max(magnitudes[1], Math.max(magnitudes[0], magnitudes[2])) != magnitudes[1]) {
-                    setExpandedValue(nms, i, j, 0);
-                }
-            }
-        }
-        return nms;
+//    	BufferedImage nms = angles.getCopy();
+//    	angles.getCopyCosts();
+//        for (int i = 0; i < angles.getWidth(); ++i) {
+//            for (int j = 0; j < angles.getHeight(); ++j) {
+//                final int[] magnitudes = getMags(i, j, ARGB.rawB(angles.getRGB(i, j))/*Direction.getDirection(ARGB.rawB(angles.getRGB(i, j)))*/, gradient);
+//                // Math.max not supported
+////                if (Math.max(magnitudes[1], Math.max(magnitudes[0], magnitudes[2])) != magnitudes[1]) {
+////                    setExpandedValue(nms, i, j, 0);
+////                }
+//            }
+//        }
+//        return nms;
+    	return angles;
     }
     
     private static BufferedImage hysteresisThresholding(final BufferedImage input, final int min, final int max) {
 //        final BufferedImage nms = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
 //        nms.setData(input.copyData(null));
-    	BufferedImage nms = input.getCopy();
-        for (int i = 0; i < nms.getWidth(); ++i) {
-            for (int j = 0; j < nms.getHeight(); ++j) {
-                final int m11 = ARGB.rawB(nms.getRGB(bound(0, nms.getWidth(), i), bound(0, nms.getHeight(), j)));
-                if (m11 >= max) {
-                    hysterize(min, nms, i - 1, j - 1);
-                    hysterize(min, nms, i, j - 1);
-                    hysterize(min, nms, i + 1, j - 1);
-                    hysterize(min, nms, i - 1, j);
-                    hysterize(min, nms, i, j);
-                    hysterize(min, nms, i + 1, j);
-                    hysterize(min, nms, i - 1, j + 1);
-                    hysterize(min, nms, i, j + 1);
-                    hysterize(min, nms, i + 1, j + 1);
-                }
-                else if (m11 < min) {
-                    setExpandedValue(nms, i, j, 0);
-                }
-            }
-        }
-        return nms;
+//    	BufferedImage nms = input.getCopy();
+//        for (int i = 0; i < nms.getWidth(); ++i) {
+//            for (int j = 0; j < nms.getHeight(); ++j) {
+//                final int m11 = ARGB.rawB(nms.getRGB(bound(0, nms.getWidth(), i), bound(0, nms.getHeight(), j)));
+//                if (m11 >= max) {
+//                    hysterize(min, nms, i - 1, j - 1);
+//                    hysterize(min, nms, i, j - 1);
+//                    hysterize(min, nms, i + 1, j - 1);
+//                    hysterize(min, nms, i - 1, j);
+//                    hysterize(min, nms, i, j);
+//                    hysterize(min, nms, i + 1, j);
+//                    hysterize(min, nms, i - 1, j + 1);
+//                    hysterize(min, nms, i, j + 1);
+//                    hysterize(min, nms, i + 1, j + 1);
+//                }
+//                else if (m11 < min) {
+//                    setExpandedValue(nms, i, j, 0);
+//                }
+//            }
+//        }
+//        return nms;
+    	return input;
     }
     
     private static void hysterize(final int min, final BufferedImage nms, int i, int j) {
@@ -165,21 +181,16 @@ public class CannyEdgeDetect
     }
     
     public static BufferedImage detect(final BufferedImage image, final int min, final int thresh) {
-//        final BufferedImage blurred = Convolve.convolve(image, Convolve.Gausian5x5);
-//        final BufferedImage grey = ConvertImage.otherGray(blurred);
-//        final BufferedImage sobelH = getSobelH(grey);
-//        final BufferedImage sobelV = getSobelV(grey);
-//        final BufferedImage angle = getAngles(sobelH, sobelV);
-//        final BufferedImage grad = getGradient(sobelH, sobelV);
-//        final BufferedImage nms = nonMaxSupression(angle, grad);
-//        final BufferedImage output = hysteresisThresholding(nms, min, thresh);
-//        return output;
-    	CostModel.bytes += 4;
-    	return image;
-    }
-    
-    static {
-        SobelV = new Kernel(3, 3, new float[] { 1.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, -2.0f, -1.0f });
-        SobelH = new Kernel(3, 3, new float[] { 1.0f, 0.0f, -1.0f, 2.0f, 0.0f, -2.0f, 1.0f, 0.0f, -1.0f });
+        final BufferedImage blurred = Convolve.convolve(image, Convolve.Gausian5x5);
+        final BufferedImage grey = ConvertImage.otherGray(blurred);
+        final BufferedImage sobelH = getSobelH(grey);
+        final BufferedImage sobelV = getSobelV(grey);
+        final BufferedImage angle = getAngles(sobelH, sobelV);
+        final BufferedImage grad = getGradient(sobelH, sobelV);
+        final BufferedImage nms = nonMaxSupression(angle, grad);
+        final BufferedImage output = hysteresisThresholding(nms, min, thresh);
+        return output;
+//    	CostModel.bytes += 4;
+//    	return grey;
     }
 }
