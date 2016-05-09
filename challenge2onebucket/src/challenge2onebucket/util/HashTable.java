@@ -49,7 +49,7 @@ public class HashTable implements Map<String, String>
          int n = v1.length;
          if (n == v2.length) {
         	 int i = 0;
-        	 while (n-- != 0) {	
+        	 while (n-- > 0) {	
          		 char_counter += 1; 
         		 if (v1[i] != v2[i]){
         			 return false;

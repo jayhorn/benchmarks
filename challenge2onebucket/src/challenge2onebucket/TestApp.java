@@ -13,10 +13,11 @@ public class TestApp {
     final int HASH_TABLE_SIZE = 1;
     int KEY_SIZE = 4;
     
-    int N=Integer.parseInt(args[0]);
+//    int N=Integer.parseInt(args[0]);
     final HashTable hashTable = new HashTable(HASH_TABLE_SIZE);
         
     Random rand = new Random(42);
+    int N = rand.nextInt(42);
     
     for(int i=0;i<N;i++) {
       char[] input = new char[KEY_SIZE];
@@ -49,8 +50,8 @@ public class TestApp {
     System.out.println("Char Counter " + char_counter);
     
     System.out.println("Worst " + 4*N);
-    //assert(char_counter <= 4*N);
-    assert(false);
+    assert(char_counter <= 4*N);
+//    assert(false);
     
 //    System.err.println("Goodbye!");
   }
