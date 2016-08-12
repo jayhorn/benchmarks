@@ -27,7 +27,8 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get -qq install g++-4.8 gcc-4.8
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90 
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90
+  
 
 before_install:
    - pwd
@@ -56,7 +57,9 @@ install:
   - cd src
   - ls
   - make minisat2-download
-  - make
+  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2
+  - ./cbmc/cbmc -h
+  - pwd
   - cd
   - ls
 
