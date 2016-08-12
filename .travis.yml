@@ -52,7 +52,6 @@ install:
   - cd src
   - ls
   - make minisat2-download
-  - g++ -version
   - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2
   - ./cbmc/cbmc -h
   - pwd
