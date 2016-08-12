@@ -38,7 +38,7 @@ install:
   - java -jar jayhorn/jayhorn/build/libs/jayhorn.jar -h
   - echo ".... Installing CBMC .... "
   - export CBMC="$TRAVIS_BUILD_DIR/../cbmc"
-  - git clone https://github.com/coco-team/zustre $CBMC
+  - git clone https://github.com/diffblue/cbmc $CBMC
   - ls $CBMC
   - cd $CBMC
   - ls
