@@ -1,0 +1,4 @@
+target=catch1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/catch1/
+

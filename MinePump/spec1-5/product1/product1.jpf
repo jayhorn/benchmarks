@@ -1,0 +1,2 @@
+ target=Main
+ classpath=${jpf-core}/../cav_experiments/benchmarks/MinePump/spec1-5/product1

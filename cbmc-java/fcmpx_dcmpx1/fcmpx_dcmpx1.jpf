@@ -1,0 +1,4 @@
+target=fcmpx_dcmpx1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/fcmpx_dcmpx1/
+

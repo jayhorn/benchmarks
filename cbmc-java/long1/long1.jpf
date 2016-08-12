@@ -1,0 +1,4 @@
+target=long1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/long1/
+

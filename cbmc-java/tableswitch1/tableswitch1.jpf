@@ -1,0 +1,4 @@
+target=tableswitch1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/tableswitch1/
+

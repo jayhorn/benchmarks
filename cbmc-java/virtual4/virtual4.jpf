@@ -1,0 +1,4 @@
+target=virtual4
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/virtual4/
+

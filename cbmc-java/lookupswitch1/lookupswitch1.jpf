@@ -1,0 +1,4 @@
+target=lookupswitch1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/lookupswitch1/
+

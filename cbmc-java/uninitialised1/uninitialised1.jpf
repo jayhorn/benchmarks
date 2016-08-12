@@ -1,0 +1,4 @@
+target=uninitialised1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/uninitialised1/
+

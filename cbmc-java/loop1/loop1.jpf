@@ -1,0 +1,4 @@
+target=loop1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/loop1/
+

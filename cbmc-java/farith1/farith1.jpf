@@ -1,0 +1,4 @@
+target=farith1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/farith1/
+

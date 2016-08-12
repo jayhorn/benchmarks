@@ -1,0 +1,8 @@
+target=assert1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/assert1/
+
+
+
+
+

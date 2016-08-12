@@ -1,0 +1,4 @@
+target=float1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/float1/
+

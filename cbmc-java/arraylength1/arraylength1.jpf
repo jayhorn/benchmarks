@@ -1,0 +1,3 @@
+target=arraylength1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/arraylength1/

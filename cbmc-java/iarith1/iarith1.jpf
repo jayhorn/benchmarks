@@ -1,0 +1,4 @@
+target=iarith1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/iarith1/
+

@@ -1,0 +1,4 @@
+target=astore_aload1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/astore_aload1/
+

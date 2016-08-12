@@ -1,0 +1,4 @@
+target=constructor1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/constructor1/
+

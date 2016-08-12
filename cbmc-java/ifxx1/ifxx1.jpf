@@ -1,0 +1,4 @@
+target=ifxx1
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/ifxx1/
+

@@ -1,0 +1,4 @@
+target=basic
+
+ classpath=${jpf-core}/../../benchmarks/cbmc-java/basic2/
+
