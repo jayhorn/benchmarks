@@ -1,8 +1,11 @@
 
-language: java
+language: cpp
 
 sudo: required
 
+os:
+  - linux
+  
 env:
   global:
     - TMPDIR=/tmp
@@ -23,15 +26,8 @@ python:
  - 2.7
 
 before_install:
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  - sudo apt-get -qq update
-  - until sudo apt-get -qq install g++-4.8 gcc-4.8; done
-  - until sudo apt-get -qq install libstdc++-4.8-dev; do echo retry; done
+  - if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ] ; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get -qq update && sudo apt-get -qq install g++-4.8 gcc-4.8 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90 && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90 ; fi
   
-  
-before_install:
-   - pwd
-   - export LD_LIBRARY_PATH=$(pwd)/jayhorn/jayhorn/native_lib
 
   
 install:
@@ -56,7 +52,8 @@ install:
   - cd src
   - ls
   - make minisat2-download
-  - make CXX="g++-4.8" CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2
+  - g++ -version
+  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2
   - ./cbmc/cbmc -h
   - pwd
   - cd
