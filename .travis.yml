@@ -20,20 +20,6 @@ before_install:
 
   
 install:
-  - echo " .... Installing JPF ..... "
-  - export JPF_TRAVIS=$(pwd)/jpf-travis
-  - mkdir -p $JPF_TRAVIS
-  - wget --output-document=jpf-travis.tar.gz https://www.dropbox.com/s/vjqfokrldjv0mro/jpf-travis.tar.gz?dl=1;
-  - tar xvf jpf-travis.tar.gz --strip-components=1 -C $JPF_TRAVIS;
-  - ls $JPF_TRAVIS
-  - cd $JPF_TRAVIS
-  - export JPF_CORE=$(pwd)/jpf-core
-  - mkdir -p $JPF_CORE
-  - tar xvf jpf-core.tar.gz --strip-components=1 -C $JPF_CORE;
-  - mv .jpf $TRAVIS_BUILD_DIR
-  - cd ../
-  - pwd
-  - ls .jpf
   - echo ".... Installing JAYHORN .... "
   - git clone https://github.com/jayhorn/jayhorn
   - ls
@@ -65,9 +51,8 @@ before_install:
 
 script:   
    - echo "    RUNNING  CBMC    " 
-   - python runner.py ./benchmarks/cbmc-java
    - echo "    RUNNING  MinePUMP    " 
-   - python runner.py ./benchmarks/MinePump/spec1-5
+   
 
 after_success:
    - echo "All done."
