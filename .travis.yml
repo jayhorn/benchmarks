@@ -9,6 +9,11 @@ addons:
   apt:
     packages:
       - libwww-perl
+
+compiler:
+  - gcc
+  - clang
+  
 jdk:
   - oraclejdk8
 
