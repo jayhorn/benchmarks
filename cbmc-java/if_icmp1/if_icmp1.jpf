@@ -1,4 +1,0 @@
-target=if_icmp1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/if_icmp1/
-

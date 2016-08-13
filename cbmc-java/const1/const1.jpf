@@ -1,4 +1,0 @@
-target=const1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/const1/
-

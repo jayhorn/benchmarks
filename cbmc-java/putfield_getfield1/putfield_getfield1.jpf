@@ -1,4 +1,0 @@
-target=putfield_getfield1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/putfield_getfield1/
-

@@ -1,4 +1,0 @@
-target=overloading1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/overloading1/
-

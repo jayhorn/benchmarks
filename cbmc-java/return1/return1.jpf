@@ -1,4 +1,0 @@
-target=return1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/return1/
-

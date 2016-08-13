@@ -1,4 +1,0 @@
-target=list1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/list1/
-

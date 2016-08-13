@@ -1,4 +1,0 @@
-target=cast1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/cast1/
-

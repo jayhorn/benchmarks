@@ -1,4 +1,0 @@
-target=athrow1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/athrow1/
-

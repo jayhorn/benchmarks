@@ -1,4 +1,0 @@
-target=multinewarray
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/multinewarray/
-

@@ -1,5 +1,0 @@
-target=array1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/array1/
-
- 

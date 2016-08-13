@@ -1,4 +1,0 @@
-target=short1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/short1/
-

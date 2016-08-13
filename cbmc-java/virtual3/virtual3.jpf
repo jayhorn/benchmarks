@@ -1,4 +1,0 @@
-target=virtual3
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/virtual3/
-

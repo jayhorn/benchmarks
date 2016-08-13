@@ -1,4 +1,0 @@
-target=store_load1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/store_load1/
-

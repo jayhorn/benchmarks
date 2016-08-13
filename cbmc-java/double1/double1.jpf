@@ -1,4 +1,0 @@
-target=double1
-
- classpath=${jpf-core}/../../benchmarks/cbmc-java/double1/
-
