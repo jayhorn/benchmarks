@@ -48,17 +48,20 @@ config = """ target=Main
  classpath=${jpf-core}/../../benchmarks/MinePump/spec1-5/%s
 """
 
+"""
+Tools
+"""
 JPF = "./jpf-travis/jpf-core/build/RunJPF.jar"
 
-#JPF = "./jpf/RunJPF.jar"
+CBMC = "./cbmc/src/cbmc"
 
 JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
 
 
-def runJar(jar):
+def runCommand(command):
     try:
         #with stats.timer(tool):
-        p = subprocess.Popen(jar, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        p = subprocess.Popen(command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         result, _ = p.communicate()
         #stats.stop(tool)
         return result
@@ -120,48 +123,12 @@ def runBench(args):
     all_results = {}
     for d in all_dir:
         print "Benchmark:\t " + str(d)
-        #stat('BENCHMARK', str(d))
         tmp = d.split("/")
         bench = tmp[len(tmp)-1]
         jpf = glob.glob(os.path.abspath(d) + os.sep + "*.jpf")
         cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-j", d]
         cmd_eldarica = ['java', "-jar", JAYHORN, "-t", "20", "-j", d]
-        #z3_result = runJar(cmd_z3)
-        #z3_ans, z3_stats = processFile(bench, z3_result, "Z3")
-        #eldarica_result = runJar(cmd_eldarica)
-        #eldarica_ans, eldarica_stats = processFile(bench, eldarica_result, "ELD")
-        if len(jpf) == 1:
-            # file = fileinput.FileInput(jpf[0], inplace=True, backup='.bak')
-            # for line in file:
-            #     print line.replace("/Users/teme/Documents/GitHub/jayhorn/jayhorn/build/resources/test/", "${jpf-core}/../../benchmarks/")
-            # file.close()
-            cmd_jpf = ['java', "-jar", JPF, "+shell.port=4242", jpf[0]]
-            jpf_result = runJar(cmd_jpf)
-            jpf_ans, jpf_stats = processFile(bench, jpf_result, "JPF")
-            print "JPF RESULT:\t" + str(jpf_stats)
-        else:
-            print "JPF RESULT:\t" + "NO JPF CONFIG"
-        #print "JAYHORN (ELDARICA) RESULT:\t" + str(eldarica_stats)
-        #print "JAYHORN (Z3) RESULT:\t" + str(z3_stats)
-        #stats.brunch_print()
-
         print "---------------------"
-
-
-# def runBench(args):
-#     dr = args.directory
-#     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
-#     all_results = {}
-#     for d in all_dir:
-#         tmp = d.split("/")
-#         bench = tmp[len(tmp)-1]
-#         jpf = glob.glob(os.path.abspath(d) + os.sep + "*.jpf")
-#         cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-j", d]
-#         cmd_eldarica = ['java', "-jar", JAYHORN, "-t", "20", "-j", d]
-#         cmd_jpf = ['java', "-jar", JPF, "+shell.port=4242", jpf[0]] if len(jpf) == 1 else []
-#         tools = {"Z3", cmd_z3, "ELDARICA", cmd_eldarica, "JPF", cmd_jpf}
-#         runner = BenchStats(tools, d)
-#         runner.run()
 
 
 

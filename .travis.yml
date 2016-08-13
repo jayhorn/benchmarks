@@ -61,11 +61,6 @@ install:
 script:   
    - echo "    RUNNING  ON CBMC Regression Tests    "
    - echo "CBMC "
-   - cd ./cbmc/regression/cbmc-java
-   - ls
-   - make test
-   - cd ../../../
-   - ls
    - echo "JAYHORN"
    
 after_success:
