@@ -50,6 +50,7 @@ script:
    - echo "    RUNNING JAYHORN ON Algorithms Benchmarks   "
    - ls jayhorn/jayhorn/build/libs
    - python runner.py algorithms -html
+   - ls view_results
    
 after_success:
    - echo "All done."
