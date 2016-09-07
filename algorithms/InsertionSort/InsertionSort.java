@@ -1,7 +1,5 @@
 
 
-package benchmarks;
-
 import java.util.Random;
 
 /**

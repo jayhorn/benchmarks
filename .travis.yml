@@ -59,9 +59,8 @@ install:
  
 
 script:   
-   - echo "    RUNNING  ON CBMC Regression Tests    "
-   - echo "CBMC "
-   - echo "JAYHORN"
+   - echo "    RUNNING JAYHORN ON Algorithms Benchmarks   "
+   - python runner.py algorithms
    
 after_success:
    - echo "All done."

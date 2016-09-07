@@ -1,4 +1,4 @@
-package benchmarks;
+
 // IterativeMergeSort.java
 // By David Kosbie
 

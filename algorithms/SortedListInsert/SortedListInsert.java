@@ -33,11 +33,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//package edu.berkeley.cs.wise.benchmarks;
-
-//import edu.berkeley.cs.wise.concolic.Concolic;
-
-package benchmarks;
 
 import java.util.Random;
 

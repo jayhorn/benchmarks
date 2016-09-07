@@ -33,8 +33,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//package edu.berkeley.cs.wise.benchmarks;
-package benchmarks;
 
 import java.util.Random;
 
