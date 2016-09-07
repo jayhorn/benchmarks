@@ -53,3 +53,6 @@ script:
    
 after_success:
    - echo "All done."
+
+notifications:
+  slack: jayhorn:gYFX9JnLgy7CxzjuV1K3OoJG#benchmarks
