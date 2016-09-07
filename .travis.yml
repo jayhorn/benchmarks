@@ -53,7 +53,8 @@ script:
    - ls view_results
    
 after_success:
+   - ./deploy_results.sh
    - echo "All done."
-
+   
 notifications:
   slack: jayhorn:gYFX9JnLgy7CxzjuV1K3OoJG#benchmarks
