@@ -8,44 +8,7 @@ import subprocess
 import stats
 import pprint
 
-debug = True
-
-# def processFile(bench, result, tool):
-#     stats = {"tool": tool, "ans":"", "time":"", "mem":"", "inst":""}
-#     if result is None:
-#         stats.update({"ans":"ERR"})
-#         return {bench:stats}, stats
-#     if tool == "JPF":
-#         for r in result.splitlines():
-#             if 'no errors detected' in r:
-#                 #stat('Result-JPF', 'SAFE')
-#                 stats.update({"ans":"SAFE"})
-#             if 'elapsed time' in r:
-#                 t = r.split()
-#                 time = t[len(t)-1]
-#                 stats.update({"time":str(time)})
-#             if 'max memory' in r:
-#                 t = r.split()
-#                 mem = t[len(t)-1]
-#                 stats.update({"mem":str(mem)})
-#             if 'instructions' in r:
-#                 t = r.split()
-#                 ins = t[len(t)-1]
-#                 stats.update({"inst":str(ins)})
-#             if 'java.lang.AssertionError' in r:
-#                 #stat('Result-JPF', 'CEX')
-#                 stats.update({"ans":"CEX"})
-#     elif tool == "Z3" or tool == "ELD":
-#         if "checker says true" in result:
-#             #if tool == "Z3": stat('Result-Z3', 'SAFE')
-#             #if tool == "ELD": stat('Result-ELDARICA', 'SAFE')
-#             stats.update({"ans":"SAFE"})
-#         if "checker says false" in result:
-#             #if tool == "Z3": stat('Result-Z3', 'CEX')
-#             #if tool == "ELD": stat('Result-ELDARICA', 'CEX')
-#             stats.update({"ans":"CEX"})
-#     return {bench:stats}, stats
-
+debug = False
 
 
 
@@ -83,10 +46,9 @@ class BenchStats(object):
     def runJar(self):
         try:
             tt = 'TIME-'+str(self.t_n)
-            with stats.timer(tt):
-                p = subprocess.Popen(self.t_e, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                result, _ = p.communicate()
-                return result
+            p = subprocess.Popen(self.t_e, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            result, _ = p.communicate()
+            return result
         except Exception as e:
             print str(e)
             return None
@@ -119,11 +81,9 @@ def compile(prog):
 
 def runCmd(tool, command):
     try:
-        with stats.timer(tool):
-            if debug: print "Running .. " + " ".join(x for x in command)
-            p = subprocess.Popen(command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            result, _ = p.communicate()
-        stats.stop(tool)
+        if debug: print "Running .. " + " ".join(x for x in command)
+        p = subprocess.Popen(command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        result, _ = p.communicate()
         return result
     except Exception as e:
         print str(e)
@@ -131,7 +91,7 @@ def runCmd(tool, command):
 
 def processResult(bench, result, tool):
     if debug: print result
-    stats = {"tool": tool, "result":"", "time":"", "mem":""}
+    stats = {"tool": tool, "result":"", "time":"", "mem":"", "soot2cfg":"", "toHorn":""}
     if result is None:
         stats.update({"result":"ERR"})
         return {bench:stats}, stats
@@ -178,8 +138,47 @@ def runBench(args):
         stats.update(st)
         if debug: print "---------------------"
     pprint.pprint(stats)
+    return stats
+
+head="""
+ <tr class = "success">
+<td><b>Benchmark</a></td>
+      <td><b>Result</a></td>
+    <td><b>Soot2Cfg (Time)</b></td>
+<td><b>CheckSat (Time)</b></td>
+<td><b>Hornify (Time)</b></td>
+    </tr>
+"""
+
+template="""
+ <tr class = "active">
+      <td>%s</td>
+ <td>%s</td>
+    <td>%s</td>
+<td>%s</td>
+<td>%s</td>
+    </tr>
+"""
 
 
+def generateHtml(stats):
+    row = ""
+    for bench, values in stats.iteritems():
+        try:
+            row += template % (bench, values["result"], str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
+        except Exception as e:
+            row += template % (bench, "NA", "NA", "NA", "NA") + "\n"
+    table = head + row
+    header, footer = "", "" 
+    with open("view_results/up.html") as h, open ("view_results/low.html") as l:
+        header = h.read()
+        footer = l.read()
+    with  open("view_results/results.html", 'w') as f:
+        f.write(header)
+        f.write(table)
+        f.write(footer)
+        
+        
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -191,11 +190,14 @@ if __name__ == "__main__":
             '''))
     #parser.add_argument ('file', metavar='BENCHMARK', help='Benchmark file')
     parser.add_argument ('directory', metavar='DIR', help='Benchmark dirs')
-    #parser.add_argument('-fc', '--fc', required=False, dest="fc", action="store_true")
+    parser.add_argument('-html', '--html', required=False, dest="html", action="store_true")
     #parser.add_argument('-err', '--err', required=False, dest="err", action="store_true")
 
     args = parser.parse_args()
+    stats = None
     try:
-        runBench(args)
+        stats = runBench(args)
     except Exception as e:
         print str(e)
+    if stats and args.html:
+        generateHtml(stats)

@@ -48,9 +48,8 @@ install:
 
 script:   
    - echo "    RUNNING JAYHORN ON Algorithms Benchmarks   "
-   - ls
    - ls jayhorn/jayhorn/build/libs
-   - python runner.py algorithms
+   - python runner.py algorithms -html
    
 after_success:
    - echo "All done."
