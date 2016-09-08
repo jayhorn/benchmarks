@@ -1,5 +1,6 @@
 #!/bin/sh
 
+echo $GITHUB_API_KEY
 mkdir -p benchmark_results
 ls
 git clone https://github.com/jayhorn/jayhorn.git  --branch gh-pages --single-branch benchmark_results
@@ -8,7 +9,7 @@ cd benchmark_results
 ls
 echo $TRAVIS_BRANCH
 mkdir -p ./$TRAVIS_BRANCH
-cp -r view_results/* ./$TRAVIS_BRANCH/
+cp -r ../view_results/* ./$TRAVIS_BRANCH/
 echo "$PWD"
 git add ./$TRAVIS_BRANCH
 git -c user.name='lememta' -c user.email='lememta@gmail.com' commit -am "UPDATING Results from Benchmarks" --no-verify
