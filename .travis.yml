@@ -1,0 +1,60 @@
+
+language: cpp
+
+sudo: required
+
+os:
+  - linux
+  
+env:
+  global:
+    - TMPDIR=/tmp
+    
+addons:
+  apt:
+    packages:
+      - libwww-perl
+
+compiler:
+  - gcc
+  
+jdk:
+  - oraclejdk8
+
+python:
+ - 2.7
+
+before_install:
+  - if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ] ; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get -qq update && sudo apt-get -qq install g++-4.8 gcc-4.8 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90 && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90 ; fi
+  
+
+  
+install:
+  - echo ".... Installing JAYHORN .... "
+  - git clone https://github.com/jayhorn/jayhorn
+  - ls
+  - cd jayhorn
+  - ls
+  - git checkout devel
+  - cd jayhorn
+  - ls
+  - ./gradlew jar
+  - ls build/libs/
+  - cd ../..
+  - java -jar jayhorn/jayhorn/build/libs/jayhorn.jar -h
+  - echo ".... Installing CBMC .... "
+
+ 
+
+script:   
+   - echo "    RUNNING JAYHORN ON Algorithms Benchmarks   "
+   - ls jayhorn/jayhorn/build/libs
+   - python runner.py algorithms -html
+   - ls view_results
+   
+after_success:
+   - ./deploy_results.sh
+   - echo "All done."
+   
+notifications:
+  slack: jayhorn:gYFX9JnLgy7CxzjuV1K3OoJG#benchmarks
