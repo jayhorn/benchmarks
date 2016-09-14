@@ -49,7 +49,7 @@ install:
 script:   
    - echo "    RUNNING JAYHORN ON Benchmarks   "
    - ls jayhorn/jayhorn/build/libs
-   - python runner.py algorithms termination MinePump -html
+   - python runner.py algorithms termination MinePump/spec1-5 -html
    
 after_success:
    - ./deploy_results.sh
