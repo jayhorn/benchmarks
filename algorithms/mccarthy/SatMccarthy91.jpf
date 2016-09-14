@@ -1,0 +1,2 @@
+target=SatMccarthy91
+ classpath="${jpf-core}/../../benchmarks/mccarthy

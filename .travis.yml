@@ -50,7 +50,10 @@ script:
    - echo "    RUNNING JAYHORN ON Algorithms Benchmarks   "
    - ls jayhorn/jayhorn/build/libs
    - python runner.py algorithms -html
-   - ls view_results
+   - echo "    RUNNING JAYHORN ON Termination Benchmarks   "
+   - python runner.py termination -html
+   - echo "    RUNNING JAYHORN ON MinePump Benchmarks   "
+   - python runner.py MinePump -html
    
 after_success:
    - ./deploy_results.sh
