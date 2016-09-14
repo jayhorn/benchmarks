@@ -4,30 +4,30 @@ public class FindEntry {
 
 	static Random rand = new Random();
 
-	static boolean equals(int m) {
-		for (int i = 0; i < m; i++) {
+	static int equals(int m) {
+		int counter = 0;
+		for (int j = 0; j < m; j++) {
+			counter++;
 			if (rand.nextBoolean()) {
-				return false;
+				return counter; //false
 			}
 		}
-		return true;
+		return counter; //true
 	}
 	
 	public static void main(String args[]) {
+		final int KEY_SIZE = 2;
 		final int n = rand.nextInt(); 
-		final int m = 2;//rand.nextInt();
-		//assume(n > 0); assume (m > 0);
-		if (n <= 0 || m <= 0) return; // assume. Is there a better way to do this?
-		int r = n*m;
+		if (n <= 0) return;
+
+		int count = 0;
 		for (int i = 0; i < n; i++) {
 			
-			r = r - 1;
-			assert(r >= 0);
-			
-			if (equals(m)) {
-				return;
-			}
+			count += equals(KEY_SIZE);
+
+			if (rand.nextBoolean()) 
+				return; //false
 		}
-		return;
+		assert (count <= n*KEY_SIZE+1);
 	}
 }
