@@ -109,10 +109,16 @@ def processResult(bench, result, tool):
                     stats.update({"toHorn": "".join(x for x in goodLine[2:])})
     return {bench:stats} 
 
-
 def runBench(args):
     dr = args.directory
-    viz_html = ""
+    stats = dict()
+    for d in dr:
+        dir_stat = runDir(d)
+        stats.update({str(d):dir_stat})
+    if stats and args.html:
+         generateHtml(stats)
+        
+def runDir(dr):
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
     stats = dict()
@@ -163,11 +169,12 @@ template="""
 
 def generateHtml(stats):
     row = ""
-    for bench, values in stats.iteritems():
-        try:
-            row += template % (bench, values["result"], str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
-        except Exception as e:
-            row += template % (bench, "NA", "NA", "NA", "NA") + "\n"
+    for bench_dir, bench_stats in stats.iteritems():
+        for bench, values in bench_stats.iteritems():
+            try:
+                row += template % (bench, values["result"], str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
+            except Exception as e:
+                row += template % (bench, "NA", "NA", "NA", "NA") + "\n"
     table = head + row
     header, footer = "", "" 
     with open("view_results/up.html") as h, open ("view_results/low.html") as l:
@@ -189,15 +196,14 @@ if __name__ == "__main__":
             --------------------------------
             '''))
     #parser.add_argument ('file', metavar='BENCHMARK', help='Benchmark file')
-    parser.add_argument ('directory', metavar='DIR', help='Benchmark dirs')
+    parser.add_argument ('directory',  help='Benchmark dirs', nargs='*')
     parser.add_argument('-html', '--html', required=False, dest="html", action="store_true")
     #parser.add_argument('-err', '--err', required=False, dest="err", action="store_true")
 
     args = parser.parse_args()
     stats = None
     try:
-        stats = runBench(args)
+        runBench(args)
     except Exception as e:
         print str(e)
-    if stats and args.html:
-        generateHtml(stats)
+

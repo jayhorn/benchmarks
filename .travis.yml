@@ -47,13 +47,9 @@ install:
  
 
 script:   
-   - echo "    RUNNING JAYHORN ON Algorithms Benchmarks   "
+   - echo "    RUNNING JAYHORN ON Benchmarks   "
    - ls jayhorn/jayhorn/build/libs
-   - python runner.py algorithms -html
-   - echo "    RUNNING JAYHORN ON Termination Benchmarks   "
-   - python runner.py termination -html
-   - echo "    RUNNING JAYHORN ON MinePump Benchmarks   "
-   - python runner.py MinePump -html
+   - python runner.py algorithms termination MinePump -html
    
 after_success:
    - ./deploy_results.sh
