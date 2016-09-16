@@ -74,7 +74,7 @@ public class InsertionSort {
         // is, we count branches only from this point forward in the
         // execution.
         //Concolic.ResetBranchCounting();
-
+	assert false;
         sort(a);
     }
 }

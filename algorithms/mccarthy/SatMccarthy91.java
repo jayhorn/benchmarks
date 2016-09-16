@@ -1,3 +1,5 @@
+// JayHorn-Option : -rta
+
 import java.util.Random;
 
 public class SatMccarthy91 {

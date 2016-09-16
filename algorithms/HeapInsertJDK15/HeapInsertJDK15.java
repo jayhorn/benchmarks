@@ -1,4 +1,4 @@
-
+package benchmarks;
 
 /**
  * Copyright (c) 2011, Regents of the University of California
@@ -39,7 +39,7 @@
 //package edu.berkeley.cs.wise.benchmarks;
 
 import java.util.Random;
-import benchmarks.java15.util.PriorityQueue;
+import java15.util.PriorityQueue;
 
 
 //import edu.berkeley.cs.wise.benchmarks.java15.util.PriorityQueue;

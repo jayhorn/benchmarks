@@ -1,4 +1,4 @@
-// Options: -rta
+// JayHorn-Options: -rta
 
 import java.util.Random;
 

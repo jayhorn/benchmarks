@@ -2,8 +2,8 @@
 
 import java.util.Random;
 
-import benchmarks.rbtree.RedBlackTree;
-import benchmarks.rbtree.RedBlackTreeNode;
+import rbtree.RedBlackTree;
+import rbtree.RedBlackTreeNode;
 
 /**
  * Copyright (c) 2011, Regents of the University of California

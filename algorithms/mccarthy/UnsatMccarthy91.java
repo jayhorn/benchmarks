@@ -1,3 +1,5 @@
+// JayHorn-Option : -rta
+
 public class UnsatMccarthy91 {
     private static int f(int n) {
         if (n > 100)
