@@ -11,7 +11,7 @@ import threading
 from multiprocessing import Process, Pool
 import multiprocessing
 
-debug = False
+debug = True
 
 
 
