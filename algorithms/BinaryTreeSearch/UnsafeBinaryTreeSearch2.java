@@ -45,7 +45,7 @@ import java.util.Random;
  * @author Sudeep Juvekar <sjuvekar@cs.berkeley.edu>
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class BinaryTreeSearch {
+public class UnsafeBinaryTreeSearch2 {
 
     private static class BinaryTree {
         /**
@@ -75,7 +75,7 @@ public class BinaryTreeSearch {
                 return;
             }
 
-            Node curr = root;
+            Node curr = null; // root;          // error
             while (true) {
                 if (curr.value < v) {
                     if (curr.right != null) {
