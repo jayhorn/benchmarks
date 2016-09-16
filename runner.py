@@ -82,15 +82,6 @@ def compile(prog, build_dir):
     result, _ = p.communicate()
     return result
 
-# def runCmd(tool, command):
-#     try:
-#         if debug: print "Running .. " + " ".join(x for x in command)
-#         p = subprocess.Popen(command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-#         result, _ = p.communicate()
-#         return result
-#     except Exception as e:
-#         print str(e)
-#         return None
 
 def run_with_timeout(tool, command, timeout):
     import time
@@ -115,7 +106,14 @@ def run_with_timeout(tool, command, timeout):
 def processResult(bench, result, tool, options):
     if debug: print result
     opt = " ".join(x for x in options)
-    stats = {"tool": tool, "result":"", "time":"", "mem":"", "soot2cfg":"", "toHorn":"", "Options":opt}
+    expected = ""
+    if "Unsafe" in bench:
+        expected = "UNSAFE"
+    elif "Safe" in bench:
+        expcted = "SAFE"
+    else:
+        expected = "UNKNOWN"
+    stats = {"tool": tool, "result":"", "expected":expected, "time":"", "mem":"", "soot2cfg":"", "toHorn":"", "Options":opt}
     if result is None:
         stats.update({"result":"TIMEOUT"})
         return {bench:stats}
@@ -164,8 +162,10 @@ def runDir(dr):
         bench = tmp[len(tmp)-1]
         cls = glob.glob(os.path.abspath(d) + os.sep + "*.class")
         java_prog = glob.glob(os.path.abspath(d) + os.sep + "*.java")
+        all_build_dir = list()
         for prog in java_prog:
             build_dir = os.path.splitext(prog)[0]+"_build"
+            all_build_dir.append(build_dir)
             java_file = java_prog[0]
             if not os.path.exists(build_dir):
                 os.mkdir(build_dir)
@@ -173,13 +173,14 @@ def runDir(dr):
                 compile(java_file, build_dir)
             except Exception as e:
                 print e
-        bench_option = getOption(java_file)
-        jayhorn_option = ['-rta'] if 'rta' in bench_option else []
-        cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-stats", "-j", d]
-        cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] + jayhorn_option
-        result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
-        st = processResult(d, result, 'jayhorn-eldarica', jayhorn_option)
-        stats.update(st)      
+            bench_option = getOption(java_file)
+            jayhorn_option = ['-rta'] if 'rta' in bench_option else []
+            cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-stats", "-j", d]
+            cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] + jayhorn_option
+            result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
+            bench_name = os.path.basename(prog)
+            st = processResult(bench_name, result, 'jayhorn-eldarica', jayhorn_option)
+            stats.update(st)      
         if debug: print "---------------------"
     pprint.pprint(stats)
     return stats
@@ -188,6 +189,7 @@ head="""
  <tr class = "success">
 <td><b>Benchmark</a></td>
       <td><b>Result</a></td>
+      <td><b>Expected</a></td>
     <td><b>Soot2Cfg (Time)</b></td>
 <td><b>CheckSat (Time)</b></td>
 <td><b>Hornify (Time)</b></td>
@@ -195,8 +197,9 @@ head="""
 """
 
 template="""
- <tr class = "active">
+ <tr class = "%s">
       <td>%s</td>
+<td>%s</td>
  <td>%s</td>
     <td>%s</td>
 <td>%s</td>
@@ -210,9 +213,14 @@ def generateHtml(stats):
     for bench_dir, bench_stats in stats.iteritems():
         for bench, values in bench_stats.iteritems():
             try:
-                row += template % (bench, values["result"], str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
+                color = ""
+                if values["expected"] == "UNKNOWN":
+                    color = "active"
+                else:
+                    color = "danger" if values["result"] != values["expected"] else "success"
+                row += template % (color, bench, values["result"], values["expected"], str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
             except Exception as e:
-                row += template % (bench, "NA", "NA", "NA", "NA") + "\n"
+                row += template % ("active", bench, "NA", "NA", "NA", "NA", "NA") + "\n"
     table = head + row
     header, footer = "", "" 
     with open("view_results/up.html") as h, open ("view_results/low.html") as l:

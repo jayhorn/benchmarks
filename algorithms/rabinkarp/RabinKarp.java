@@ -1,4 +1,4 @@
-package benchmarks.rabinkarp;
+
 /******************************************************************************
  *  Compilation:  javac RabinKarp.java
  *  Execution:    java RabinKarp pat txt
