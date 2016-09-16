@@ -1,3 +1,5 @@
+// Options: -rta
+
 /**
  * Copyright (c) 2011, Regents of the University of California
  * All rights reserved.
@@ -76,19 +78,24 @@ public class SortedListInsert {
     }
 
     public static void main(String[] args) {
+        if (args.length < 1)
+          return;
+
         final int N = Integer.parseInt(args[0]);
+
         Random randomGenerator = new Random();
 
         List list = new List();
-        for (int i = 0; i < N; i++) {
-            list.insertMask(randomGenerator.nextInt(100));//Concolic.input.Integer());
-        }
+//        for (int i = 0; i < N; i++) {
+//            list.insertMask(randomGenerator.nextInt(100));//Concolic.input.Integer());
+            list.insertMask(0);
+//        }
 
         // We only measure the complexity (i.e. path length) of the
         // final insert operation.  That is, we count branches only
         // from this point forward in the execution.
        // Concolic.ResetBranchCounting();
 
-        list.insert(randomGenerator.nextInt(100));//Concolic.input.Integer());
+//        list.insert(randomGenerator.nextInt(100));//Concolic.input.Integer());
     }
 }
