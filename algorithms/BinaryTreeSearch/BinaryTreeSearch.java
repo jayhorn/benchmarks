@@ -115,6 +115,9 @@ public class BinaryTreeSearch {
 
 
     public static void main(String args[]) {
+        if (args.length < 1)
+          return;
+
         final int N = Integer.parseInt(args[0]);
         Random randomGenerator = new Random();
         BinaryTree b = new BinaryTree();
@@ -129,5 +132,7 @@ public class BinaryTreeSearch {
         //Concolic.ResetBranchCounting();
 
         b.search(randomGenerator.nextInt(100));//Concolic.input.Integer());
+
+      //  assert(!b.search(-1));
     }
 }
