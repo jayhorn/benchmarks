@@ -82,15 +82,15 @@ def compile(prog, build_dir):
     result, _ = p.communicate()
     return result
 
-def runCmd(tool, command):
-    try:
-        if debug: print "Running .. " + " ".join(x for x in command)
-        p = subprocess.Popen(command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        result, _ = p.communicate()
-        return result
-    except Exception as e:
-        print str(e)
-        return None
+# def runCmd(tool, command):
+#     try:
+#         if debug: print "Running .. " + " ".join(x for x in command)
+#         p = subprocess.Popen(command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+#         result, _ = p.communicate()
+#         return result
+#     except Exception as e:
+#         print str(e)
+#         return None
 
 def run_with_timeout(tool, command, timeout):
     import time
@@ -177,7 +177,6 @@ def runDir(dr):
         jayhorn_option = ['-rta'] if 'rta' in bench_option else []
         cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-stats", "-j", d]
         cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] + jayhorn_option
-        result = runCmd('jayhorn-eldarica', cmd_eldarica)
         result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
         st = processResult(d, result, 'jayhorn-eldarica', jayhorn_option)
         stats.update(st)      
