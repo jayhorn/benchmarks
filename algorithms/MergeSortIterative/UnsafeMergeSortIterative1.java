@@ -15,7 +15,7 @@
 
 import java.util.Random;
 
-public class MergeSortIterative {
+public class UnsafeMergeSortIterative1 {
 
   
   public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class MergeSortIterative {
           return;
 
     int data[] = new int[N];
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i <= N; i++) { // error (currently not caught)
         data[i] = i; // randomGenerator.nextInt(100);
     }
     iterativeMergesort(data);
