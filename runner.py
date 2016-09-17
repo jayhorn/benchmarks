@@ -110,7 +110,7 @@ def processResult(d, bench, result, tool, options):
     if "Unsafe" in bench:
         expected = "UNSAFE"
     else:
-        expected = "UNKNOWN"
+        expected = "SAFE"
     stats = {"tool": tool, "result":"", "expected":expected, "time":"", "mem":"", "soot2cfg":"", "toHorn":"", "Options":opt}
     if result is None:
         stats.update({"result":"TIMEOUT"})
