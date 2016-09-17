@@ -111,11 +111,16 @@ def processResult(d, bench, result, tool, options):
         expected = "UNSAFE"
     else:
         expected = "SAFE"
-    stats = {"tool": tool, "result":"", "expected":expected, "time":"", "mem":"", "soot2cfg":"", "toHorn":"", "Options":opt}
+    stats = {"tool": tool, "result":"", "expected":expected,
+             "time":"", "mem":"",
+             "soot2cfg":"", "toHorn":"", "Options":opt, "log": ""}
     if result is None:
         stats.update({"result":"TIMEOUT"})
         return {bench:stats}
+    logs = ""
     for r in result.splitlines():
+        if "BRUNCH_STAT" not in r:
+            logs += r +"<br>"
         if 'jayhorn' in tool:
             if "BRUNCH_STAT" in r:
                 goodLine = r.split()
@@ -127,8 +132,10 @@ def processResult(d, bench, result, tool, options):
                     stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
                 elif 'ToHorn' in goodLine :
                     stats.update({"toHorn": "".join(x for x in goodLine[2:])})
+            
     b = os.path.relpath(os.path.dirname(d))
     bench = str(b)+"/"+bench
+    stats.update({"logs":logs})
     return {bench:stats} 
 
 def runBench(args):
@@ -185,7 +192,7 @@ def runDir(dr):
     return stats
 
 head="""
- <tr class = "success">
+ <tr class = "info">
 <td><b>Benchmark</a></td>
       <td><b>Result</a></td>
       <td><b>Expected</a></td>
@@ -206,20 +213,40 @@ template="""
     </tr>
 """
 
-
+template2="""
+ <tr data-toggle="collapse" data-target="#%s" class="accordion-toggle %s">
+      <td>%s</td>
+<td>%s</td>
+ <td>%s</td>
+    <td>%s</td>
+<td>%s</td>
+<td>%s</td>
+    </tr>
+"""
+template_hidden = """
+<tr class = %s>
+    <td  class="hiddenRow"><div class="accordian-body collapse" id="%s"> %s </div> </td>
+</tr>
+"""
 def generateHtml(stats):
     row = ""
+    id = 0
     for bench_dir, bench_stats in stats.iteritems():
         for bench, values in bench_stats.iteritems():
+            
             try:
                 color = ""
                 if values["expected"] == "UNKNOWN":
                     color = "active"
                 else:
                     color = "danger" if values["result"] != values["expected"] else "success"
-                row += template % (color, bench, values["result"], values["expected"], str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
+                row += template2 % (str(id), color, bench, values["result"], values["expected"], str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
+                row += template_hidden % (color, str(id), values["logs"]) + "\n"
+                id +=1
             except Exception as e:
-                row += template % ("active", bench, "NA", "NA", "NA", "NA", "NA") + "\n"
+                row += template2 % ("active", bench, "NA", "NA", "NA", "NA", "NA") + "\n"
+                row += template_hidden % (color, str(id), values["logs"]) + "\n"
+            
     table = head + row
     header, footer = "", "" 
     with open("view_results/up.html") as h, open ("view_results/low.html") as l:
