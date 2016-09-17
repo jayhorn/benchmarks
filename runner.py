@@ -103,7 +103,7 @@ def run_with_timeout(tool, command, timeout):
                 raise
     return None
 
-def processResult(bench, result, tool, options):
+def processResult(d, bench, result, tool, options):
     if debug: print result
     opt = " ".join(x for x in options)
     expected = ""
@@ -129,7 +129,8 @@ def processResult(bench, result, tool, options):
                     stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
                 elif 'ToHorn' in goodLine :
                     stats.update({"toHorn": "".join(x for x in goodLine[2:])})
-        
+    b = d.split("/")[1]
+    bench = str(b)+"/"+bench
     return {bench:stats} 
 
 def runBench(args):
@@ -179,7 +180,7 @@ def runDir(dr):
             cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] + jayhorn_option
             result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
             bench_name = os.path.basename(prog)
-            st = processResult(bench_name, result, 'jayhorn-eldarica', jayhorn_option)
+            st = processResult(d, bench_name, result, 'jayhorn-eldarica', jayhorn_option)
             stats.update(st)      
         if debug: print "---------------------"
     pprint.pprint(stats)

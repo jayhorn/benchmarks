@@ -1,4 +1,4 @@
-// Options: -rta
+// JayHorn-Option : -rta
 
 // IterativeMergeSort.java
 // By David Kosbie
