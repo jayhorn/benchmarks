@@ -95,14 +95,9 @@ public class Dijkstra {
             for (int j = 0; j < V; j++) {
                 if (i ==j) continue;
                 D[i][j] = randomGenerator.nextInt(100);
-                		//Debug.makeSymbolicInteger("in"+i+j);//Concolic.input.Integer(0, 1000);
             }
         }
 
-        // We only measure the complexity (i.e. path length) of the
-        // graph algorithm itself.  That is, we count branches only
-        // from this point forward in the execution.
-       // Concolic.ResetBranchCounting();
 
         runDijkstra(V, D, 0);
     }
