@@ -12,7 +12,7 @@ if [ -n "$GITHUB_API_KEY" ]; then
       cp -r ../view_results/* ./$TRAVIS_BRANCH/
       echo "$PWD"
       git add ./$TRAVIS_BRANCH
-      git -c user.name='lememta' -c user.email='lememta@gmail.com' commit -am "UPDATING Results from Benchmarks" --no-verify
+      git -c user.name='lememta' -c user.email='lememta@gmail.com' commit -am "Auto-updates from benchmarks repo" --no-verify
       git push -f -q https://lememta:$GITHUB_API_KEY@github.com/jayhorn/jayhorn gh-pages 
       cd .. 
       echo "DONE updating results"   
