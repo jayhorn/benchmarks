@@ -26,9 +26,9 @@ JPF = "./jpf-travis/jpf-core/build/RunJPF.jar"
 
 CBMC = "./cbmc/src/cbmc"
 
-JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
+#JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
 
-#JAYHORN = "./jayhorn.jar"
+JAYHORN = "./jayhorn.jar"
 
 
 class BenchStats(object):
@@ -113,9 +113,9 @@ def processResult(d, bench, result, tool, options):
         expected = "SAFE"
     stats = {"tool": tool, "result":"", "expected":expected,
              "time":"", "mem":"",
-             "soot2cfg":"", "toHorn":"", "Options":opt, "log": ""}
+             "soot2cfg":"", "toHorn":"", "Options":opt, "logs": ""}
     if result is None:
-        stats.update({"result":"TIMEOUT"})
+        stats.update({"result":"TIMEOUT", "logs": "Timeout"})
         return {bench:stats}
     logs = ""
     for r in result.splitlines():
@@ -228,14 +228,14 @@ template_hidden = """
     <td  class="hiddenRow"><div class="accordian-body collapse" id="%s"> %s </div> </td>
 </tr>
 """
+ 
 def generateHtml(stats):
     row = ""
     id = 0
+    color = "active"
     for bench_dir, bench_stats in stats.iteritems():
         for bench, values in bench_stats.iteritems():
-            
             try:
-                color = ""
                 if values["expected"] == "UNKNOWN":
                     color = "active"
                 else:
@@ -244,7 +244,8 @@ def generateHtml(stats):
                 row += template_hidden % (color, str(id), values["logs"]) + "\n"
                 id +=1
             except Exception as e:
-                row += template2 % ("active", bench, "NA", "NA", "NA", "NA", "NA") + "\n"
+                print "Excpetion" + str(e)
+                row += template2 % ("active", str(id), bench, " ", " ", " ", " ", " ") + "\n"
                 row += template_hidden % (color, str(id), values["logs"]) + "\n"
             
     table = head + row
