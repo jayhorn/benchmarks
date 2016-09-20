@@ -178,7 +178,7 @@ def minePump(dr):
             print e
         #bench_option = getOption(java_file)
         #jayhorn_option = ['-rta'] if 'rta' in bench_option else []
-        cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] 
+        cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "30", "-stats", "-j", build_dir] 
         result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
         bench_name = os.path.basename(d)
         st = processResult(d, bench_name, result, 'jayhorn-eldarica')
