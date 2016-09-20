@@ -50,7 +50,7 @@ script:
    - echo "    RUNNING JAYHORN ON Benchmarks   "
    - ls jayhorn/jayhorn/build/libs
    - python runner.py algorithms loops termination -html --timeout 10.0
-   - python runner.py MinePumpSingle/spec1 -html -mp --timeout 10.0
+   - python runner.py MinePumpSingle/spec1 -html -mp --timeout 30.0
    
 after_success:
    - ./deploy_results.sh
