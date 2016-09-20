@@ -58,7 +58,8 @@ public  class  Actions {
 	
 		    boolean b1 = e.isMethaneLevelCritical();
 	        boolean b2 = p.isPumpRunning();
-	     
+
+		
 			 if ( b1 && b2) {
 			     assert false;   				
 			 }		 			    

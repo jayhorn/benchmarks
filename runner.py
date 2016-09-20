@@ -105,16 +105,16 @@ def run_with_timeout(tool, command, timeout):
                 raise
     return None
 
-def processResult(d, bench, result, tool, options):
+def processResult(d, bench, result, tool):
     if debug: print result
-    opt = " ".join(x for x in options)
+    #opt = " ".join(x for x in options)
     
     bench_ls = bench.split("_")
     exp = bench_ls[len(bench_ls)-1]
     expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" == exp else "SAFE")
     stats = {"tool": tool, "result":"", "expected":expected,
              "time":"", "mem":"",
-             "soot2cfg":"", "toHorn":"", "Options":opt, "logs": ""}
+             "soot2cfg":"", "toHorn":"", "logs": ""}
     if result is None:
         stats.update({"result":"TIMEOUT", "logs": "Timeout"})
         b = os.path.relpath(os.path.dirname(d))
@@ -176,12 +176,12 @@ def minePump(dr):
             compile(java_file, build_dir)
         except Exception as e:
             print e
-        bench_option = getOption(java_file)
-        jayhorn_option = ['-rta'] if 'rta' in bench_option else []
-        cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] + jayhorn_option
+        #bench_option = getOption(java_file)
+        #jayhorn_option = ['-rta'] if 'rta' in bench_option else []
+        cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] 
         result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
         bench_name = os.path.basename(d)
-        st = processResult(d, bench_name, result, 'jayhorn-eldarica', jayhorn_option)
+        st = processResult(d, bench_name, result, 'jayhorn-eldarica')
         stats.update(st)      
         if debug: print "---------------------"
     pprint.pprint(stats)
@@ -209,13 +209,13 @@ def runDir(dr):
                 compile(java_file, build_dir)
             except Exception as e:
                 print e
-            bench_option = getOption(java_file)
-            jayhorn_option = ['-rta'] if 'rta' in bench_option else []
+            #bench_option = getOption(java_file)
+            #jayhorn_option = ['-rta'] if 'rta' in bench_option else []
             cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-stats", "-j", d]
-            cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] + jayhorn_option
+            cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] 
             result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
             bench_name = os.path.basename(prog)
-            st = processResult(prog, bench_name, result, 'jayhorn-eldarica', jayhorn_option)
+            st = processResult(prog, bench_name, result, 'jayhorn-eldarica')
             stats.update(st)      
         if debug: print "---------------------"
     pprint.pprint(stats)
