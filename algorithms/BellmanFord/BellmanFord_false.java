@@ -46,7 +46,7 @@ import java.util.Random;
  * @author Sudeep Juvekar <sjuvekar@cs.berkeley.edu>
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class BellmanFord_true {
+public class BellmanFord_false {
 
     static final int INFINITY = 1000000;
 
@@ -120,7 +120,7 @@ public class BellmanFord_true {
 	for (int d : dist) {
 		// either there is no path to d from the source,
 		// or it goes through at most V nodes
-		assert(d==INFINITY || d<=V);
+		assert(d>V);
 	}
     }
 }

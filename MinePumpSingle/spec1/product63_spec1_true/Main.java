@@ -8,6 +8,7 @@ public  class  Main {
 	private static int cleanupTimeShifts = 2;
 
     	public static void main(String[] args) {
+	   assert false;	
 		   randomSequenceOfActions(3); 
 	    }
 
@@ -46,7 +47,6 @@ public  class  Main {
 
 			a.timeShift();
 		}
-		
 		for (counter = 0; counter < cleanupTimeShifts; counter++) {
 			a.timeShift();
 		}

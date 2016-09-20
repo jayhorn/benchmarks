@@ -18,14 +18,19 @@ public class SimplifiedSorter
 	// UNSAFE
 	//assert(false);
 
-	// SAFE (not really)
-	assert(toSort.get(0).equals("test"));
+	// UNSAFE 
+	//assert(toSort.get(0).equals("test"));
 
-	// SAFE
-	assert(toSort.get(0).equals("abcd"));
+	// SAFE (but cannot show yet)
+	//assert(toSort.get(0).equals("abcd"));
 
-	// SAFE (not really)
-	assert (toSort.get(0) == null);
+	// UNSAFE
+	//assert (toSort.get(0) == null);
+
+	// SAFE (but cannot show yet, need specs)
+	//assert (toSort.size() >= 1);
+
+	assert(toSort.size() >= 0);
     }
 
     public List<String> sort(final Collection<String> stuff) {

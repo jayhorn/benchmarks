@@ -39,7 +39,7 @@ package benchmarks;
 //package edu.berkeley.cs.wise.benchmarks;
 
 import java.util.Random;
-import java15.util.PriorityQueue;
+import PriorityQueue;
 
 
 //import edu.berkeley.cs.wise.benchmarks.java15.util.PriorityQueue;
