@@ -26,9 +26,9 @@ JPF = "./jpf-travis/jpf-core/build/RunJPF.jar"
 
 CBMC = "./cbmc/src/cbmc"
 
-#JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
+JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
 
-JAYHORN = "./jayhorn.jar"
+#JAYHORN = "./jayhorn.jar"
 
 
 class BenchStats(object):
