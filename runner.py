@@ -26,9 +26,9 @@ JPF = "./jpf-travis/jpf-core/build/RunJPF.jar"
 
 CBMC = "./cbmc/src/cbmc"
 
-JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
+#JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
 
-#JAYHORN = "./jayhorn.jar"
+JAYHORN = "./jayhorn.jar"
 
 
 class BenchStats(object):
@@ -77,7 +77,9 @@ class BenchStats(object):
 
 def compile(prog, build_dir):
     if debug: print "Compiling ... " + prog
-    cmd = ['javac', '-d', build_dir, prog]
+    d = build_dir + os.sep + "../"
+    cmd = ['javac', '-d', build_dir, '-cp', d,  prog]
+    print " ".join(x for x in cmd)
     p = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     result, _ = p.communicate()
     return result
@@ -106,16 +108,17 @@ def run_with_timeout(tool, command, timeout):
 def processResult(d, bench, result, tool, options):
     if debug: print result
     opt = " ".join(x for x in options)
-    expected = ""
-    if "Unsafe" in bench:
-        expected = "UNSAFE"
-    else:
-        expected = "SAFE"
+    
+    bench_ls = bench.split("_")
+    exp = bench_ls[len(bench_ls)-1]
+    expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" == exp else "SAFE")
     stats = {"tool": tool, "result":"", "expected":expected,
              "time":"", "mem":"",
              "soot2cfg":"", "toHorn":"", "Options":opt, "logs": ""}
     if result is None:
         stats.update({"result":"TIMEOUT", "logs": "Timeout"})
+        b = os.path.relpath(os.path.dirname(d))
+        bench = str(b)+"/"+bench
         return {bench:stats}
     logs = ""
     for r in result.splitlines():
@@ -132,7 +135,6 @@ def processResult(d, bench, result, tool, options):
                     stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
                 elif 'ToHorn' in goodLine :
                     stats.update({"toHorn": "".join(x for x in goodLine[2:])})
-            
     b = os.path.relpath(os.path.dirname(d))
     bench = str(b)+"/"+bench
     stats.update({"logs":logs})
@@ -157,6 +159,34 @@ def getOption(java_file):
     else:
         return ""
 
+
+def minePump(dr):
+    all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
+    all_results = {}
+    stats = dict()
+    for d in all_dir:
+        if debug: print "Benchmark:\t " + str(d)
+        tmp = d.split("/")
+        bench = tmp[len(tmp)-1]
+        build_dir = d+os.sep+"build"
+        if not os.path.exists(build_dir):
+                os.mkdir(build_dir)
+        java_file = d + os.sep + "Main.java"
+        try:
+            compile(java_file, build_dir)
+        except Exception as e:
+            print e
+        bench_option = getOption(java_file)
+        jayhorn_option = ['-rta'] if 'rta' in bench_option else []
+        cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] + jayhorn_option
+        result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
+        bench_name = os.path.basename(d)
+        st = processResult(d, bench_name, result, 'jayhorn-eldarica', jayhorn_option)
+        stats.update(st)      
+        if debug: print "---------------------"
+    pprint.pprint(stats)
+    return stats
+        
 
 def runDir(dr):
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
@@ -234,7 +264,9 @@ def generateHtml(stats):
     id = 0
     color = "active"
     for bench_dir, bench_stats in stats.iteritems():
+        print bench_dir
         for bench, values in bench_stats.iteritems():
+            print bench
             try:
                 if values["expected"] == "UNKNOWN":
                     color = "active"
@@ -257,7 +289,33 @@ def generateHtml(stats):
         f.write(header)
         f.write(table)
         f.write(footer)
+
         
+def generateHtmlMinePump(stats):
+    row = ""
+    id = 0
+    color = "active"
+    for bench, values in stats.iteritems():
+        try:
+            color = "danger" if values["result"] != values["expected"] else "success"
+            row += template2 % (str(id), color, bench, values["result"], values["expected"],
+                                str(values["soot2cfg"]), str(values["time"]), str(values["toHorn"])) + "\n"
+            row += template_hidden % (color, str(id), values["logs"]) + "\n"
+            id +=1
+        except Exception as e:
+            print "Excpetion" + str(e)
+            row += template2 % ("active", str(id), bench, " ", " ", " ", " ", " ") + "\n"
+            row += template_hidden % (color, str(id), values["logs"]) + "\n"
+            
+    table = head + row
+    header, footer = "", "" 
+    with open("view_results/up.html") as h, open ("view_results/low.html") as l:
+        header = h.read()
+        footer = l.read()
+    with  open("view_results/minepump.html", 'w') as f:
+        f.write(header)
+        f.write(table)
+        f.write(footer)
         
 
 if __name__ == "__main__":
@@ -271,14 +329,18 @@ if __name__ == "__main__":
     #parser.add_argument ('file', metavar='BENCHMARK', help='Benchmark file')
     parser.add_argument ('directory',  help='Benchmark dirs', nargs='*')
     parser.add_argument('-html', '--html', required=False, dest="html", action="store_true")
-    #parser.add_argument('-err', '--err', required=False, dest="err", action="store_true")
+    parser.add_argument('-mp', '--mp', required=False, dest="mp", action="store_true")
     parser.add_argument ('--timeout', help='Timeout',
                     type=float, default=20.0, dest="timeout")
 
     args = parser.parse_args()
     stats = None
     try:
-        runBench(args)
+        if args.mp:
+            stats = minePump(args.directory[0])
+            generateHtmlMinePump(stats)
+        else:
+            runBench(args)
         #main (args)
     except Exception as e:
         print str(e)
