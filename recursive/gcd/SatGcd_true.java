@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SatGcd {
+public class SatGcd_true {
 
 	// Compute the greatest common denominator using Euclid's algorithm
 	static int gcd(int y1, int y2) {

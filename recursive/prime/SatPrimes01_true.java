@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SatPrimes01 {
+public class SatPrimes01_true {
 
 	// Multiplies two integers n and m
 	static int mult(int n, int m) {

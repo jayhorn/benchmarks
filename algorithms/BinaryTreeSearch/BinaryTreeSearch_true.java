@@ -45,7 +45,7 @@ import java.util.Random;
  * @author Sudeep Juvekar <sjuvekar@cs.berkeley.edu>
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class BinaryTreeSearch {
+public class BinaryTreeSearch_true {
 
     private static class BinaryTree {
         /**
