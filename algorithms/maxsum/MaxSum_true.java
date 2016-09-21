@@ -6,7 +6,7 @@ import java.util.Random;
  * @author Kasper Luckow
  *
  */
-public class MaxSum {
+public class MaxSum_true {
   /**
    * Recursive maximum contiguous subsequence sum algorithm.
    * Finds maximum sum in subarray spanning a[left..right].
@@ -65,23 +65,21 @@ public class MaxSum {
   public static void main( String [ ] args )
   {
     
-      int N = Integer.parseInt(args[0]);
+      //int N = Integer.parseInt(args[0]);
       
-      int[] a = new int[N];
-      Random randomGenerator = new Random();
+      //int[] a = new int[N];
+      //Random randomGenerator = new Random();
     	
-      for(int i = 0; i < N; i++) {
-	  a[i] =  randomGenerator.nextInt(100);
-	   //Debug.makeSymbolicInteger("sym"+i);
-      }
+      //for(int i = 0; i < N; i++) {
+//	  a[i] =  randomGenerator.nextInt(100);
+     // }
     
-      //int a[ ] = { 4, -3, 5, -2, -1, 2, 6, -2 };
+      int a[] = { 4, -3, 5, -2, -1, 2, 6, -2 };
       int maxSum;
       
       maxSum = maxSubSum4( a );
       //System.out.println( "Max sum is " + maxSum );
-      assert (maxSum ==0 && N==0); // trivial property
-	  
+      assert (maxSum > 0); 
       
   }
 }
