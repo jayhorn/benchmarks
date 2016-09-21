@@ -1,10 +1,3 @@
-
-
-import java.util.Random;
-
-import rbtree.RedBlackTree;
-import rbtree.RedBlackTreeNode;
-
 /**
  * Copyright (c) 2011, Regents of the University of California
  * All rights reserved.
@@ -39,36 +32,32 @@ import rbtree.RedBlackTreeNode;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-//package edu.berkeley.cs.wise.benchmarks;
-
-//import edu.berkeley.cs.wise.benchmarks.rbtree.RedBlackTree;
-//import edu.berkeley.cs.wise.benchmarks.rbtree.RedBlackTreeNode;
-
-//import edu.berkeley.cs.wise.concolic.Concolic;
+package benchmarks;
 
 /**
  * @author Koushik Sen <ksen@cs.berkeley.edu>
- * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class RedBlackTreeSearch {
-    public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
-        Random randomGenerator = new Random();
+public class SimpleObject implements Comparable<SimpleObject> {
+    public int v;
 
-        RedBlackTree tree = new RedBlackTree();
+    public SimpleObject() {
+    }
 
-        for (int i = 0; i < N; i++) {
-            int data = randomGenerator.nextInt(100);//Concolic.input.Integer();
-            tree.treeInsert(new RedBlackTreeNode(data));
-        }
+    public SimpleObject(int v) {
+        this.v = v;
+    }
 
-        // We only measure the complexity (i.e. path length) of the
-        // final search operation.  That is, we count branches only
-        // from this point forward in the execution.
-        //Concolic.ResetBranchCounting();
+    public int hashCode() {
+        return v;
+    }
 
-        int data =randomGenerator.nextInt(100);//Concolic.input.Integer();
-        tree.treeSearch(tree.root(), data);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        return (this.v == ((SimpleObject)obj).v);
+    }
+
+    public int compareTo(SimpleObject o) {
+        return this.v - o.v;
     }
 }

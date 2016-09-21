@@ -45,7 +45,7 @@ import java.util.Random;
  *  see <a href="http://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class RabinKarp {
+public class RabinKarp_true {
     private String pat;      // the pattern  // needed only for Las Vegas
     private long patHash;    // pattern hash value
     private int M;           // pattern length
@@ -59,7 +59,7 @@ public class RabinKarp {
      * @param pattern the pattern string
      * @param R the alphabet size
      */
-    public RabinKarp(char[] pattern, int R) {
+    public RabinKarp_true(char[] pattern, int R) {
         throw new UnsupportedOperationException("Operation not supported yet");
     }
 
@@ -68,7 +68,7 @@ public class RabinKarp {
      *
      * @param pat the pattern string
      */
-    public RabinKarp(String pat) {
+    public RabinKarp_true(String pat) {
         this.pat = pat;      // save pattern (needed only for Las Vegas)
         R = 256;
         M = pat.length();
@@ -148,12 +148,16 @@ public class RabinKarp {
      * the first occurrence of the pattern string in the text string.
      */
     public static void main(String[] args) {
+	if (args.length<2) return;
         String pat = args[0];
         String txt = args[1];
 
-        RabinKarp searcher = new RabinKarp(pat);
+        RabinKarp_true searcher = new RabinKarp_true(pat);
         int offset = searcher.search(txt);
 
+	assert(offset >= 0 && offset < txt.length());
+
+/*
         // print results
         System.out.println("text:    " + txt);
 
@@ -162,5 +166,6 @@ public class RabinKarp {
         for (int i = 0; i < offset; i++)
           System.out.print(" ");
         System.out.println(pat);
+*/
     }
 }

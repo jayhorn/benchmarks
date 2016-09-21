@@ -36,28 +36,24 @@
 
 import java.util.Random;
 
-import benchmarks.java15.util.Arrays;
-
-//import edu.berkeley.cs.wise.concolic.Concolic;
+import java15.Arrays;
 
 /**
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class QuickSortJDK15 {
+public class QuickSortJDK15_false {
 
     public static void main(String[] args) {
         final int N = Integer.parseInt(args[0]);
         Random randomGenerator = new Random();
         int data[] = new int[N];
         for (int i = 0; i < N; i++) {
-            data[i] = randomGenerator.nextInt(100);//Concolic.input.Integer();
+            data[i] = randomGenerator.nextInt(100);
         }
 
-        // We only measure the complexity of the sort itself.  That
-        // is, we count branches only from this point forward in the
-        // execution.
-        //Concolic.ResetBranchCounting();
-
         Arrays.sort(data);
+
+    	assert(data.length<2 || data[0]>data[1]);
+
     }
 }

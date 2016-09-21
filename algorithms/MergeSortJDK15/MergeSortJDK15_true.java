@@ -34,30 +34,35 @@
  */
 
 
+import java.util.Random;
+
+import java15.Arrays;
+import benchmarks.SimpleObject;
+
 /**
- * @author Koushik Sen <ksen@cs.berkeley.edu>
+ * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class SimpleObject implements Comparable<SimpleObject> {
-    public int v;
+public class MergeSortJDK15_true {
 
-    public SimpleObject() {
-    }
+    public static void main(String[] args) {
+        final int N = Integer.parseInt(args[0]);
+        Random randomGenerator = new Random();
 
-    public SimpleObject(int v) {
-        this.v = v;
-    }
+        SimpleObject data[] = new SimpleObject[N];
+        for (int i = 0; i < N; i++) {
+            data[i] = new SimpleObject(randomGenerator.nextInt(100));//Concolic.input.Integer());
+        }
 
-    public int hashCode() {
-        return v;
-    }
+        // We only measure the complexity of the sort itself.  That
+        // is, we count branches only from this point forward in the
+        // execution.
+        //Concolic.ResetBranchCounting();
 
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        return (this.v == ((SimpleObject)obj).v);
-    }
+        Arrays.sort(data);
 
-    public int compareTo(SimpleObject o) {
-        return this.v - o.v;
+	// also fails...
+	assert(true);
+
+    	assert(data.length<2 || data[0]<data[1]);
     }
 }

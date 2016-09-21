@@ -9,10 +9,8 @@
  *     download. If you use some of my sources just remember give me
  *     the credits.
  */
-package benchmarks.rbtree;
+package rbtree;
 
-import gov.nasa.jpf.symbc.Debug;
-//package edu.berkeley.cs.wise.benchmarks.rbtree;
 
 /**
  * A <code>RedBlackTreeNode</code> object is a node of a Red-Black

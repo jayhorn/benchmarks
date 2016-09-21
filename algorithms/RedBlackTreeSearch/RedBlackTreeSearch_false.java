@@ -1,3 +1,8 @@
+import java.util.Random;
+
+import rbtree.RedBlackTree;
+import rbtree.RedBlackTreeNode;
+
 /**
  * Copyright (c) 2011, Regents of the University of California
  * All rights reserved.
@@ -33,32 +38,33 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-import java.util.Random;
-
-import benchmarks.java15.util.Arrays;
-
-//import edu.berkeley.cs.wise.concolic.Concolic;
-
 /**
+ * @author Koushik Sen <ksen@cs.berkeley.edu>
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class MergeSortJDK15 {
-
+public class RedBlackTreeSearch_false {
     public static void main(String[] args) {
-        final int N = Integer.parseInt(args[0]);
-        Random randomGenerator = new Random();
+	if (args.length<1) return;
+	try {
+          int N = Integer.parseInt(args[0]);
+          Random randomGenerator = new Random();
 
-        SimpleObject data[] = new SimpleObject[N];
-        for (int i = 0; i < N; i++) {
-            data[i] = new SimpleObject(randomGenerator.nextInt(100));//Concolic.input.Integer());
-        }
+          RedBlackTree tree = new RedBlackTree();
 
-        // We only measure the complexity of the sort itself.  That
-        // is, we count branches only from this point forward in the
-        // execution.
-        //Concolic.ResetBranchCounting();
+          for (int i = 0; i < N; i++) {
+            int data = randomGenerator.nextInt(100);//Concolic.input.Integer();
+            tree.treeInsert(new RedBlackTreeNode(data));
+          }
 
-        Arrays.sort(data);
+          int data = randomGenerator.nextInt(100);//Concolic.input.Integer();
+          RedBlackTreeNode node = tree.treeSearch(tree.root(), data);
+
+	  // UNSAFE
+	  //assert(false);
+
+  	  // SAFE
+	  assert(node==null);
+
+	} catch (Exception e) { }
     }
 }

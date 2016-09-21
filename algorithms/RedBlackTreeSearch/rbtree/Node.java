@@ -12,9 +12,7 @@
 
 //package edu.berkeley.cs.wise.benchmarks.rbtree;
 
-package benchmarks.rbtree;
-
-import gov.nasa.jpf.symbc.Debug;
+package rbtree;
 
 /**
  * A <code>Node</code> object is a node of search tree
