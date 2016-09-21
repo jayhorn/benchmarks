@@ -1,4 +1,5 @@
-package benchmarks;
+
+import java.util.Random;
 
 /**
  * Copyright (c) 2011, Regents of the University of California
@@ -35,41 +36,50 @@ package benchmarks;
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 //package edu.berkeley.cs.wise.benchmarks;
-
-import java.util.Random;
-import PriorityQueue;
-
-
-//import edu.berkeley.cs.wise.benchmarks.java15.util.PriorityQueue;
 
 //import edu.berkeley.cs.wise.concolic.Concolic;
 
 /**
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
- * @author Koushik Sen <ksen@cs.berkeley.edu>
  */
-public class HeapInsertJDK15 {
+public class InsertionSort_false {
+
+    public static void sort(int[] a) {
+        final int N = a.length;
+        for (int i = 1; i < N; i++) {  // N branches
+            int j = i - 1;
+            int x = a[i];
+            // First branch (j >= 0):  2 + 3 + ... + N = N(N+1)/2 - 1 branches
+            // Second branch (a[j] > x):  1 + 2 + ... + N-1 = (N-1)N/2 branches
+            while ((j >= 0) && (a[j] > x)) {
+                a[j + 1] = a[j];
+                j--;
+            }
+            a[j + 1] = x;
+        }
+    }
 
     public static void main(String[] args) {
-        final int N = Integer.parseInt(args[0]);
+	int N = 5;
+        try {
+		N = Integer.parseInt(args[0]);
+	} catch (Exception e) {
+	}
+	if  (N<0 || N>2) return;
         Random randomGenerator = new Random();
 
-        PriorityQueue<SimpleObject> Q = new PriorityQueue<SimpleObject>(N);
-
-        for (int i = 1; i < N; i++) {
-            Q.addMask(new SimpleObject(randomGenerator.nextInt(100)));//Concolic.input.Integer()));
-            
+        int a[] = new int[N];
+        for (int i = 0; i < N; i++) {
+            a[i] = randomGenerator.nextInt(100);//Concolic.input.Integer();
         }
 
-        //Debug.printPC("before add");
-        // We only measure the complexity (i.e. path length) of the
-        // final insert operation.  That is, we count branches only
-        // from this point forward in the execution.
-       // Concolic.ResetBranchCounting();
+        // We only measure the complexity of the sort itself.  That
+        // is, we count branches only from this point forward in the
+        // execution.
+        //Concolic.ResetBranchCounting();
+        sort(a);
 
-        Q.add(new SimpleObject(randomGenerator.nextInt(100)));//Concolic.input.Integer()));
-        //Debug.printPC("after add");
+	assert(a.length<2 || a[0]>a[1]);
     }
 }

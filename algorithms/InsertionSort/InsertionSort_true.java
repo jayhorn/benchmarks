@@ -1,4 +1,3 @@
-// JayHorn-Option : -rta
 
 import java.util.Random;
 
@@ -44,7 +43,7 @@ import java.util.Random;
 /**
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class InsertionSort {
+public class InsertionSort_true {
 
     public static void sort(int[] a) {
         final int N = a.length;
@@ -62,7 +61,12 @@ public class InsertionSort {
     }
 
     public static void main(String[] args) {
-        final int N = Integer.parseInt(args[0]);
+	int N = 5;
+        try {
+		N = Integer.parseInt(args[0]);
+	} catch (Exception e) {
+	}
+	if  (N<0 || N>2) return;
         Random randomGenerator = new Random();
 
         int a[] = new int[N];
@@ -74,7 +78,11 @@ public class InsertionSort {
         // is, we count branches only from this point forward in the
         // execution.
         //Concolic.ResetBranchCounting();
-	assert false;
         sort(a);
+
+	// also fails...
+	assert(true);
+
+	assert(a.length<2 || a[0]<a[1]);
     }
 }
