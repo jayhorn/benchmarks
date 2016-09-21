@@ -1,2 +1,0 @@
-target=UnsatMccarthy91
- classpath="${jpf-core}/../../benchmarks/mccarthy

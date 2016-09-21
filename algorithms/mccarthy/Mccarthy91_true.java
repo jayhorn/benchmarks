@@ -2,7 +2,7 @@
 
 import java.util.Random;
 
-public class SatMccarthy91 {
+public class Mccarthy91_true {
     private static int f(int n) {
         if (n > 100)
             return n - 10;

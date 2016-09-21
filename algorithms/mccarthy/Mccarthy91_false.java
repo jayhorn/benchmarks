@@ -1,6 +1,6 @@
 // JayHorn-Option : -rta
 
-public class UnsatMccarthy91 {
+public class Mccarthy91_false {
     private static int f(int n) {
         if (n > 100)
             return n - 10;
