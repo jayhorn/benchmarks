@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SatMultCommutative01 {
+public class SatMultCommutative01_true {
 	static int mult(int n, int m) {
 	    if (m < 0) {
 	        return mult(n, -m);

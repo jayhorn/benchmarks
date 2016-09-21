@@ -45,7 +45,7 @@ import java.util.Random;
  * @author Sudeep Juvekar <sjuvekar@cs.berkeley.edu>
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class UnsafeBinaryTreeSearch1 {
+public class BinaryTreeSearch1_false {
 
     private static class BinaryTree {
         /**

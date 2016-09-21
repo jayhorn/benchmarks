@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class UnsatFibonacci02 {
+public class UnsatFibonacci02_false {
 
 	static int fibonacci(int n) {
 		if (n < 1) {

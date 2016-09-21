@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SatFibonacci01 {
+public class SatFibonacci01_true {
 
 	static int fibonacci(int n) {
 		if (n < 1) {
@@ -12,7 +12,7 @@ public class SatFibonacci01 {
 		}
 	}
 
-	static void main(String[] args) {
+	public static void main(String[] args) {
 		Random rand = new Random(42);
 
 		int x = rand.nextInt();

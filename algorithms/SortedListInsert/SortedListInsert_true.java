@@ -41,7 +41,7 @@ import java.util.Random;
 /**
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class SortedListInsert {
+public class SortedListInsert_true {
 
     private static class List {
         private int x;

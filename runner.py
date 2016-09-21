@@ -111,7 +111,7 @@ def processResult(d, bench, result, tool):
     
     bench_ls = bench.split("_")
     exp = bench_ls[len(bench_ls)-1]
-    expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" == exp else "SAFE")
+    expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" in exp else "SAFE")
     stats = {"tool": tool, "result":"", "expected":expected,
              "time":"", "mem":"",
              "soot2cfg":"", "toHorn":"", "logs": ""}
@@ -264,9 +264,7 @@ def generateHtml(stats):
     id = 0
     color = "active"
     for bench_dir, bench_stats in stats.iteritems():
-        print bench_dir
         for bench, values in bench_stats.iteritems():
-            print bench
             try:
                 if values["expected"] == "UNKNOWN":
                     color = "active"

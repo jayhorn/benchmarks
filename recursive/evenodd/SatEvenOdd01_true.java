@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SatEvenOdd01 {
+public class SatEvenOdd01_true {
 
 	static int isOdd(int n) {
 		if (n == 0) {

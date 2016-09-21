@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class SatAddition01 {
+public class SatAddition01_true {
 
 static int addition(int m, int n) {
     if (n == 0) {
