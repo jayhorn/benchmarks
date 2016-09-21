@@ -38,8 +38,9 @@ package benchmarks;
 
 //package edu.berkeley.cs.wise.benchmarks;
 
+import java15.PriorityQueue;
+import benchmarks.SimpleObject;
 import java.util.Random;
-import PriorityQueue;
 
 
 //import edu.berkeley.cs.wise.benchmarks.java15.util.PriorityQueue;
@@ -50,7 +51,7 @@ import PriorityQueue;
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  * @author Koushik Sen <ksen@cs.berkeley.edu>
  */
-public class HeapInsertJDK15 {
+public class HeapInsertJDK15_false {
 
     public static void main(String[] args) {
         final int N = Integer.parseInt(args[0]);
@@ -71,5 +72,6 @@ public class HeapInsertJDK15 {
 
         Q.add(new SimpleObject(randomGenerator.nextInt(100)));//Concolic.input.Integer()));
         //Debug.printPC("after add");
+	assert(Q.isEmpty());
     }
 }
