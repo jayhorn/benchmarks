@@ -41,7 +41,7 @@ import java.util.Random;
 /**
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class SortedListInsert_true {
+public class SortedListInsert_false {
 
     private static class List {
         private int x;
@@ -82,7 +82,7 @@ public class SortedListInsert_true {
             list.insert(0);
 //        }
 
-	    assert list.next != null;
+	    assert list.next == null;
 
 //        list.insert(randomGenerator.nextInt(100));//Concolic.input.Integer());
     }

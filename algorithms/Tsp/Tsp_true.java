@@ -1,4 +1,4 @@
-// JayHorn-Option : -rta
+// JayHorn-option : -rta
 
 /**
  * Copyright (c) 2011, Regents of the University of California
@@ -35,55 +35,90 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 import java.util.Random;
 
+
+//package edu.berkeley.cs.wise.benchmarks;
+
+//import edu.berkeley.cs.wise.concolic.Concolic;
+
 /**
+ * @author Sudeep Juvekar <sjuvekar@cs.berkeley.edu>
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class SortedListInsert_true {
+public class Tsp_true {
 
-    private static class List {
-        private int x;
-        private List next;
+    private static class TspSolver {
+        private final int N;
+        private int D[][];
+        private boolean visited[];
+        private int best;
 
-        private static final int SENTINEL = Integer.MAX_VALUE;
+        public int nCalls;
 
-        private List(int x, List next) {
-            this.x = x;
-            this.next = next;
+        public TspSolver(int N, int D[][]) {
+            this.N = N;
+            this.D = D;
+            this.visited = new boolean[N];
+            this.nCalls = 0;
         }
 
-        public List() {
-            this(SENTINEL, null);
+        public int solve() {
+            best = Integer.MAX_VALUE;
+
+            for (int i = 0; i < N; i++)
+                visited[i] = false;
+
+            visited[0] = true;
+            search(0, 0, N-1);
+
+            return best;
         }
-        
-        public void insert(int data) {
-            if (data > this.x) {
-                next.insert(data);
-            } else {
-                next = new List(x, next);
-                x = data;
+
+        private int bound(int src, int length, int nLeft) {
+            return length;
+        }
+
+        private void search(int src, int length, int nLeft) {
+            nCalls++;
+
+            if (nLeft == 0) {
+                if (length + D[src][0] < best)
+                    best = length + D[src][0];
+                return;
+            }
+
+            if (bound(src, length, nLeft) >= best)
+                return;
+
+            for (int i = 0; i < N; i++) {
+                if (visited[i]) continue;
+
+                visited[i] = true;
+                search(i, length + D[src][i], nLeft - 1);
+                visited[i] = false;
             }
         }
     }
 
-    public static void main(String[] args) {
-        if (args.length < 1)
-          return;
-
+    public static void main(String args[]) {
         final int N = Integer.parseInt(args[0]);
-
         Random randomGenerator = new Random();
 
-        List list = new List();
-//        for (int i = 0; i < N; i++) {
-//            list.insert(randomGenerator.nextInt(100));//Concolic.input.Integer());
-            list.insert(0);
-//        }
+        int D[][] = new int[N][N];
 
-	    assert list.next != null;
+	//int total = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                int next = randomGenerator.nextInt(100);
+		if (next<0) return; // assume >= 0
+                D[i][j] = next;
+		//total += next;
+            }
+        }
 
-//        list.insert(randomGenerator.nextInt(100));//Concolic.input.Integer());
+        TspSolver tspSolver = new TspSolver(N, D);
+        int solution = tspSolver.solve();
+	assert (solution >= 0);
     }
-}
+};

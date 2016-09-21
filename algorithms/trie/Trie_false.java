@@ -50,7 +50,7 @@ import java.util.Queue;
  *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
-public class Trie {
+public class Trie_false {
     private static final int R = 256;        // extended ASCII
 
 
@@ -66,7 +66,7 @@ public class Trie {
    /**
      * Initializes an empty string symbol table.
      */
-    public Trie() {
+    public Trie_false() {
     }
 
 
@@ -114,11 +114,6 @@ public class Trie {
         else root = put2(root, key, val, 0);
     }
     
-    public void putMask(String key, int val) {
-      if (val == -1) delete(key);
-      else root = put2(root, key, val, 0);
-  }
-
     private Node put2(Node x, String key, int val, int d) {
         if (x == null) x = new Node();
         if (d == key.length()) {
@@ -229,16 +224,19 @@ public class Trie {
 
 
   public static void main(String[] args) {
-    int N = Integer.parseInt(args[0]);
+    if (args.length < 1) return;
+    try {
+      int N = Integer.parseInt(args[0]);
 
-
-    Trie st = new Trie();
-   // for (int i = 0; i < N; i++) {
-    String test = "test";
-    st.putMask(test,2);
-    // st.putMask(Debug.makeSymbolicString("bla", N), 2);
-    //}
-    st.get(test);
+      Trie_false st = new Trie_false();
+     // for (int i = 0; i < N; i++) {
+      String test = "test";
+      st.put(test,2);
+      // st.putMask(Debug.makeSymbolicString("bla", N), 2);
+      //}
+      st.get(test);
+      assert(st.isEmpty());
+    } catch (Exception e) { }
   }
   
 }

@@ -46,7 +46,7 @@ import java.util.Random;
  * @author Sudeep Juvekar <sjuvekar@cs.berkeley.edu>
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  */
-public class Tsp {
+public class Tsp_false {
 
     private static class TspSolver {
         private final int N;
@@ -107,19 +107,18 @@ public class Tsp {
 
         int D[][] = new int[N][N];
 
+	//int total = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                D[i][j] = randomGenerator.nextInt(100);//Concolic.input.Integer(0, 1000);
+                int next = randomGenerator.nextInt(100);
+		if (next<0) return; // assume >= 0
+                D[i][j] = next;
+		//total += next;
             }
         }
 
         TspSolver tspSolver = new TspSolver(N, D);
-
-        // We only measure the complexity (i.e. path length) of the
-        // Tsp solving.  That is, we count branches only from this
-        // point forward in the execution.
-        //Concolic.ResetBranchCounting();
-
-        tspSolver.solve();
+        int solution = tspSolver.solve();
+	assert (solution == 42);
     }
 };
