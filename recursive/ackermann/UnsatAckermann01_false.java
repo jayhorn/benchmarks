@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class UnsatAckermann01 {
+public class UnsatAckermann01_false {
 
 	static int ackermann(int m, int n) {
 		if (m == 0) {

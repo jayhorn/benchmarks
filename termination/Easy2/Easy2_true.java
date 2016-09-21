@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class Test {
+class Easy2_true {
   public static void main(String args[]) {
     Random r = new Random();
     int x = 12;

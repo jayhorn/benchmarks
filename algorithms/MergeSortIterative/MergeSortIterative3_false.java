@@ -15,7 +15,7 @@
 
 import java.util.Random;
 
-public class MergeSortIterative_false {
+public class MergeSortIterative3_false {
 
   
   public static void main(String[] args) {

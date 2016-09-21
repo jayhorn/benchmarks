@@ -1,4 +1,4 @@
-public class TestLoop1 {
+public class TestLoop1_true {
 	 public static void main(String[] args) {
          int x = 0; int y = 1;
          while (x < 100) {
