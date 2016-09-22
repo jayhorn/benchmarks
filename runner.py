@@ -72,8 +72,12 @@ class BenchStats(object):
 
 def compile(prog, build_dir):
     if debug: print "Compiling ... " + prog
-    d = build_dir + os.sep + "../"
+    d = build_dir + os.sep + ".." + os.sep
+    cmd = ['rm', '-rf', build_dir+os.sep+'*']
+    print " ".join(x for x in cmd)
+    p = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     cmd = ['javac', '-d', build_dir, '-sourcepath', d,  prog]
+    p.communicate()
     print " ".join(x for x in cmd)
     p = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     result, _ = p.communicate()
