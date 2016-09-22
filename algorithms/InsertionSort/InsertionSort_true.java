@@ -84,5 +84,6 @@ public class InsertionSort_true {
 	assert(true);
 
 	assert(a.length<2 || a[0]<a[1]);
+
     }
 }

@@ -51,10 +51,12 @@ public class RedBlackTreeSearch_false {
 
           RedBlackTree tree = new RedBlackTree();
 
-          for (int i = 0; i < N; i++) {
-            int data = randomGenerator.nextInt(100);//Concolic.input.Integer();
-            tree.treeInsert(new RedBlackTreeNode(data));
-          }
+          //for (int i = 0; i < N; i++) {
+            int data1 = randomGenerator.nextInt(100);//Concolic.input.Integer();
+            tree.treeInsert(new RedBlackTreeNode(data1));
+          //}
+	
+	  //assert(tree.root()==null);
 
           int data = randomGenerator.nextInt(100);//Concolic.input.Integer();
           RedBlackTreeNode node = tree.treeSearch(tree.root(), data);
@@ -63,7 +65,7 @@ public class RedBlackTreeSearch_false {
 	  //assert(false);
 
   	  // SAFE
-	  assert(node==null);
+	  //assert(node==null);
 
 	} catch (Exception e) { }
     }
