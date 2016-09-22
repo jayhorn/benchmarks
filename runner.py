@@ -14,11 +14,6 @@ import multiprocessing
 debug = True
 
 
-
-config = """ target=Main
- classpath=${jpf-core}/../../benchmarks/MinePump/spec1-5/%s
-"""
-
 """
 Tools
 """
@@ -78,11 +73,12 @@ class BenchStats(object):
 def compile(prog, build_dir):
     if debug: print "Compiling ... " + prog
     d = build_dir + os.sep + "../"
-    cmd = ['javac', '-d', build_dir, '-cp', d,  prog]
+    cmd = ['javac', '-d', build_dir, '-sourcepath', d,  prog]
     print " ".join(x for x in cmd)
     p = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     result, _ = p.communicate()
-    return result
+    rc = p.returncode
+    return rc
 
 
 def run_with_timeout(tool, command, timeout):
@@ -121,20 +117,24 @@ def processResult(d, bench, result, tool):
         bench = str(b)+"/"+bench
         return {bench:stats}
     logs = ""
-    for r in result.splitlines():
-        if "BRUNCH_STAT" not in r:
-            logs += r +"<br>"
-        if 'jayhorn' in tool:
-            if "BRUNCH_STAT" in r:
-                goodLine = r.split()
-                if 'Result' in goodLine:
-                    stats.update({"result": goodLine[2]})
-                elif 'CheckSatTime' in goodLine :
-                    stats.update({"time": "".join(x for x in goodLine[2:])})
-                elif 'SootToCFG' in goodLine :
-                    stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
-                elif 'ToHorn' in goodLine :
-                    stats.update({"toHorn": "".join(x for x in goodLine[2:])})
+    if "COMPILATION ERROR" in result:
+        logs += "Compilation error<br>"
+        stats.update({"result": "COMPILATION ERROR"})
+    else:
+        for r in result.splitlines():
+            if "BRUNCH_STAT" not in r:
+                logs += r +"<br>"
+            if 'jayhorn' in tool:
+                if "BRUNCH_STAT" in r:
+                    goodLine = r.split()
+                    if 'Result' in goodLine:
+                        stats.update({"result": goodLine[2]})
+                    elif 'CheckSatTime' in goodLine :
+                        stats.update({"time": "".join(x for x in goodLine[2:])})
+                    elif 'SootToCFG' in goodLine :
+                        stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
+                    elif 'ToHorn' in goodLine :
+                        stats.update({"toHorn": "".join(x for x in goodLine[2:])})
     b = os.path.relpath(os.path.dirname(d))
     bench = str(b)+"/"+bench
     stats.update({"logs":logs})
@@ -164,7 +164,7 @@ def minePump(dr):
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
     stats = dict()
-    for d in all_dir:
+    for d in sorted(all_dir):
         if debug: print "Benchmark:\t " + str(d)
         tmp = d.split("/")
         bench = tmp[len(tmp)-1]
@@ -172,17 +172,21 @@ def minePump(dr):
         if not os.path.exists(build_dir):
                 os.mkdir(build_dir)
         java_file = d + os.sep + "Main.java"
+        bench_name = os.path.basename(d)
         try:
-            compile(java_file, build_dir)
+            cresult = compile(java_file, build_dir)
         except Exception as e:
             print e
         #bench_option = getOption(java_file)
         #jayhorn_option = ['-rta'] if 'rta' in bench_option else []
-        cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "30", "-stats", "-j", build_dir] 
-        result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
-        bench_name = os.path.basename(d)
-        st = processResult(d, bench_name, result, 'jayhorn-eldarica')
-        stats.update(st)      
+        if cresult == 0:
+            cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "30", "-stats", "-j", build_dir] 
+            result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
+            st = processResult(d, bench_name, result, 'jayhorn-eldarica')
+            stats.update(st) 
+	else:
+	    st = processResult(d, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica')
+            stats.update(st)
         if debug: print "---------------------"
     pprint.pprint(stats)
     return stats
@@ -192,31 +196,36 @@ def runDir(dr):
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
     stats = dict()
-    for d in all_dir:
+    for d in sorted(all_dir):
         if debug: print "Benchmark:\t " + str(d)
         tmp = d.split("/")
         bench = tmp[len(tmp)-1]
-        cls = glob.glob(os.path.abspath(d) + os.sep + "*.class")
+        #cls = glob.glob(os.path.abspath(d) + os.sep + "*.class")
         java_prog = glob.glob(os.path.abspath(d) + os.sep + "*.java")
         all_build_dir = list()
-        for prog in java_prog:
+        for prog in sorted(java_prog):
+	    print "Java file: " + str(prog)
             build_dir = os.path.splitext(prog)[0]+"_build"
             all_build_dir.append(build_dir)
-            java_file = java_prog[0]
+            #java_file = java_prog[0]
+            bench_name = os.path.basename(prog)
             if not os.path.exists(build_dir):
                 os.mkdir(build_dir)
             try:
-                compile(java_file, build_dir)
+                cresult = compile(prog, build_dir)
             except Exception as e:
                 print e
             #bench_option = getOption(java_file)
             #jayhorn_option = ['-rta'] if 'rta' in bench_option else []
-            cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-stats", "-j", d]
-            cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] 
-            result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
-            bench_name = os.path.basename(prog)
-            st = processResult(prog, bench_name, result, 'jayhorn-eldarica')
-            stats.update(st)      
+            if cresult == 0:
+                cmd_z3 = ['java', "-jar", JAYHORN, "-solver", "z3",  "-t", "20", "-stats", "-j", d]
+                cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] 
+                result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
+                st = processResult(prog, bench_name, result, 'jayhorn-eldarica')
+                stats.update(st)      
+	    else:
+		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica')
+                stats.update(st)
         if debug: print "---------------------"
     pprint.pprint(stats)
     return stats
@@ -264,7 +273,7 @@ def generateHtml(stats):
     id = 0
     color = "active"
     for bench_dir, bench_stats in stats.iteritems():
-        for bench, values in bench_stats.iteritems():
+        for bench, values in sorted(bench_stats.items()):
             try:
                 if values["expected"] == "UNKNOWN":
                     color = "active"
@@ -274,7 +283,7 @@ def generateHtml(stats):
                 row += template_hidden % (color, str(id), values["logs"]) + "\n"
                 id +=1
             except Exception as e:
-                print "Excpetion" + str(e)
+                print "Exception: " + str(e)
                 row += template2 % ("active", str(id), bench, " ", " ", " ", " ", " ") + "\n"
                 row += template_hidden % (color, str(id), values["logs"]) + "\n"
             

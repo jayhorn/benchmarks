@@ -60,6 +60,6 @@ public class MergeSortJDK15_false {
 
         Arrays.sort(data);
 
-    	assert(data.length<2 || data[0]>data[1]);
+    	assert(data.length < 2 || data[0].v > data[1].v);
     }
 }

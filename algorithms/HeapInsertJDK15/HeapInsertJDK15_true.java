@@ -1,5 +1,3 @@
-package benchmarks;
-
 /**
  * Copyright (c) 2011, Regents of the University of California
  * All rights reserved.
@@ -51,7 +49,7 @@ import java.util.Random;
  * @author Jacob Burnim <jburnim@cs.berkeley.edu>
  * @author Koushik Sen <ksen@cs.berkeley.edu>
  */
-public class HeapInsertJDK15_false {
+public class HeapInsertJDK15_true {
 
     public static void main(String[] args) {
         final int N = Integer.parseInt(args[0]);
@@ -72,6 +70,6 @@ public class HeapInsertJDK15_false {
 
         Q.add(new SimpleObject(randomGenerator.nextInt(100)));//Concolic.input.Integer()));
         //Debug.printPC("after add");
-	assert(Q.isEmpty());
+	assert(!Q.isEmpty());
     }
 }
