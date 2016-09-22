@@ -306,7 +306,7 @@ def generateHtmlMinePump(stats):
     row = ""
     id = 0
     color = "active"
-    for bench, values in stats.iteritems():
+    for bench, values in sorted(stats.iteritems()):
         try:
             color = "danger" if values["result"] != values["expected"] else "success"
             row += template2 % (str(id), color, bench, values["result"], values["expected"],
