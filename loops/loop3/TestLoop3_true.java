@@ -1,4 +1,4 @@
-public class TestLoop3 {
+public class TestLoop3_true {
 		  // safe inductive invariant: y + i <= x + j
 		  public static void main(String[] args) {
 		      int x,y,i,j;

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class MenloPark {
+class MenloPark_true{
   public static void main(String args[]) {
     Random r = new Random();
     int x = r.nextInt();
@@ -14,6 +14,6 @@ class MenloPark {
       z = -z;
       counter--;
     }
-    assert (counter>=0);
+    assert (x >=0 && counter>=0) || x < 0);
   }
 }
