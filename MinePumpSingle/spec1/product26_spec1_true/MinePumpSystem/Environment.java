@@ -65,4 +65,9 @@ public  class  Environment {
  	boolean isLowWaterSensorDry() {		
  		return waterLevel == 0;
  	}
+
+ 	boolean isHighWaterSensorDry() {		
+ 		return waterLevel != 2;
+ 	}
+ 	
 }
