@@ -1,60 +1,64 @@
 package MinePumpSystem; 
 
-public   class  Environment {
+public  class  Environment {
+	
 	
 
-	public enum  WaterLevelEnum {
-		low ,  normal ,  high}
+	private int waterLevel = 1;
 
-	private WaterLevelEnum waterLevel = WaterLevelEnum.normal;
+	
 
 	private boolean methaneLevelCritical = false;
 
+	
+
 	void lowerWaterLevel() {
 		switch (waterLevel) {
-		case high:
-			waterLevel = WaterLevelEnum.normal;
+		case 2:
+			waterLevel = 1;
 			break;
-		case normal:
-			waterLevel = WaterLevelEnum.low;
+		case 1:
+			waterLevel = 0;
 			break;
 		}
 	}
+
 	
+
 	public void waterRise() {
 		switch (waterLevel) {
-		case low:
-			waterLevel = WaterLevelEnum.normal;
+		case 0:
+			waterLevel = 1;
 			break;
-		case normal:
-			waterLevel = WaterLevelEnum.high;
+		case 1:
+			waterLevel = 2;
 			break;
 		}
 	}
+
+	
 
 	public void changeMethaneLevel() {
 		methaneLevelCritical = !methaneLevelCritical;
 	}
 
+	
+
 	public boolean isMethaneLevelCritical() {
 		return methaneLevelCritical;
 	}
+
+	
 
 	@Override
 	public String toString() {
 		return "Env(Water:" + waterLevel + ",Meth:" + (methaneLevelCritical?"CRIT":"OK") + ")";
 	}
-	
-	public WaterLevelEnum getWaterLevel() {
-		return waterLevel;
-	}
-	
-	boolean isHighWaterSensorDry() {
-		return waterLevel != WaterLevelEnum.high;
-	}
 
-	boolean isLowWaterSensorDry() {
-		return waterLevel == WaterLevelEnum.low;
+	
+	
+	public int getWaterLevel() {
+		return waterLevel;
 	}
 
 
