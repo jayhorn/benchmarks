@@ -196,9 +196,13 @@ def inferAnalysis(infer_out):
         bench_ls = bench_ls.split("_")
         exp = bench_ls[len(bench_ls)-1]
         expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" in exp else "SAFE")
+        if expected == "UNKNOWN":
+            if bench.startswith("Sat"):
+                expected = "SAFE"
+            elif bench.startswith("Unsat"):
+                expected = "UNSAFE"
         bench_name = out.split("_infer_out")[0]
-        result = ""
-        logs = ""
+        result, logs = "", ""
         try:
             with open(out + os.sep + "bugs.txt", "r") as f:
                 issue = f.read()
@@ -268,6 +272,11 @@ def cpaAnalysis(cpa_out):
         bench_ls = bench.split("_")
         exp = bench_ls[len(bench_ls)-1]
         expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" in exp else "SAFE")
+        if expected == "UNKNOWN":
+            if bench.startswith("Sat"):
+                expected = "SAFE"
+            elif bench.startswith("Unsat"):
+                expected = "UNSAFE"
         st = dict()
         try:
             cpa_stats = (values["logs"]).split("Report.html")[0]
