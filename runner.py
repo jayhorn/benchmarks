@@ -26,9 +26,9 @@ INFER = "infer"
 
 CPA = "./cpachecker/scripts/cpa.sh"
 
-#JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
+JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
 
-JAYHORN = "./jayhorn.jar"
+#JAYHORN = "./jayhorn.jar"
 
 
 
@@ -126,7 +126,7 @@ def runBench(args):
     for d in dr:
         if args.infer and args.cpa:
             infer_stat = runInfer(args, d)
-            jayhorn_stat = runJayHorn(d)
+            jayhorn_stat = runJayHorn(d,args)
             cpa_stat = runCpa(args, d)
             stats.update({str(d):{"infer":infer_stat,
                                   "jayhorn":jayhorn_stat,
@@ -136,7 +136,7 @@ def runBench(args):
             cpa_stat = runCpa(args, d)
             stats.update({str(d):{"cpa":dir_stat}})
         else:
-            jayhorn_stat = runJayHorn(d)
+            jayhorn_stat = runJayHorn(d,args)
             stats.update({str(d):{"jayhorn":jayhorn_stat,
                                   "infer": {},
                                   "cpa": {}}})
@@ -148,7 +148,16 @@ def runBench(args):
 # Run Mine Pump with JayHorn
 ####
 
-def minePump(dr):
+def run_jayhorn(build_dir, args):
+    cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
+    if args.inline:
+        cmd_eldarica.extend(['-inline_size', '30', '-inline_count', '3'])
+
+    return run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd_eldarica, args.timeout)
+    
+
+
+def minePump(dr, args):
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
     stats = dict()
@@ -166,8 +175,7 @@ def minePump(dr):
         except Exception as e:
             print str(e)
         if cresult == 0:
-            cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "30", "-stats", "-j", build_dir] 
-            result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
+            result = run_jayhorn(build_dir, args)
             st = processResult(d, bench_name, result, 'jayhorn-eldarica')
             stats.update(st) 
 	else:
@@ -334,7 +342,7 @@ def runCpa(args, dr):
     return stats
 
 
-def runJayHorn(dr):
+def runJayHorn(dr, args):
     print "--- Running JayHorn --- "
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
@@ -357,8 +365,7 @@ def runJayHorn(dr):
             except Exception as e:
                 print e
             if cresult == 0:
-                cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "20", "-stats", "-j", build_dir] 
-                result = run_with_timeout('jayhorn-eldarica', cmd_eldarica, args.timeout)
+                result = run_jayhorn(build_dir, args)
                 st = processResult(prog, bench_name, result, 'jayhorn-eldarica')
                 stats.update(st)      
 	    else:
@@ -616,20 +623,25 @@ if __name__ == "__main__":
     parser.add_argument('-infer', '--infer', required=False, dest="infer", action="store_true")
     parser.add_argument('-cpa', '--cpa', required=False, dest="cpa", action="store_true")
     parser.add_argument ('--timeout', help='Timeout',
-                    type=float, default=20.0, dest="timeout")
+                    type=float, default=60.0, dest="timeout")
+
+    parser.add_argument('-mem', '--mem', required=False, dest="mem", help='Mem prec for JayHorn',
+                    type=int, default=3)
+    parser.add_argument('-inline', '--inline', required=False, dest="inline", action="store_true")
+
 
     args = parser.parse_args()
     try:
         if args.mp:
             if args.cpa:
-                jayhorn_stats = minePump(args.directory[0])
+                jayhorn_stats = minePump(args.directory[0], args)
                 cpa_stats = runCpa(args, args.directory[0])
                 infer_stats = runInfer(args, args.directory[0])
                 generateMinePumpHtml({"cpa":cpa_stats,
                                       "jayhorn":jayhorn_stats,
                                       "infer":infer_stats})
             else:
-                stats = minePump(args.directory[0])
+                stats = minePump(args.directory[0], args)
                 generateMinePumpHtml({"cpa":{},
                                       "jayhorn":stats,
                                       "infer":{}})
