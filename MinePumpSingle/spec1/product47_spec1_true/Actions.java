@@ -63,7 +63,8 @@ public  class  Actions {
 		System.out.println("b2 " + b2);
 	     
 			 if ( b1 && b2) {
-			     assert false;   				
+			     	String s = null;
+   			 	s.length();
 			 }		 			    
     }
 }

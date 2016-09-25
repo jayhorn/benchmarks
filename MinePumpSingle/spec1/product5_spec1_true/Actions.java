@@ -60,7 +60,8 @@ public  class  Actions {
 	        boolean b2 = p.isPumpRunning();
 	     
 			 if ( b1 && b2) {
-			     assert false;   				
+			     	String s = null;
+   			 	s.length();
 			 }		 			    
     }
 }

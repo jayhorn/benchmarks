@@ -61,7 +61,8 @@ public  class  Actions {
 
 		
 			 if ( b1 && b2) {
-			     assert false;   				
+			     	String s = null;
+   			 	s.length();
 			 }		 			    
     }
 }
