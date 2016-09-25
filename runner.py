@@ -26,9 +26,9 @@ INFER = "infer"
 
 CPA = "./cpachecker/scripts/cpa.sh"
 
-JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
+#JAYHORN = "./jayhorn/jayhorn/build/libs/jayhorn.jar"
 
-#JAYHORN = "./jayhorn.jar"
+JAYHORN = "./jayhorn.jar"
 
 
 
@@ -76,6 +76,11 @@ def processResult(d, bench, result, tool):
     bench_ls = bench.split("_")
     exp = bench_ls[len(bench_ls)-1]
     expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" in exp else "SAFE")
+    if expected == "UNKNOWN":
+        if bench.startwith("Sat"):
+            expected == "SAFE"
+        elif bench.startwith("Unsat"):
+            expected == "UNSAFE"
     stats = {"tool": tool, "result":"", "expected":expected,
              "time":"", "mem":"",
              "soot2cfg":"", "toHorn":"", "logs": ""}
@@ -117,6 +122,7 @@ def runBench(args):
     dr = args.directory
     stats = dict()
     infer_stat, jayhorn_stat = dict(), dict()
+    if debug: print "Running on " + str(dr) + "  ..."
     for d in dr:
         if args.infer and args.cpa:
             infer_stat = runInfer(args, d)
@@ -200,7 +206,7 @@ def inferAnalysis(infer_out):
         
 def runInfer(args, dr):
     print "--- Running Infer --- "
-    all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
+    all_dir = [os.path.join(dr, name) for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_build_dir = list()
     infer_out = "infer_out"
     if args.mp:
@@ -218,6 +224,7 @@ def runInfer(args, dr):
             except Exception as e:
                 print str(e)
     else:
+        print all_dir
         for d in sorted(all_dir):
             if debug: print "Benchmark:\t " + str(d)
             tmp = d.split("/")
@@ -355,7 +362,8 @@ def runJayHorn(dr):
 	    else:
 		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica')
                 stats.update(st)
-        if debug: print "---------------------"
+            shutil.rmtree(build_dir)
+        if debug: print "---------------------"     
     return stats
 
 head="""
