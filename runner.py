@@ -77,10 +77,10 @@ def processResult(d, bench, result, tool):
     exp = bench_ls[len(bench_ls)-1]
     expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" in exp else "SAFE")
     if expected == "UNKNOWN":
-        if bench.startwith("Sat"):
-            expected == "SAFE"
-        elif bench.startwith("Unsat"):
-            expected == "UNSAFE"
+        if bench.startswith("Sat"):
+            expected = "SAFE"
+        elif bench.startswith("Unsat"):
+            expected = "UNSAFE"
     stats = {"tool": tool, "result":"", "expected":expected,
              "time":"", "mem":"",
              "soot2cfg":"", "toHorn":"", "logs": ""}
@@ -137,7 +137,9 @@ def runBench(args):
             stats.update({str(d):{"cpa":dir_stat}})
         else:
             jayhorn_stat = runJayHorn(d)
-            stats.update({str(d):{"jayhorn":dir_stat}})
+            stats.update({str(d):{"jayhorn":jayhorn_stat,
+                                  "infer": {},
+                                  "cpa": {}}})
     if stats and args.html:
          generateHtml(stats)
          
@@ -362,7 +364,6 @@ def runJayHorn(dr):
 	    else:
 		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica')
                 stats.update(st)
-            shutil.rmtree(build_dir)
         if debug: print "---------------------"     
     return stats
 
