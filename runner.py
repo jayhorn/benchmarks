@@ -124,24 +124,15 @@ def runBench(args):
     infer_stat, jayhorn_stat = dict(), dict()
     if debug: print "Running on " + str(dr) + "  ..."
     for d in dr:
-        if args.infer and args.cpa:
-            infer_stat = runInfer(args, d)
-            jayhorn_stat = runJayHorn(d,args)
-            cpa_stat = runCpa(args, d)
-            stats.update({str(d):{"infer":infer_stat,
-                                  "jayhorn":jayhorn_stat,
-                                  "cpa": cpa_stat
-            }})
-        elif args.cpa:
-            cpa_stat = runCpa(args, d)
-            stats.update({str(d):{"cpa":dir_stat}})
-        else:
-            jayhorn_stat = runJayHorn(d,args)
-            stats.update({str(d):{"jayhorn":jayhorn_stat,
-                                  "infer": {},
-                                  "cpa": {}}})
+        infer_stat, cpa_stat = dict(), dict()
+        if args.infer: infer_stat = runInfer(args, d)
+        if args.cpa: cpa_stat = runCpa(args, d)
+        jayhorn_stat = runJayHorn(d,args)
+        stats.update({str(d):{"infer":infer_stat,
+                              "jayhorn":jayhorn_stat,
+                              "cpa": cpa_stat}})
     if stats and args.html:
-         generateHtml(stats)
+         generateHtml(args, stats)
          
 
 ####
@@ -542,7 +533,7 @@ def cpaHtml(stats):
     table = head_in + row
     return table
 
-def generateHtml(stats):
+def generateHtml(args, stats):
     row = ""
     id = 0
     color = "active"
@@ -570,7 +561,7 @@ def generateHtml(stats):
     with open("view_results/up.html") as h, open ("view_results/low.html") as l:
         header = h.read()
         footer = l.read()
-    out = "view_results/results.html" 
+    out = "view_results" + os.sep + args.html_name 
     with  open(out, 'w') as f:
         f.write(header)
         f.write(jayhorn_table)
@@ -628,6 +619,7 @@ if __name__ == "__main__":
     #parser.add_argument ('file', metavar='BENCHMARK', help='Benchmark file')
     parser.add_argument ('directory',  help='Benchmark dirs', nargs='*')
     parser.add_argument('-html', '--html', required=False, dest="html", action="store_true")
+    parser.add_argument('-html-fname', '--html-fname', required=False, dest="html_name", help = "html output name", default="results.html")
     parser.add_argument('-mp', '--mp', required=False, dest="mp", action="store_true")
     parser.add_argument('-infer', '--infer', required=False, dest="infer", action="store_true")
     parser.add_argument('-cpa', '--cpa', required=False, dest="cpa", action="store_true")
@@ -637,23 +629,16 @@ if __name__ == "__main__":
     parser.add_argument('-mem', '--mem', required=False, dest="mem", help='Mem prec for JayHorn',
                     type=int, default=3)
     parser.add_argument('-inline', '--inline', required=False, dest="inline", action="store_true")
-
-
     args = parser.parse_args()
     try:
         if args.mp:
-            if args.cpa:
-                jayhorn_stats = minePump(args.directory[0], args)
-                cpa_stats = runCpa(args, args.directory[0])
-                infer_stats = runInfer(args, args.directory[0])
-                generateMinePumpHtml({"cpa":cpa_stats,
-                                      "jayhorn":jayhorn_stats,
-                                      "infer":infer_stats})
-            else:
-                stats = minePump(args.directory[0], args)
-                generateMinePumpHtml({"cpa":{},
-                                      "jayhorn":stats,
-                                      "infer":{}})
+            infer_stats, cpa_stats = dict(), dict()
+            if args.cpa: cpa_stats = runCpa(args, args.directory[0])
+            if args.infer: infer_stats = runInfer(args, args.directory[0])
+            jayhorn_stats = minePump(args.directory[0], args)
+            generateMinePumpHtml({"cpa":cpa_stats,
+                                  "jayhorn":jayhorn_stats,
+                                  "infer":infer_stats})
         else:
             runBench(args)
         #main (args)
