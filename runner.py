@@ -569,6 +569,7 @@ def generateHtml(args, stats):
         f.write(cpa_table)
         f.write(footer)
 
+
 def generateMinePumpHtml(stats):
     row = ""
     id = 0
