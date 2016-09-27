@@ -59,9 +59,11 @@ public  class  Actions {
 		    boolean b1 = e.isMethaneLevelCritical();
 	        boolean b2 = p.isPumpRunning();
 
-		
+		System.out.println("b1 " + b1 + " b2 " + b2);
 			 if ( b1 && b2) {
-			     assert false;   				
+			     
+                               String s = null;
+   			 	s.length();
 			 }		 			    
     }
 }

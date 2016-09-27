@@ -5,7 +5,7 @@ import csv
 import os
 import glob
 import subprocess
-import stats
+import stats as bench_stats
 import pprint
 import threading
 from multiprocessing import Process, Pool
@@ -36,6 +36,7 @@ JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
 # UTILITIES
 ########
 
+def stat (key, val): bench_stats.put (key, val)
 
 def compile(prog, build_dir):
     if debug: print "Compiling ... " + prog
@@ -71,47 +72,50 @@ def run_with_timeout(tool, command, timeout):
                 raise
     return None
 
-def processResult(d, bench, result, tool):
-    if debug: print result
+def processResult(d, bench, raw_result, tool, total_time):
+    if debug: print raw_result
     bench_ls = bench.split("_")
     exp = bench_ls[len(bench_ls)-1]
     expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" in exp else "SAFE")
+    result = ""
     if expected == "UNKNOWN":
         if bench.startswith("Sat"):
             expected = "SAFE"
         elif bench.startswith("Unsat"):
             expected = "UNSAFE"
-    stats = {"tool": tool, "result":"", "expected":expected,
+    stats = {"tool": tool, "result":result, "expected":expected,
              "time":"", "mem":"",
-             "soot2cfg":"", "toHorn":"", "logs": ""}
+             "soot2cfg":"", "toHorn":"", "logs": "", "total-time":total_time}
     if result is None:
-        stats.update({"result":"TIMEOUT", "logs": "Timeout"})
+        result = "TIMEOUT"
+        stats.update({"result":result, "logs": "Timeout"})
         b = os.path.relpath(os.path.dirname(d))
         bench = str(b)+"/"+bench
         return {bench:stats}
     logs = ""
-    if "COMPILATION ERROR" in result:
+    if "COMPILATION ERROR" in raw_result:
         logs += "Compilation error<br>"
-        stats.update({"result": "COMPILATION ERROR"})
+        result = "COMPILATION ERROR"
+        stats.update({"result": result})
     else:
-        for r in result.splitlines():
+        for r in raw_result.splitlines():
             if "BRUNCH_STAT" not in r:
                 logs += r +"<br>"
-            if 'jayhorn' in tool:
-                if "BRUNCH_STAT" in r:
-                    goodLine = r.split()
-                    if 'Result' in goodLine:
-                        stats.update({"result": goodLine[2]})
-                    elif 'CheckSatTime' in goodLine :
-                        stats.update({"time": "".join(x for x in goodLine[2:])})
-                    elif 'SootToCFG' in goodLine :
-                        stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
-                    elif 'ToHorn' in goodLine :
-                        stats.update({"toHorn": "".join(x for x in goodLine[2:])})
+            elif "BRUNCH_STAT" in r:
+                goodLine = r.split()
+                if 'Result' in goodLine:
+                    result = goodLine[2]
+                    stats.update({"result": result})
+                elif 'CheckSatTime' in goodLine :
+                    stats.update({"time": "".join(x for x in goodLine[2:])})
+                elif 'SootToCFG' in goodLine :
+                    stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
+                elif 'ToHorn' in goodLine :
+                    stats.update({"toHorn": "".join(x for x in goodLine[2:])})
     b = os.path.relpath(os.path.dirname(d))
     bench = str(b)+"/"+bench
     stats.update({"logs":logs})
-    return {bench:stats} 
+    return {bench:stats}
 
 
 ####
@@ -131,6 +135,7 @@ def runBench(args):
         stats.update({str(d):{"infer":infer_stat,
                               "jayhorn":jayhorn_stat,
                               "cpa": cpa_stat}})
+    pprint.pprint(stats)
     if stats and args.html:
          generateHtml(args, stats)
          
@@ -143,8 +148,10 @@ def run_jayhorn(build_dir, args):
     cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
     if args.inline:
         cmd_eldarica.extend(['-inline_size', '30', '-inline_count', '3'])
-
-    return run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd_eldarica, args.timeout)
+    with bench_stats.timer('JayHorn-Time'):
+        result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd_eldarica, args.timeout)
+    total_time = bench_stats.get("JayHorn-Time")
+    return result, str(total_time)
     
 
 
@@ -166,11 +173,11 @@ def minePump(dr, args):
         except Exception as e:
             print str(e)
         if cresult == 0:
-            result = run_jayhorn(build_dir, args)
-            st = processResult(d, bench_name, result, 'jayhorn-eldarica')
+            result,total_time = run_jayhorn(build_dir, args)
+            st = processResult(d, bench_name, result, 'jayhorn-eldarica', total_time)
             stats.update(st) 
 	else:
-	    st = processResult(d, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica')
+	    st = processResult(d, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica', "")
             stats.update(st)
         if debug: print "---------------------"
     #pprint.pprint(stats)
@@ -250,7 +257,6 @@ def runInfer(args, dr):
                     print str(e)
                 if debug: print "---------------------"
     stats = inferAnalysis(all_build_dir)
-    pprint.pprint(stats)
     return stats
 
 ####
@@ -276,9 +282,17 @@ def cpaAnalysis(cpa_out):
                 for l in f.readlines():
                     if  "Total CPU time for CPAchecker" in l:
                         time = (l.split(":")[1]).rstrip()
-            st = {"result": values["result"], "expected":expected, "time":time, "logs": values["logs"]}
+            st = {"result": values["result"],
+                  "expected":expected,
+                  "time":time,
+                  "logs": values["logs"],
+                  "total-time":values["total-time"]}
         except Exception as e:
-            st = {"result": "UNKNOWN", "expected":expected, "time":"", "logs": str(e)}
+            st = {"result": "UNKNOWN",
+                  "expected":expected,
+                  "time":"",
+                  "logs": str(e),
+                  "total-time":values["total-time"]}
         stats.update({bench:st})
     return stats
 
@@ -299,7 +313,8 @@ def runCpa(args, dr):
             cmd = [CPA, "-valueAnalysis-java-with-RTT", "-cp", d, "-outputpath", outputpath, "Main"]
             result = ""
             try:
-                result = run_with_timeout('cpa', cmd, args.timeout)
+                with bench_stats.timer('Cpa-Time'):
+                    result = run_with_timeout('cpa', cmd, args.timeout)
                 res = ""
                 if result:
                     for line in result.split("\n"):
@@ -307,9 +322,13 @@ def runCpa(args, dr):
                             res = "UNSAFE" if "FALSE" in line else "SAFE"
                 else:
                     res = "UNKNOWN"
-                raw_results.update({d:{"result":res, "logs": (outputpath + os.sep + "Report.html")}})
+                raw_results.update({d:{"result":res,
+                                       "total-time": str(bench_stats.get('Cpa-Time')),
+                                       "logs": (outputpath + os.sep + "Report.html")}})
             except Exception as e:
-                raw_results.update({prog: {"result":"UNKNOWN", "logs": result}})
+                raw_results.update({prog: {"result":"UNKNOWN",
+                                           "total-time":"",
+                                           "logs": result}})
     else:
         for d in sorted(all_dir):
             if debug: print "Benchmark:\t " + str(d)
@@ -325,7 +344,8 @@ def runCpa(args, dr):
                 cmd = [CPA, "-valueAnalysis-java-with-RTT", "-cp", build_dir, "-outputpath",outputpath, bench_name]
                 result = ""
                 try:
-                    result = run_with_timeout('cpa', cmd, args.timeout)
+                    with bench_stats.timer('Cpa-Time'):
+                        result = run_with_timeout('cpa', cmd, args.timeout)
                     res = ""
                     if result:
                         for line in result.split("\n"):
@@ -333,12 +353,15 @@ def runCpa(args, dr):
                                 res = "UNSAFE" if "FALSE" in line else "SAFE"
                     else:
                          res = "UNKNOWN"
-                    raw_results.update({bench_name:{ "result":res, "logs":(outputpath + os.sep + "Report.html")}})
+                    raw_results.update({bench_name:{ "result":res,
+                                                     "total-time": str(bench_stats.get('Cpa-Time')),
+                                                     "logs":(outputpath + os.sep + "Report.html")}})
                 except Exception as e:
-                    raw_results.update({prog: {"result":"UNKNOWN", "logs": result}})
+                    raw_results.update({prog: {"result":"UNKNOWN",
+                                               "total-time":str(bench_stats.get('Cpa-Time')), 
+                                               "logs": result}})
                 
     stats = cpaAnalysis(raw_results)
-    pprint.pprint(stats)
     return stats
 
 
@@ -365,11 +388,11 @@ def runJayHorn(dr, args):
             except Exception as e:
                 print e
             if cresult == 0:
-                result = run_jayhorn(build_dir, args)
-                st = processResult(prog, bench_name, result, 'jayhorn-eldarica')
+                result, total_time = run_jayhorn(build_dir, args)
+                st = processResult(prog, bench_name, result, 'jayhorn-eldarica', total_time)
                 stats.update(st)      
 	    else:
-		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica')
+		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica', total_time)
                 stats.update(st)
         if debug: print "---------------------"     
     return stats
@@ -608,6 +631,39 @@ def generateMinePumpHtml(stats):
         shutil.move("cpachecker_out", "view_results")
     except Exception as e:
         print str(e)
+
+def scatterPlot(stats):
+    print "Making scatter Plot ... "
+    import numpy as np
+    import matplotlib.pyplot as plt, mpld3
+    import math
+    plottable = dict()
+    j, c = list(), list()
+    for (jk, jv), (ck,cv) in zip(stats["jayhorn"].items(), stats["cpa"].items()):
+        if jv["expected"] == jv["result"] == cv["result"]:
+            j.append((jv["time"].strip()).replace("s",""))
+            c.append((cv["time"].strip()).replace("s", ""))
+            plottable.update({jk:[jv["time"], cv["time"]]})
+    
+    print "\n\n======== PLOTTING ======="
+    fig = plt.figure()
+    
+    print c, j
+    #plt.gca().set_aspect('equal', adjustable='box')
+
+    p0_p1 = plt.subplot(111)
+    
+    p0_p1.scatter(j, c, s=80, c='red', marker=".", label='JayHorn vs CPAChecker', lw=2)
+    #p0_p1.set_yscale('log', basey=2)
+    #p0_p1.set_xscale('log', basex=2)
+    plt.xlim(0, 60)
+    plt.ylim(0, 60)
+    x=np.linspace(0,60, 61)
+    plt.plot(x,x,'k-')
+    plt.legend(loc='upper left');
+    plt.show()
+    
+    
         
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -624,6 +680,7 @@ if __name__ == "__main__":
     parser.add_argument('-mp', '--mp', required=False, dest="mp", action="store_true")
     parser.add_argument('-infer', '--infer', required=False, dest="infer", action="store_true")
     parser.add_argument('-cpa', '--cpa', required=False, dest="cpa", action="store_true")
+    parser.add_argument('-plot', '--plot', required=False, dest="plot", action="store_true")
     parser.add_argument ('--timeout', help='Timeout',
                     type=float, default=60.0, dest="timeout")
 
@@ -637,9 +694,13 @@ if __name__ == "__main__":
             if args.cpa: cpa_stats = runCpa(args, args.directory[0])
             if args.infer: infer_stats = runInfer(args, args.directory[0])
             jayhorn_stats = minePump(args.directory[0], args)
-            generateMinePumpHtml({"cpa":cpa_stats,
-                                  "jayhorn":jayhorn_stats,
-                                  "infer":infer_stats})
+            stats = {"cpa":cpa_stats,
+                     "jayhorn":jayhorn_stats,
+                     "infer":infer_stats}
+            if args.html: generateMinePumpHtml(stats)
+            if args.plot:
+                scatterPlot(stats)    
+                pprint.pprint(stats)
         else:
             runBench(args)
         #main (args)
