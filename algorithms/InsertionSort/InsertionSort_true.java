@@ -45,7 +45,7 @@ import java.util.Random;
  */
 public class InsertionSort_true {
 
-    public static void sort(int[] a) {
+    public static int sort(int[] a, int count) {
         final int N = a.length;
         for (int i = 1; i < N; i++) {  // N branches
             int j = i - 1;
@@ -56,34 +56,33 @@ public class InsertionSort_true {
                 a[j + 1] = a[j];
                 j--;
             }
+	    count += N;
             a[j + 1] = x;
         }
+	return count;
     }
 
     public static void main(String[] args) {
-	int N = 5;
-        try {
-		N = Integer.parseInt(args[0]);
+	try {
+        	Random randomGenerator = new Random();
+		//int N = randomGenerator.nextInt();
+		//if  (N<0 || N>2) return;
+		int N = 5;
+
+     	   	int a[] = new int[N];
+        	for (int i = 0; i < N; i++) {
+            		a[i] = N-i; //randomGenerator.nextInt();//Concolic.input.Integer();
+        	}
+
+        	int count = sort(a, 0);
+
+		// also fails...
+		//assert(true);
+
+		//assert (count <= N*2);
+		//assert(a.length<2 || a[0]<a[1]);
+		assert (a[0] <= a[1]);
 	} catch (Exception e) {
 	}
-	if  (N<0 || N>2) return;
-        Random randomGenerator = new Random();
-
-        int a[] = new int[N];
-        for (int i = 0; i < N; i++) {
-            a[i] = randomGenerator.nextInt(100);//Concolic.input.Integer();
-        }
-
-        // We only measure the complexity of the sort itself.  That
-        // is, we count branches only from this point forward in the
-        // execution.
-        //Concolic.ResetBranchCounting();
-        sort(a);
-
-	// also fails...
-	assert(true);
-
-	assert(a.length<2 || a[0]<a[1]);
-
     }
 }

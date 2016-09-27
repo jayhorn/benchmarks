@@ -44,9 +44,9 @@ import rbtree.RedBlackTreeNode;
  */
 public class RedBlackTreeSearch_true {
     public static void main(String[] args) {
-	if (args.length<1) return;
+	//if (args.length<1) return;
 	try {
-          int N = Integer.parseInt(args[0]);
+          /*int N = Integer.parseInt(args[0]);
           Random randomGenerator = new Random();
 
           RedBlackTree tree = new RedBlackTree();
@@ -60,7 +60,7 @@ public class RedBlackTreeSearch_true {
           RedBlackTreeNode node = tree.treeSearch(tree.root(), data);
 
 	  assert(node==null || node.isRed() || node.isBlack());
-
+*/
 	} catch (Exception e) { }
     }
 }

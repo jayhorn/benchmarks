@@ -14,6 +14,6 @@ class MenloPark_true{
       z = -z;
       counter--;
     }
-    assert (x >=0 && counter>=0) || x < 0);
+    assert ((x >=0 && counter>=0) || x < 0);
   }
 }

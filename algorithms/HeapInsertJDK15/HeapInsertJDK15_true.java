@@ -52,24 +52,18 @@ import java.util.Random;
 public class HeapInsertJDK15_true {
 
     public static void main(String[] args) {
-        final int N = Integer.parseInt(args[0]);
-        Random randomGenerator = new Random();
+	try {
+ 	       final int N = Integer.parseInt(args[0]);
+        	Random randomGenerator = new Random();
 
-        PriorityQueue<SimpleObject> Q = new PriorityQueue<SimpleObject>(N);
+ 	       PriorityQueue<SimpleObject> Q = new PriorityQueue<SimpleObject>(N);
 
-        for (int i = 1; i < N; i++) {
-            Q.addMask(new SimpleObject(randomGenerator.nextInt(100)));//Concolic.input.Integer()));
-            
-        }
+        	for (int i = 1; i < N; i++) {
+	            Q.add(new SimpleObject(randomGenerator.nextInt()));
+        	}
 
-        //Debug.printPC("before add");
-        // We only measure the complexity (i.e. path length) of the
-        // final insert operation.  That is, we count branches only
-        // from this point forward in the execution.
-       // Concolic.ResetBranchCounting();
-
-        Q.add(new SimpleObject(randomGenerator.nextInt(100)));//Concolic.input.Integer()));
-        //Debug.printPC("after add");
-	assert(!Q.isEmpty());
+	        Q.add(new SimpleObject(randomGenerator.nextInt()));
+		assert(Q.peek() instanceof SimpleObject);
+	} catch (Exception e) { }
     }
 }

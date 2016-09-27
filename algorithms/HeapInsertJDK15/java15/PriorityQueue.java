@@ -335,10 +335,6 @@ public class PriorityQueue<E> extends AbstractQueue<E>
         return offer(o);
     }
     
-    public boolean addMask(E o) {
-      return offer(o);
-  }
-
     /**
      * Removes a single instance of the specified element from this
      * queue, if it is present.

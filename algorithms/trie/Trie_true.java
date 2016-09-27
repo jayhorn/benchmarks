@@ -55,11 +55,11 @@ public class Trie_true {
 
 
     private Node root;      // root of trie
-    private int N;          // number of keys in trie
+    private int N = 0;          // number of keys in trie
 
     // R-way trie node
     private static class Node {
-        private int val;
+        private int val = -1;
         private Node[] next = new Node[R];
     }
 
@@ -224,8 +224,8 @@ public class Trie_true {
 
 
   public static void main(String[] args) {
-    if (args.length < 1) return;
     try {
+      if (args.length < 1) return;
       int N = Integer.parseInt(args[0]);
 
       Trie_true st = new Trie_true();
@@ -234,7 +234,7 @@ public class Trie_true {
       st.put(test,2);
       // st.putMask(Debug.makeSymbolicString("bla", N), 2);
       //}
-      st.get(test);
+      //st.get(test);
       assert(!st.isEmpty());
     } catch (Exception e) { }
   }
