@@ -1,4 +1,7 @@
 
+class A {
+	          int value = 0;
+}
 class SatAaload1
 {
   public static void main(String[] args)

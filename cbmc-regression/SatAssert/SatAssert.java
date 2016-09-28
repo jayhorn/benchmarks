@@ -6,7 +6,8 @@ class SatAssert
     int i=random.nextInt();    
     if(i>=1000)
       if(!(i>=1000))
-        throw new AssertionError("i>1000"); // is unreachable.
+	      assert i>1000;
+       // throw new AssertionError("i>1000"); // is unreachable.
   }
 }
 

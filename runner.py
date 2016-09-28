@@ -26,9 +26,9 @@ INFER = "infer"
 
 CPA = "./cpachecker/scripts/cpa.sh"
 
-JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
+#JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
 
-#JAYHORN = "./jayhorn.jar"
+JAYHORN = "./jayhorn.jar"
 
 
 
@@ -73,7 +73,11 @@ def run_with_timeout(tool, command, timeout):
     return None
 
 def processResult(d, bench, raw_result, tool, total_time):
-    if debug: print raw_result
+    if debug:
+        if raw_result is None:
+            print "TIMEOUT"
+        else:
+            print raw_result
     bench_ls = bench.split("_")
     exp = bench_ls[len(bench_ls)-1]
     expected = "UNKNOWN" if len(bench_ls)==1 else ("UNSAFE" if "false" in exp else "SAFE")
@@ -86,32 +90,33 @@ def processResult(d, bench, raw_result, tool, total_time):
     stats = {"tool": tool, "result":result, "expected":expected,
              "time":"", "mem":"",
              "soot2cfg":"", "toHorn":"", "logs": "", "total-time":total_time}
-    if result is None:
+    if raw_result is None:
         result = "TIMEOUT"
         stats.update({"result":result, "logs": "Timeout"})
         b = os.path.relpath(os.path.dirname(d))
         bench = str(b)+"/"+bench
         return {bench:stats}
-    logs = ""
-    if "COMPILATION ERROR" in raw_result:
-        logs += "Compilation error<br>"
-        result = "COMPILATION ERROR"
-        stats.update({"result": result})
     else:
-        for r in raw_result.splitlines():
-            if "BRUNCH_STAT" not in r:
-                logs += r +"<br>"
-            elif "BRUNCH_STAT" in r:
-                goodLine = r.split()
-                if 'Result' in goodLine:
-                    result = goodLine[2]
-                    stats.update({"result": result})
-                elif 'CheckSatTime' in goodLine :
-                    stats.update({"time": "".join(x for x in goodLine[2:])})
-                elif 'SootToCFG' in goodLine :
-                    stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
-                elif 'ToHorn' in goodLine :
-                    stats.update({"toHorn": "".join(x for x in goodLine[2:])})
+        logs = ""
+        if "COMPILATION ERROR" in raw_result:
+            logs += "Compilation error<br>"
+            result = "COMPILATION ERROR"
+            stats.update({"result": result})
+        else:
+            for r in raw_result.splitlines():
+                if "BRUNCH_STAT" not in r:
+                    logs += r +"<br>"
+                elif "BRUNCH_STAT" in r:
+                    goodLine = r.split()
+                    if 'Result' in goodLine:
+                        result = goodLine[2]
+                        stats.update({"result": result})
+                    elif 'CheckSatTime' in goodLine :
+                        stats.update({"time": "".join(x for x in goodLine[2:])})
+                    elif 'SootToCFG' in goodLine :
+                        stats.update({"soot2cfg": "".join(x for x in goodLine[2:])})
+                    elif 'ToHorn' in goodLine :
+                        stats.update({"toHorn": "".join(x for x in goodLine[2:])})
     b = os.path.relpath(os.path.dirname(d))
     bench = str(b)+"/"+bench
     stats.update({"logs":logs})
