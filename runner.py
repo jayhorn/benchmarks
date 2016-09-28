@@ -156,8 +156,9 @@ def run_jayhorn(build_dir, args):
     cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
     if args.inline:
         cmd_eldarica.extend(['-inline_size', '30', '-inline_count', '3'])
-    with bench_stats.timer('JayHorn-Time'):
-        result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd_eldarica, args.timeout)
+    bench_stats.start('JayHorn-Time')
+    result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd_eldarica, args.timeout)
+    bench_stats.stop('JayHorn-Time')
     total_time = bench_stats.get("JayHorn-Time")
     return result, str(total_time)
     
@@ -321,8 +322,10 @@ def runCpa(args, dr):
             cmd = [CPA, "-valueAnalysis-java-with-RTT", "-cp", d, "-outputpath", outputpath, "Main"]
             result = ""
             try:
-                with bench_stats.timer('Cpa-Time'):
-                    result = run_with_timeout('cpa', cmd, args.timeout)
+                bench_stats.start('Cpa-Time')
+                result = run_with_timeout('cpa', cmd, args.timeout)
+                bench_stats.stop('Cpa-Time')
+                bench_stats.brunch_print()
                 res = ""
                 if result:
                     for line in result.split("\n"):
@@ -352,8 +355,9 @@ def runCpa(args, dr):
                 cmd = [CPA, "-valueAnalysis-java-with-RTT", "-cp", build_dir, "-outputpath",outputpath, bench_name]
                 result = ""
                 try:
-                    with bench_stats.timer('Cpa-Time'):
-                        result = run_with_timeout('cpa', cmd, args.timeout)
+                    bench_stats.start('Cpa-Time')
+                    result = run_with_timeout('cpa', cmd, args.timeout)
+                    bench_stats.stop('Cpa-Time')
                     res = ""
                     if result:
                         for line in result.split("\n"):
@@ -647,10 +651,13 @@ def scatterPlot(stats):
     import math
     plottable = dict()
     j, c = list(), list()
+    j_total, c_total = list(), list()
     for (jk, jv), (ck,cv) in zip(stats["jayhorn"].items(), stats["cpa"].items()):
         if jv["expected"] == jv["result"] == cv["result"]:
             j.append((jv["time"].strip()).replace("s",""))
             c.append((cv["time"].strip()).replace("s", ""))
+            j_total.append((jv["total-time"].strip()).replace("s",""))
+            c_total.append((cv["total-time"].strip()).replace("s", ""))
             plottable.update({jk:[jv["time"], cv["time"]]})
     
     print "\n\n======== PLOTTING ======="
@@ -659,11 +666,19 @@ def scatterPlot(stats):
     print c, j
     #plt.gca().set_aspect('equal', adjustable='box')
 
-    p0_p1 = plt.subplot(111)
+    p0 = plt.subplot(211)
     
-    p0_p1.scatter(j, c, s=80, c='red', marker=".", label='JayHorn vs CPAChecker', lw=2)
+    p0.scatter(j, c, s=80, c='red', marker=".", label='JayHorn vs CPAChecker -- Analsysis Time', lw=2)
     #p0_p1.set_yscale('log', basey=2)
     #p0_p1.set_xscale('log', basex=2)
+    plt.xlim(0, 60)
+    plt.ylim(0, 60)
+    x=np.linspace(0,60, 61)
+    plt.plot(x,x,'k-')
+    plt.legend(loc='upper left');
+
+    p1 = plt.subplot(212)
+    p1.scatter(j_total, c_total, s=80, c='red', marker=".", label='JayHorn vs CPAChecker -- Total Time', lw=2)
     plt.xlim(0, 60)
     plt.ylim(0, 60)
     x=np.linspace(0,60, 61)
@@ -672,8 +687,9 @@ def scatterPlot(stats):
     plt.show()
 
     
-def save_obj(obj, name ):
     
+def save_obj(obj, name ):
+    print "Saving stats ..... "
     with open(name, 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
         
@@ -701,8 +717,7 @@ if __name__ == "__main__":
     parser.add_argument('-plot', '--plot', required=False, dest="plot", action="store_true")
     parser.add_argument('-save', '--save', required=False, dest="save", action="store_true")
     parser.add_argument('-load', '--load', required=False, dest="load", action="store_true")
-    parser.add_argument ('--timeout', help='Timeout',
-                    type=float, default=60.0, dest="timeout")
+    parser.add_argument ('--timeout', help='Timeout', type=float, default=60.0, dest="timeout")
 
     parser.add_argument('-mem', '--mem', required=False, dest="mem", help='Mem prec for JayHorn',
                     type=int, default=3)
@@ -720,14 +735,14 @@ if __name__ == "__main__":
             stats = {"cpa":cpa_stats,
                      "jayhorn":jayhorn_stats,
                      "infer":infer_stats}
-            if args.html: generateMinePumpHtml(stats)
-            if args.plot:
-                scatterPlot(stats)
-                save_obj(stats, args.save_name)
-            if args.save:
-                save_obj(stats, args.save_name)
+            if args.html: generateMinePumpHtml(stats)  
         else:
             runBench(args)
+        if args.plot:
+                scatterPlot(stats)
+                save_obj(stats, args.save_name)
+        if args.save:
+                save_obj(stats, args.save_name)
         #main (args)
     except Exception as e:
         print str(e)
