@@ -11,6 +11,7 @@ import threading
 from multiprocessing import Process, Pool
 import multiprocessing
 import shutil
+import pickle
 
 debug = True
 
@@ -89,7 +90,9 @@ def processResult(d, bench, raw_result, tool, total_time):
             expected = "UNSAFE"
     stats = {"tool": tool, "result":result, "expected":expected,
              "time":"", "mem":"",
-             "soot2cfg":"", "toHorn":"", "logs": "", "total-time":total_time}
+             "soot2cfg":"", "toHorn":"",
+             "logs": "",
+             "total-time":total_time}
     if raw_result is None:
         result = "TIMEOUT"
         stats.update({"result":result, "logs": "Timeout"})
@@ -104,9 +107,9 @@ def processResult(d, bench, raw_result, tool, total_time):
             stats.update({"result": result})
         else:
             for r in raw_result.splitlines():
-                if "BRUNCH_STAT" not in r:
-                    logs += r +"<br>"
-                elif "BRUNCH_STAT" in r:
+                #if "BRUNCH_STAT" not in r:
+                 #   logs += r +"<br>"
+                if "BRUNCH_STAT" in r:
                     goodLine = r.split()
                     if 'Result' in goodLine:
                         result = goodLine[2]
@@ -119,7 +122,7 @@ def processResult(d, bench, raw_result, tool, total_time):
                         stats.update({"toHorn": "".join(x for x in goodLine[2:])})
     b = os.path.relpath(os.path.dirname(d))
     bench = str(b)+"/"+bench
-    stats.update({"logs":logs})
+    #stats.update({"logs":logs})
     return {bench:stats}
 
 
@@ -667,9 +670,17 @@ def scatterPlot(stats):
     plt.plot(x,x,'k-')
     plt.legend(loc='upper left');
     plt.show()
+
     
+def save_obj(obj, name ):
     
+    with open(name, 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
         
+def load_obj(name ):
+    with open(name, 'rb') as f:
+        return pickle.load(f)
+    
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog='JAYHORN Bench Analysis Utils',
@@ -682,10 +693,14 @@ if __name__ == "__main__":
     parser.add_argument ('directory',  help='Benchmark dirs', nargs='*')
     parser.add_argument('-html', '--html', required=False, dest="html", action="store_true")
     parser.add_argument('-html-fname', '--html-fname', required=False, dest="html_name", help = "html output name", default="results.html")
+    parser.add_argument('-save-fname', '--save-fname', required=False, dest="save_name", help = "save output name", default="results.pkl")
+    parser.add_argument('-load-stats', '--load-stats', required=False, dest="stats", help = "load stats", default="results.pkl")
     parser.add_argument('-mp', '--mp', required=False, dest="mp", action="store_true")
     parser.add_argument('-infer', '--infer', required=False, dest="infer", action="store_true")
     parser.add_argument('-cpa', '--cpa', required=False, dest="cpa", action="store_true")
     parser.add_argument('-plot', '--plot', required=False, dest="plot", action="store_true")
+    parser.add_argument('-save', '--save', required=False, dest="save", action="store_true")
+    parser.add_argument('-load', '--load', required=False, dest="load", action="store_true")
     parser.add_argument ('--timeout', help='Timeout',
                     type=float, default=60.0, dest="timeout")
 
@@ -694,6 +709,9 @@ if __name__ == "__main__":
     parser.add_argument('-inline', '--inline', required=False, dest="inline", action="store_true")
     args = parser.parse_args()
     try:
+        if args.load:
+            stats = load_obj(args.stats)
+            pprint.pprint(stats)
         if args.mp:
             infer_stats, cpa_stats = dict(), dict()
             if args.cpa: cpa_stats = runCpa(args, args.directory[0])
@@ -704,8 +722,10 @@ if __name__ == "__main__":
                      "infer":infer_stats}
             if args.html: generateMinePumpHtml(stats)
             if args.plot:
-                scatterPlot(stats)    
-                pprint.pprint(stats)
+                scatterPlot(stats)
+                save_obj(stats, args.save_name)
+            if args.save:
+                save_obj(stats, args.save_name)
         else:
             runBench(args)
         #main (args)
