@@ -143,6 +143,11 @@ def runBench(args):
         stats.update({str(d):{"infer":infer_stat,
                               "jayhorn":jayhorn_stat,
                               "cpa": cpa_stat}})
+    if args.plot:
+        scatterPlot(stats)
+        save_obj(stats, args.save_name)
+    if args.save:
+        save_obj(stats, args.save_name)
     pprint.pprint(stats)
     if stats and args.html:
          generateHtml(args, stats)
@@ -738,11 +743,6 @@ if __name__ == "__main__":
             if args.html: generateMinePumpHtml(stats)  
         else:
             runBench(args)
-        if args.plot:
-                scatterPlot(stats)
-                save_obj(stats, args.save_name)
-        if args.save:
-                save_obj(stats, args.save_name)
         #main (args)
     except Exception as e:
         print str(e)
