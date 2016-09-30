@@ -25,7 +25,8 @@ CBMC = "./cbmc/src/cbmc"
 
 INFER = "infer"
 
-CPA = "./cpachecker/scripts/cpa.sh"
+#CPA = "./cpachecker/scripts/cpa.sh"
+CPA = "../../cpachecker/cpachecker/scripts/cpa.sh"
 
 #JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
 
@@ -61,7 +62,9 @@ def run_with_timeout(tool, command, timeout):
 
     while timeout > 0:
         if p.poll() is not None:
-            result, _ = p.communicate()
+            result, result2 = p.communicate()
+	    print result
+	    print result2
             return result
         time.sleep(0.1)
         timeout -= 0.1
