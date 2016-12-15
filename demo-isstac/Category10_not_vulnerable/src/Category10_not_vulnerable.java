@@ -2,28 +2,57 @@ import java.util.Random;
 
 class Category10_not_vulnerable {
 
-	static int queueSize = 0;
-
 	public static void main(String args[]) {
-		//int queueSize = 0;
-		int maxQueueSize = 10;
 		Random r = new Random();
+
+		int queueSize = 0;
+		int maxQueueSize = 10;
+
+		Queue q = new Queue(maxQueueSize);
 
 		while (true) {
 			if (r.nextBoolean()) {
 				// server
-				if (queueSize < maxQueueSize) {
-					queueSize++;
+				if (q.size() < maxQueueSize) {
+					q.offer(null);
 				}
 			} else {
 				// processRequest
-				if (queueSize>0) {
-					queueSize--;
+				if (q.size() > 0) {
+					q.poll();
 				}
 			}
-			assert (queueSize <= maxQueueSize);
+			assert (q.size() >= 0);
+			assert (q.size() <= maxQueueSize);
 
 			if (r.nextBoolean()) return;
 		}
 	}
 }
+
+class Queue {
+	private int size = 0;
+	private int maxQueueSize;
+	
+	public Queue(int maxSize) {
+		this.maxQueueSize = maxSize;
+	}
+
+	public void offer(Cat10Request e) {
+		if (size < maxQueueSize)
+			size++;
+	}
+
+	public Cat10Request poll() {
+		if (size > 0)
+			size--;
+		return null;
+	}
+
+	public int size() {
+		return size;
+	}
+}
+
+
+class Cat10Request {}
