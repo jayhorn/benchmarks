@@ -178,7 +178,8 @@ public class CannyEdgeDetect
     }
     
     public static BufferedImage detect(final BufferedImage image, final int min, final int thresh) {
-        final BufferedImage blurred = Convolve.convolve(image, Convolve.Gausian5x5);
+        try {
+        final BufferedImage blurred = Convolve.convolve(image, /*Convolve.Gausian5x5*/null);
         final BufferedImage grey = ConvertImage.otherGray(blurred);
         final BufferedImage sobelH = getSobelH(grey);
         final BufferedImage sobelV = getSobelV(grey);
@@ -186,7 +187,10 @@ public class CannyEdgeDetect
         final BufferedImage grad = getGradient(sobelH, sobelV);
         final BufferedImage nms = nonMaxSupression(angle, grad);
         final BufferedImage output = hysteresisThresholding(nms, min, thresh);
-        return output;
+        return output; 
+	} catch (Exception e) {
+	return null;
+        }
     }
 
     public static void main (String args[]) {

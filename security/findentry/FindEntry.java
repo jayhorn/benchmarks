@@ -28,6 +28,6 @@ public class FindEntry {
 			if (rand.nextBoolean()) 
 				return; //false
 		}
-		assert (count <= n*KEY_SIZE+1);
+		assert (count <= n*KEY_SIZE + 1);
 	}
 }

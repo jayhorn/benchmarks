@@ -28,9 +28,9 @@ INFER = "infer"
 #CPA = "./cpachecker/scripts/cpa.sh"
 CPA = "../../cpachecker/cpachecker/scripts/cpa.sh"
 
-#JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
+JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
 
-JAYHORN = "./jayhorn.jar"
+#JAYHORN = "./jayhorn.jar"
 
 
 

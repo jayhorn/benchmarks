@@ -41,7 +41,7 @@ public class BufferedImage //extends java.awt.Image
         this.width = width;
         this.height = height;
         this.pixels = new int[width][height];
-        this.id = nextID++;
+        //this.id = nextID++;
         
         // symbolic pixels
 //        Random rand = new Random();
