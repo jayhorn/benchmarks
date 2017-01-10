@@ -22,7 +22,7 @@ class Category10_not_vulnerable {
 					q.poll();
 				}
 			}
-			assert (q.size() >= 0);
+			//assert (q.size() >= 0);
 			assert (q.size() <= maxQueueSize);
 
 			if (r.nextBoolean()) return;

@@ -120,12 +120,14 @@ public class BinaryTreeSearch_true {
         if (args.length < 1)
           return;
 
+	try {
         final int N = Integer.parseInt(args[0]);
         Random randomGenerator = new Random();
         BinaryTree b = new BinaryTree();
         for (int i = 1; i < N; i++) {
-            //b.insert(Debug.makeSymbolicInteger("in"+i));//Concolic.input.Integer());
-        	b.insert(randomGenerator.nextInt(100));
+		int n = randomGenerator.nextInt();
+		if (n>=0)
+        		b.insert(n);
         }
 
         // We only measure the complexity (i.e. path length) of the
@@ -135,6 +137,8 @@ public class BinaryTreeSearch_true {
 
         b.search(randomGenerator.nextInt(100));//Concolic.input.Integer());
 
-      //  assert(!b.search(-1));
+        //assert(!b.search(-1));
+	} catch (Exception e) {
+        }
     }
 }
