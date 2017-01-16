@@ -114,7 +114,7 @@ def processResult(d, bench, raw_result, tool, total_time):
                  #   logs += r +"<br>"
                 if "BRUNCH_STAT" in r:
                     goodLine = r.split()
-                    if 'Result' in goodLine:
+                    if 'FinalResult' in goodLine:
                         result = goodLine[2]
                         stats.update({"result": result})
                     elif 'CheckSatTime' in goodLine :
@@ -156,22 +156,24 @@ def runBench(args):
          generateHtml(args, stats)
 
 
-####
-# Run Mine Pump with JayHorn
-####
 
-def run_jayhorn(build_dir, args):
-    cmd_eldarica = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
+def jayhorn(build_dir, args):
+    cmd = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
     if args.inline:
-        cmd_eldarica.extend(['-inline_size', '30', '-inline_count', '3'])
+        cmd.extend(['-inline_size', '30', '-inline_count', '3'])
+    if args.spacer:
+        cmd.extend(['-solver', 'spacer'])
     bench_stats.start('JayHorn-Time')
-    result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd_eldarica, args.timeout)
+    result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd, args.timeout)
     bench_stats.stop('JayHorn-Time')
     total_time = bench_stats.get("JayHorn-Time")
     return result, str(total_time)
 
 
 
+####
+# Run Mine Pump with JayHorn
+####
 def minePump(dr, args):
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
@@ -386,7 +388,8 @@ def runCpa(args, dr):
 
 
 def runJayHorn(dr, args):
-    print "--- Running JayHorn --- "
+    backend = "Eladrica" if not args.spacer else "Spacer"
+    print "--- Running JayHorn with " + backend + " --- "
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
     stats = dict()
@@ -408,8 +411,9 @@ def runJayHorn(dr, args):
             except Exception as e:
                 print e
             if cresult == 0:
-                result, total_time = run_jayhorn(build_dir, args)
-                st = processResult(prog, bench_name, result, 'jayhorn-eldarica', total_time)
+                result, total_time = jayhorn(build_dir, args)
+                backend = "JayHorn-Eladrica" if not args.spacer else "JayHorn-Spacer"
+                st = processResult(prog, bench_name, result, backend, total_time)
                 stats.update(st)
 	    else:
 		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica', total_time)
@@ -722,6 +726,7 @@ if __name__ == "__main__":
     parser.add_argument('-mp', '--mp', required=False, dest="mp", action="store_true", help = "Run Mine Pump benchmark")
     parser.add_argument('-infer', '--infer', required=False, dest="infer", action="store_true")
     parser.add_argument('-cpa', '--cpa', required=False, dest="cpa", action="store_true")
+    parser.add_argument('-spacer', '--spacer', required=False, dest="spacer", action="store_true")
     parser.add_argument('-plot', '--plot', required=False, dest="plot", action="store_true")
     parser.add_argument('-save', '--save', required=False, dest="save", action="store_true")
     parser.add_argument('-load', '--load', required=False, dest="load", action="store_true", help = "Load pickled output and pretty print the stats")
