@@ -26,7 +26,7 @@ CBMC = "./cbmc/src/cbmc"
 INFER = "infer"
 
 #CPA = "./cpachecker/scripts/cpa.sh"
-CPA = "../../cpachecker/cpachecker/scripts/cpa.sh"
+CPA = "./cpachecker/scripts/cpa.sh"
 
 JAYHORN = "../jayhorn/jayhorn/build/libs/jayhorn.jar"
 
@@ -154,7 +154,7 @@ def runBench(args):
     pprint.pprint(stats)
     if stats and args.html:
          generateHtml(args, stats)
-         
+
 
 ####
 # Run Mine Pump with JayHorn
@@ -169,7 +169,7 @@ def run_jayhorn(build_dir, args):
     bench_stats.stop('JayHorn-Time')
     total_time = bench_stats.get("JayHorn-Time")
     return result, str(total_time)
-    
+
 
 
 def minePump(dr, args):
@@ -192,7 +192,7 @@ def minePump(dr, args):
         if cresult == 0:
             result,total_time = run_jayhorn(build_dir, args)
             st = processResult(d, bench_name, result, 'jayhorn-eldarica', total_time)
-            stats.update(st) 
+            stats.update(st)
 	else:
 	    st = processResult(d, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica', "")
             stats.update(st)
@@ -232,7 +232,7 @@ def inferAnalysis(infer_out):
             st = {"result": "ERROR", "expected":expected, "logs": str(e)}
         stats.update({bench_name:dict(st.items() + stat_times.items())})
     return stats
-        
+
 def runInfer(args, dr):
     print "--- Running Infer --- "
     all_dir = [os.path.join(dr, name) for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
@@ -378,9 +378,9 @@ def runCpa(args, dr):
                                                      "logs":(outputpath + os.sep + "Report.html")}})
                 except Exception as e:
                     raw_results.update({prog: {"result":"UNKNOWN",
-                                               "total-time":str(bench_stats.get('Cpa-Time')), 
+                                               "total-time":str(bench_stats.get('Cpa-Time')),
                                                "logs": result}})
-                
+
     stats = cpaAnalysis(raw_results)
     return stats
 
@@ -410,11 +410,11 @@ def runJayHorn(dr, args):
             if cresult == 0:
                 result, total_time = run_jayhorn(build_dir, args)
                 st = processResult(prog, bench_name, result, 'jayhorn-eldarica', total_time)
-                stats.update(st)      
+                stats.update(st)
 	    else:
 		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica', total_time)
                 stats.update(st)
-        if debug: print "---------------------"     
+        if debug: print "---------------------"
     return stats
 
 head="""
@@ -586,12 +586,12 @@ def generateHtml(args, stats):
             jayhorn_table += jayHornHtml(v['jayhorn'])
         except Exception as e:
             print str(e)
-            
+
         try:
             infer_table += inferHtml(v['infer'])
         except Exception as e:
             print str(e)
-            
+
         try:
             cpa_table += cpaHtml(v['cpa'])
         except Exception as e:
@@ -600,11 +600,11 @@ def generateHtml(args, stats):
     jayhorn_table = jayhorn_table + foot_table
     infer_table = infer_table + foot_table
     cpa_table = cpa_table + foot_table
-    header, footer = "", "" 
+    header, footer = "", ""
     with open("view_results/up.html") as h, open ("view_results/low.html") as l:
         header = h.read()
         footer = l.read()
-    out = "view_results" + os.sep + args.html_name 
+    out = "view_results" + os.sep + args.html_name
     with  open(out, 'w') as f:
         f.write(header)
         f.write(jayhorn_table)
@@ -618,16 +618,16 @@ def generateMinePumpHtml(stats):
     id = 0
     color = "active"
     jayhorn_table, infer_table, cpa_table = "", "", ""
-    
+
     try:
         jayhorn_table += jayHornHtml(stats['jayhorn'])
     except Exception as e:
         print str(e)
-            
+
     try:
         infer_table += inferHtml(stats['infer'])
     except Exception as e:
-        print str(e)    
+        print str(e)
     try:
         cpa_table += cpaHtml(stats['cpa'])
     except Exception as e:
@@ -636,11 +636,11 @@ def generateMinePumpHtml(stats):
     jayhorn_table = jayhorn_table + foot_table
     infer_table = infer_table + foot_table
     cpa_table = cpa_table + foot_table
-    header, footer = "", "" 
+    header, footer = "", ""
     with open("view_results/up.html") as h, open ("view_results/low.html") as l:
         header = h.read()
         footer = l.read()
-    out = "view_results/minepump.html" 
+    out = "view_results/minepump.html"
     with  open(out, 'w') as f:
         f.write(header)
         f.write(jayhorn_table)
@@ -667,15 +667,15 @@ def scatterPlot(stats):
             j_total.append((jv["total-time"].strip()).replace("s",""))
             c_total.append((cv["total-time"].strip()).replace("s", ""))
             plottable.update({jk:[jv["time"], cv["time"]]})
-    
+
     print "\n\n======== PLOTTING ======="
     fig = plt.figure()
-    
+
     print c, j
     #plt.gca().set_aspect('equal', adjustable='box')
 
     p0 = plt.subplot(211)
-    
+
     p0.scatter(j, c, s=80, c='red', marker=".", label='JayHorn vs CPAChecker -- Analsysis Time', lw=2)
     #p0_p1.set_yscale('log', basey=2)
     #p0_p1.set_xscale('log', basex=2)
@@ -694,17 +694,17 @@ def scatterPlot(stats):
     plt.legend(loc='upper left');
     plt.show()
 
-    
-    
+
+
 def save_obj(obj, name ):
     print "Saving stats ..... "
     with open(name, 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
-        
+
 def load_obj(name ):
     with open(name, 'rb') as f:
         return pickle.load(f)
-    
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog='JAYHORN Bench Analysis Utils',
@@ -719,12 +719,12 @@ if __name__ == "__main__":
     parser.add_argument('-html-fname', '--html-fname', required=False, dest="html_name", help = "html output name", default="results.html")
     parser.add_argument('-save-fname', '--save-fname', required=False, dest="save_name", help = "save output name", default="results.pkl")
     parser.add_argument('-load-stats', '--load-stats', required=False, dest="stats", help = "load stats", default="results.pkl")
-    parser.add_argument('-mp', '--mp', required=False, dest="mp", action="store_true")
+    parser.add_argument('-mp', '--mp', required=False, dest="mp", action="store_true", help = "Run Mine Pump benchmark")
     parser.add_argument('-infer', '--infer', required=False, dest="infer", action="store_true")
     parser.add_argument('-cpa', '--cpa', required=False, dest="cpa", action="store_true")
     parser.add_argument('-plot', '--plot', required=False, dest="plot", action="store_true")
     parser.add_argument('-save', '--save', required=False, dest="save", action="store_true")
-    parser.add_argument('-load', '--load', required=False, dest="load", action="store_true")
+    parser.add_argument('-load', '--load', required=False, dest="load", action="store_true", help = "Load pickled output and pretty print the stats")
     parser.add_argument ('--timeout', help='Timeout', type=float, default=60.0, dest="timeout")
 
     parser.add_argument('-mem', '--mem', required=False, dest="mem", help='Mem prec for JayHorn',
@@ -743,10 +743,8 @@ if __name__ == "__main__":
             stats = {"cpa":cpa_stats,
                      "jayhorn":jayhorn_stats,
                      "infer":infer_stats}
-            if args.html: generateMinePumpHtml(stats)  
+            if args.html: generateMinePumpHtml(stats)
         else:
             runBench(args)
-        #main (args)
     except Exception as e:
         print str(e)
-
