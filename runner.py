@@ -142,9 +142,10 @@ def runBench(args):
         infer_stat, cpa_stat = dict(), dict()
         if args.infer: infer_stat = runInfer(args, d)
         if args.cpa: cpa_stat = runCpa(args, d)
-        jayhorn_stat = runJayHorn(d,args)
+        eldarica_result, spacer_result = runJayHorn(d,args)
         stats.update({str(d):{"infer":infer_stat,
-                              "jayhorn":jayhorn_stat,
+                              "jayhorn-eldarica":eldarica_result,
+                              "jayhorn-spacer": spacer_result,
                               "cpa": cpa_stat}})
     if args.plot:
         scatterPlot(stats)
@@ -161,13 +162,16 @@ def jayhorn(build_dir, args):
     cmd = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
     if args.inline:
         cmd.extend(['-inline_size', '30', '-inline_count', '3'])
-    if args.spacer:
-        cmd.extend(['-solver', 'spacer'])
-    bench_stats.start('JayHorn-Time')
-    result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd, args.timeout)
-    bench_stats.stop('JayHorn-Time')
-    total_time = bench_stats.get("JayHorn-Time")
-    return result, str(total_time)
+    cmd_spacer = cmd #.extend(['-solver', 'spacer'])
+    bench_stats.start('JayHorn-Eldarica-Time')
+    eldarica_result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd, args.timeout)
+    bench_stats.stop('JayHorn-Eldarica-Time')
+    bench_stats.start('JayHorn-Spacer-Time')
+    spacer_result = run_with_timeout("jayhorn-spacer_{}_{}".format(args.mem, args.inline), cmd_spacer, args.timeout)
+    bench_stats.stop('JayHorn-Spacer-Time')
+    eldarica_time = bench_stats.get("JayHorn-Eldarica-Time")
+    spacer_time = bench_stats.get("JayHorn-Spacer-Time")
+    return eldarica_result, spacer_result, str(eldarica_time), str(spacer_time)
 
 
 
@@ -388,11 +392,10 @@ def runCpa(args, dr):
 
 
 def runJayHorn(dr, args):
-    backend = "Eladrica" if not args.spacer else "Spacer"
-    print "--- Running JayHorn with " + backend + " --- "
+    print "--- Running JayHorn with  --- "
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
-    stats = dict()
+    eldarica_stats, spacer_stats = dict(), dict()
     for d in sorted(all_dir):
         if debug: print "Benchmark:\t " + str(d)
         tmp = d.split("/")
@@ -411,15 +414,18 @@ def runJayHorn(dr, args):
             except Exception as e:
                 print e
             if cresult == 0:
-                result, total_time = jayhorn(build_dir, args)
-                backend = "JayHorn-Eladrica" if not args.spacer else "JayHorn-Spacer"
-                st = processResult(prog, bench_name, result, backend, total_time)
-                stats.update(st)
+                eldarica_result, spacer_result, eldarica_time, spacer_time = jayhorn(build_dir, args)
+                eldarica_st = processResult(prog, bench_name, eldarica_result, "Eldarica", eldarica_time)
+                spacer_st = processResult(prog, bench_name, spacer_result, "Spacer", spacer_time)
+                eldarica_stats.update(eldarica_st)
+                spacer_stats.update(spacer_st)
+
 	    else:
-		st = processResult(prog, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica', total_time)
-                stats.update(st)
+		st = processResult(prog, bench_name, "COMPILATION ERROR", '', total_time)
+                eldarica_stats.update(st)
+                spacer_stats.update(st)
         if debug: print "---------------------"
-    return stats
+    return eldarica_stats, spacer_stats
 
 head="""
           <div id="%s" class="tab-pane active">
