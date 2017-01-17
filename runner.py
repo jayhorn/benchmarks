@@ -181,7 +181,7 @@ def jayhorn(build_dir, args):
 def minePump(dr, args):
     all_dir = [os.path.join(dr, name)for name in os.listdir(dr) if os.path.isdir(os.path.join(dr, name)) ]
     all_results = {}
-    stats = dict()
+    eldarica_stats, spacer_stats = dict(), dict()
     for d in sorted(all_dir):
         if debug: print "Benchmark:\t " + str(d)
         tmp = d.split("/")
@@ -196,12 +196,15 @@ def minePump(dr, args):
         except Exception as e:
             print str(e)
         if cresult == 0:
-            result,total_time = run_jayhorn(build_dir, args)
-            st = processResult(d, bench_name, result, 'jayhorn-eldarica', total_time)
-            stats.update(st)
+            eldarica_result, spacer_result, eldarica_time, spacer_time = jayhorn(build_dir, args)
+            eldarica_st = processResult(d, bench_name, eldarica_result, 'Eldarica', eldarica_time)
+            eldarica_stats.update(eldarica_st)
+            spacer_st = processResult(d, bench_name, spacer_result, 'Spacer', spacer_time)
+            spacer_stats.update(spacer_st)
 	else:
-	    st = processResult(d, bench_name, "COMPILATION ERROR", 'jayhorn-eldarica', "")
-            stats.update(st)
+	    st = processResult(d, bench_name, "COMPILATION ERROR", 'jayhorn', "")
+            eldarica_stats.update(st)
+            spacer_stats.update(st)
         if debug: print "---------------------"
     #pprint.pprint(stats)
     return stats
@@ -747,13 +750,13 @@ if __name__ == "__main__":
             stats = load_obj(args.stats)
             pprint.pprint(stats)
         if args.mp:
-            infer_stats, cpa_stats = dict(), dict()
+            cpa_stats = dict()
             if args.cpa: cpa_stats = runCpa(args, args.directory[0])
-            if args.infer: infer_stats = runInfer(args, args.directory[0])
-            jayhorn_stats = minePump(args.directory[0], args)
+            #if args.infer: infer_stats = runInfer(args, args.directory[0])
+            eldarica_stats, spacer_stats = minePump(args.directory[0], args)
             stats = {"cpa":cpa_stats,
-                     "jayhorn":jayhorn_stats,
-                     "infer":infer_stats}
+                     "jayhorn-eldarica":eldarica_stats,
+                     "jayhorn-spacer":spacer_stats}
             if args.html: generateMinePumpHtml(stats)
         else:
             runBench(args)
