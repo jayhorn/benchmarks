@@ -63,8 +63,7 @@ def run_with_timeout(tool, command, timeout):
     while timeout > 0:
         if p.poll() is not None:
             result, result2 = p.communicate()
-	    print result
-	    print result2
+            if debug: print result, result2
             return result
         time.sleep(0.1)
         timeout -= 0.1
@@ -162,7 +161,7 @@ def jayhorn(build_dir, args):
     cmd = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
     if args.inline:
         cmd.extend(['-inline_size', '30', '-inline_count', '3'])
-    cmd_spacer = cmd.extend(['-solver', 'spacer'])
+    cmd_spacer = cmd + ['-solver', 'spacer']
     bench_stats.start('JayHorn-Eldarica-Time')
     eldarica_result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd, args.timeout)
     bench_stats.stop('JayHorn-Eldarica-Time')
@@ -418,6 +417,7 @@ def runJayHorn(dr, args):
                 print e
             if cresult == 0:
                 eldarica_result, spacer_result, eldarica_time, spacer_time = jayhorn(build_dir, args)
+                print spacer_result
                 eldarica_st = processResult(prog, bench_name, eldarica_result, "Eldarica", eldarica_time)
                 spacer_st = processResult(prog, bench_name, spacer_result, "Spacer", spacer_time)
                 eldarica_stats.update(eldarica_st)
