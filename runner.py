@@ -162,7 +162,7 @@ def jayhorn(build_dir, args):
     cmd = ["java", "-jar", JAYHORN, "-t", "60", "-stats", "-j", build_dir, '-mem-prec', "{}".format(args.mem)]
     if args.inline:
         cmd.extend(['-inline_size', '30', '-inline_count', '3'])
-    cmd_spacer = cmd #.extend(['-solver', 'spacer'])
+    cmd_spacer = cmd.extend(['-solver', 'spacer'])
     bench_stats.start('JayHorn-Eldarica-Time')
     eldarica_result = run_with_timeout("jayhorn-eldarica_{}_{}".format(args.mem, args.inline), cmd, args.timeout)
     bench_stats.stop('JayHorn-Eldarica-Time')
