@@ -206,7 +206,7 @@ def minePump(dr, args):
             spacer_stats.update(st)
         if debug: print "---------------------"
     #pprint.pprint(stats)
-    return stats
+    return eldarica_stats, spacer_stats
 
 ####
 # Run Infer
@@ -665,6 +665,34 @@ def generateMinePumpHtml(stats):
     except Exception as e:
         print str(e)
 
+def analysis(stats):
+    print "Analysis ..."
+    el_safe, el_unsafe, sp_safe, sp_unsafe, total = 0, 0, 0, 0, 0
+    csv = "Benchmark, Expected, JayHorn-Eldarica-Answer, JayHorn-Spacer-Answer, JayHorn-Eldarica-Time, JayHorn-Spacer-Time\n"
+    for bench, results in stats.iteritems():
+        # eldarica = results["jayhorn-eldarica"]
+        # spacer = results["jayhorn-spacer"]
+
+        for (ek,ev), (sk,sv) in zip(results["jayhorn-eldarica"].items(), results["jayhorn-spacer"].items()):
+            total +=1
+            csv += ek + ", " + ev["expected"] + ", " + ev["result"] + ", " + ev["time"]
+            csv += ", " + sv["result"] + ", " + sv["time"] + "\n"
+            if ev["result"] == "SAFE": el_safe +=1
+            if ev["result"] == "UNSAFE": el_unsafe +=1
+            if sv["result"] == "SAFE": sp_safe +=1
+            if sv["result"] == "UNSAFE": sp_unsafe +=1
+
+            # if ev["expected"] == ev["result"] == sv["result"]:
+            #     if ev["expected"] == "SAFE": safe+=1
+            #     if ev["expected"] == "UNSAFE": unsafe+=1
+
+    print csv
+    print "TOTAL ... " + str(total)
+    print "Eldarica SAFE ... " + str(el_safe)
+    print "Eldarica UNSAFE ... " + str(el_unsafe)
+    print "Spacer UNSAFE ... " + str(sp_safe)
+    print "Spacer UNSAFE ... " + str(sp_unsafe)
+
 def scatterPlot(stats):
     print "Making scatter Plot ... "
     import numpy as np
@@ -673,13 +701,19 @@ def scatterPlot(stats):
     plottable = dict()
     j, c = list(), list()
     j_total, c_total = list(), list()
-    for (jk, jv), (ck,cv) in zip(stats["jayhorn"].items(), stats["cpa"].items()):
-        if jv["expected"] == jv["result"] == cv["result"]:
-            j.append((jv["time"].strip()).replace("s",""))
-            c.append((cv["time"].strip()).replace("s", ""))
-            j_total.append((jv["total-time"].strip()).replace("s",""))
-            c_total.append((cv["total-time"].strip()).replace("s", ""))
-            plottable.update({jk:[jv["time"], cv["time"]]})
+    print stats
+    for bench, results in stats.iteritems():
+        for (jk, jv), (ck,cv) in zip(results["jayhorn-eldarica"].items(), results["cpa"].items()):
+            if jv["expected"] == jv["result"] == cv["result"]:
+                j.append((jv["time"].strip()).replace("s",""))
+                c.append((cv["time"].strip()).replace("s", ""))
+                j.append((jv["time"].strip()).replace("m",""))
+                c.append((cv["time"].strip()).replace("m", ""))
+                j_total.append((jv["total-time"].strip()).replace("s",""))
+                c_total.append((cv["total-time"].strip()).replace("s", ""))
+                j_total.append((jv["total-time"].strip()).replace("m",""))
+                c_total.append((cv["total-time"].strip()).replace("m", ""))
+                plottable.update({jk:[jv["time"], cv["time"]]})
 
     print "\n\n======== PLOTTING ======="
     fig = plt.figure()
@@ -737,6 +771,7 @@ if __name__ == "__main__":
     parser.add_argument('-cpa', '--cpa', required=False, dest="cpa", action="store_true")
     parser.add_argument('-spacer', '--spacer', required=False, dest="spacer", action="store_true")
     parser.add_argument('-plot', '--plot', required=False, dest="plot", action="store_true")
+    parser.add_argument('-ana', '--ana', required=False, dest="ana", action="store_true")
     parser.add_argument('-save', '--save', required=False, dest="save", action="store_true")
     parser.add_argument('-load', '--load', required=False, dest="load", action="store_true", help = "Load pickled output and pretty print the stats")
     parser.add_argument ('--timeout', help='Timeout', type=float, default=60.0, dest="timeout")
@@ -748,7 +783,9 @@ if __name__ == "__main__":
     try:
         if args.load:
             stats = load_obj(args.stats)
-            pprint.pprint(stats)
+            #pprint.pprint(stats)
+            if args.ana:
+                analysis(stats)
         if args.mp:
             cpa_stats = dict()
             if args.cpa: cpa_stats = runCpa(args, args.directory[0])
