@@ -667,31 +667,57 @@ def generateMinePumpHtml(stats):
 
 def analysis(stats):
     print "Analysis ..."
+    print pprint.pprint(stats)
     el_safe, el_unsafe, sp_safe, sp_unsafe, total = 0, 0, 0, 0, 0
+    el_imprecise, el_unsound, sp_imprecise, sp_unsound = 0, 0, 0, 0
+    el_timeout, sp_timeout = 0, 0
     csv = "Benchmark, Expected, JayHorn-Eldarica-Answer, JayHorn-Spacer-Answer, JayHorn-Eldarica-Time, JayHorn-Spacer-Time\n"
     for bench, results in stats.iteritems():
-        # eldarica = results["jayhorn-eldarica"]
-        # spacer = results["jayhorn-spacer"]
-
         for (ek,ev), (sk,sv) in zip(results["jayhorn-eldarica"].items(), results["jayhorn-spacer"].items()):
             total +=1
             csv += ek + ", " + ev["expected"] + ", " + ev["result"] + ", " + ev["time"]
             csv += ", " + sv["result"] + ", " + sv["time"] + "\n"
-            if ev["result"] == "SAFE": el_safe +=1
-            if ev["result"] == "UNSAFE": el_unsafe +=1
-            if sv["result"] == "SAFE": sp_safe +=1
-            if sv["result"] == "UNSAFE": sp_unsafe +=1
+            if ev["result"] == "SAFE" and ev["expected"] == "SAFE":
+                el_safe +=1 #correct case
+            elif ev["result"] == "UNSAFE" and ev["expected"] == "UNSAFE":
+                el_unsafe +=1 #correct case
+            elif ev["result"] == "SAFE" and ev["expected"] == "UNSAFE":
+                el_unsound +=1 # unsound case
+            elif ev["result"] == "UNSAFE" and ev["expected"] == "SAFE":
+                el_imprecise +=1 # imprecise case
+            elif ev["result"] == "TIMEOUT":
+                el_timeout +=1
+            else:
+                print "UNK----"
+                print ev
+                print "-------"
+            if sv["result"] == "SAFE" and sv["expected"] == "SAFE":
+                sp_safe +=1 #correct case
+            elif sv["result"] == "UNSAFE" and sv["expected"] == "UNSAFE":
+                sp_unsafe +=1 #correct case
+            elif sv["result"] == "SAFE" and sv["expected"] == "UNSAFE":
+                sp_unsound +=1 # unsound case
+            elif sv["result"] == "UNSAFE" and sv["expected"] == "SAFE":
+                sp_imprecise +=1 # imprecise case
+            elif sv["result"] == "TIMEOUT":
+                sp_timeout +=1
+            else:
+                print "--UNK-----"
+                print sk, sv
 
-            # if ev["expected"] == ev["result"] == sv["result"]:
-            #     if ev["expected"] == "SAFE": safe+=1
-            #     if ev["expected"] == "UNSAFE": unsafe+=1
 
     print csv
     print "TOTAL ... " + str(total)
     print "Eldarica SAFE ... " + str(el_safe)
     print "Eldarica UNSAFE ... " + str(el_unsafe)
-    print "Spacer UNSAFE ... " + str(sp_safe)
+    print "Eldarica UNSOUND ... " + str(el_unsound)
+    print "Eldarica IMPRECISE ... " + str(el_imprecise)
+    print "Eldarica TIMEOUT ... " + str(el_timeout)
+    print "Spacer SAFE ... " + str(sp_safe)
     print "Spacer UNSAFE ... " + str(sp_unsafe)
+    print "Spacer UNSOUND ... " + str(sp_unsound)
+    print "Spacer IMPRECISE ... " + str(sp_imprecise)
+    print "Spacer TIMEOUT ... " + str(sp_timeout)
 
 def scatterPlot(stats):
     print "Making scatter Plot ... "
@@ -786,14 +812,18 @@ if __name__ == "__main__":
             #pprint.pprint(stats)
             if args.ana:
                 analysis(stats)
-        if args.mp:
+        elif args.mp:
             cpa_stats = dict()
             if args.cpa: cpa_stats = runCpa(args, args.directory[0])
             #if args.infer: infer_stats = runInfer(args, args.directory[0])
             eldarica_stats, spacer_stats = minePump(args.directory[0], args)
-            stats = {"cpa":cpa_stats,
-                     "jayhorn-eldarica":eldarica_stats,
-                     "jayhorn-spacer":spacer_stats}
+            stats = {str(args.directory[0]):
+                     {
+                         "cpa":cpa_stats,
+                         "jayhorn-eldarica":eldarica_stats,
+                         "jayhorn-spacer":spacer_stats
+                     }
+            }
             if args.save: save_obj(stats, args.save_name)
             if args.html: generateMinePumpHtml(stats)
         else:
