@@ -794,6 +794,7 @@ if __name__ == "__main__":
             stats = {"cpa":cpa_stats,
                      "jayhorn-eldarica":eldarica_stats,
                      "jayhorn-spacer":spacer_stats}
+            if args.save: save_obj(stats, args.save_name)
             if args.html: generateMinePumpHtml(stats)
         else:
             runBench(args)
