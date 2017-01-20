@@ -1,0 +1,282 @@
+CBMC version 5.6 64-bit x86_64 macos
+Parsing test.class
+Java main class: test
+failed to load class `java.lang.Object'
+Converting
+
+Symbols:
+
+Symbol......: __CPROVER_initialize
+Pretty name.: 
+Module......: 
+Base name...: __CPROVER_initialize
+Mode........: java
+Type........: () -> void
+Value.......: {
+  __CPROVER_rounding_mode = 0;
+}
+Flags.......:
+Location....: 
+
+Symbol......: __CPROVER_malloc_object
+Pretty name.: 
+Module......: 
+Base name...: __CPROVER_malloc_object
+Mode........: C
+Type........: void *
+Value.......: 
+Flags.......: lvalue thread_local state_var
+Location....: 
+
+Symbol......: __CPROVER_rounding_mode
+Pretty name.: 
+Module......: 
+Base name...: __CPROVER_rounding_mode
+Mode........: C
+Type........: signed int
+Value.......: 
+Flags.......: lvalue thread_local state_var
+Location....: 
+
+Symbol......: _start
+Pretty name.: 
+Module......: 
+Base name...: 
+Mode........: java
+Type........: () -> void
+Value.......: {
+  __CPROVER_initialize();
+  test.main:()V();
+}
+Flags.......:
+Location....: 
+
+Symbol......: java::array[boolean]
+Pretty name.: 
+Module......: 
+Base name...: array[boolean]
+Mode........: 
+Type........: struct java::array[boolean] { struct java.lang.Object @java.lang.Object; int length; _Bool *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[byte]
+Pretty name.: 
+Module......: 
+Base name...: array[byte]
+Mode........: 
+Type........: struct java::array[byte] { struct java.lang.Object @java.lang.Object; int length; signed char *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[char]
+Pretty name.: 
+Module......: 
+Base name...: array[char]
+Mode........: 
+Type........: struct java::array[char] { struct java.lang.Object @java.lang.Object; int length; unsigned short int *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[double]
+Pretty name.: 
+Module......: 
+Base name...: array[double]
+Mode........: 
+Type........: struct java::array[double] { struct java.lang.Object @java.lang.Object; int length; double *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[float]
+Pretty name.: 
+Module......: 
+Base name...: array[float]
+Mode........: 
+Type........: struct java::array[float] { struct java.lang.Object @java.lang.Object; int length; float *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[int]
+Pretty name.: 
+Module......: 
+Base name...: array[int]
+Mode........: 
+Type........: struct java::array[int] { struct java.lang.Object @java.lang.Object; int length; int *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[long]
+Pretty name.: 
+Module......: 
+Base name...: array[long]
+Mode........: 
+Type........: struct java::array[long] { struct java.lang.Object @java.lang.Object; int length; long int *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[reference]
+Pretty name.: 
+Module......: 
+Base name...: array[reference]
+Mode........: 
+Type........: struct java::array[reference] { struct java.lang.Object @java.lang.Object; int length; void **data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::array[short]
+Pretty name.: 
+Module......: 
+Base name...: array[short]
+Mode........: 
+Type........: struct java::array[short] { struct java.lang.Object @java.lang.Object; int length; short int *data; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::java.lang.Object
+Pretty name.: java.lang.Object
+Module......: 
+Base name...: java.lang.Object
+Mode........: java
+Type........: struct java.lang.Object { __CPROVER_string @class_identifier; bool @lock; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::java.lang.Object.<init>:()V
+Pretty name.: 
+Module......: 
+Base name...: <init>
+Mode........: java
+Type........: (void *) -> void
+Value.......: 
+Flags.......:
+Location....: 
+
+Symbol......: java::test
+Pretty name.: test
+Module......: 
+Base name...: test
+Mode........: java
+Type........: struct test { struct java.lang.Object @java.lang.Object; }
+Value.......: 
+Flags.......: type
+Location....: 
+
+Symbol......: java::test.<init>:()V
+Pretty name.: test.test()
+Module......: 
+Base name...: <init>
+Mode........: java
+Type........: (struct test *) -> void
+Value.......: {
+
+pc0:
+  {
+    (void *)this . java.lang.Object.<init>:()V();
+    return;
+  }
+}
+Flags.......:
+Location....: 
+
+Symbol......: java::test.<init>:()V::0::this
+Pretty name.: test.<init>:()V::0::this
+Module......: 
+Base name...: this
+Mode........: java
+Type........: struct test *
+Value.......: 
+Flags.......: lvalue thread_local file_local
+Location....: 
+
+Symbol......: java::test.<init>:()V::this
+Pretty name.: 
+Module......: 
+Base name...: this
+Mode........: java
+Type........: struct test *
+Value.......: 
+Flags.......: lvalue thread_local file_local parameter state_var
+Location....: 
+
+Symbol......: java::test.main:()V
+Pretty name.: test.main()
+Module......: 
+Base name...: main
+Mode........: java
+Type........: () -> void
+Value.......: {
+  int x;
+
+pc0:
+  {
+    x = 5;
+    if(x != 4)
+      goto pc17;
+
+  }
+
+pc7:
+  {
+    int y;
+    y = x + 1;
+    y = y + (int)1;
+    goto pc24;
+  }
+
+pc17:
+  {
+    int z;
+    z = x + 1;
+    z = z + (int)1;
+  }
+
+pc24:
+  {
+    return;
+  }
+}
+Flags.......:
+Location....: 
+
+Symbol......: java::test.main:()V::11::y
+Pretty name.: test.main:()V::11::y
+Module......: 
+Base name...: y
+Mode........: java
+Type........: int
+Value.......: 
+Flags.......: lvalue thread_local file_local
+Location....: 
+
+Symbol......: java::test.main:()V::21::z
+Pretty name.: test.main:()V::21::z
+Module......: 
+Base name...: z
+Mode........: java
+Type........: int
+Value.......: 
+Flags.......: lvalue thread_local file_local
+Location....: 
+
+Symbol......: java::test.main:()V::2::x
+Pretty name.: test.main:()V::2::x
+Module......: 
+Base name...: x
+Mode........: java
+Type........: int
+Value.......: 
+Flags.......: lvalue thread_local file_local
+Location....: 
+
+EXIT=0
+SIGNAL=0

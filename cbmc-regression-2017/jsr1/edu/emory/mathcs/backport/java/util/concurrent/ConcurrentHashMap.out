@@ -1,0 +1,2041 @@
+CBMC version 5.6 64-bit x86_64 macos
+Parsing edu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap.class
+Java main class: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap
+failed to load class `java.util.Enumeration'
+failed to load class `java.lang.ClassNotFoundException'
+failed to load class `java.io.IOException'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$HashIterator'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$WriteThroughEntry'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$EntryIterator'
+failed to load class `java.io.Serializable'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentMap'
+failed to load class `java.io.ObjectInputStream'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$HashEntry'
+failed to load class `java.io.ObjectOutputStream'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$ValueIterator'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeyIterator'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$EntrySet'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Values'
+failed to load class `java.util.Collection'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeySet'
+failed to load class `java.util.Map$Entry'
+failed to load class `java.util.Iterator'
+failed to load class `java.util.Set'
+failed to load class `java.lang.NullPointerException'
+failed to load class `java.lang.Object'
+failed to load class `java.lang.Math'
+failed to load class `java.util.Map'
+failed to load class `java.lang.IllegalArgumentException'
+failed to load class `edu.emory.mathcs.backport.java.util.AbstractMap'
+failed to load class `edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment'
+Converting
+failed to find field `count` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `count` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `count` in class hierarchy
+failed to find field `count` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `count` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `count` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `count` in class hierarchy
+failed to find field `modCount` in class hierarchy
+failed to find field `table` in class hierarchy
+failed to find field `key` in class hierarchy
+failed to find field `value` in class hierarchy
+failed to find field `next` in class hierarchy
+Generating GOTO Program
+Adding goto-destructor code on jump to pc34
+Adding goto-destructor code on jump to pc61
+Adding goto-destructor code on jump to pc26
+Adding goto-destructor code on jump to pc51
+Adding goto-destructor code on jump to pc12$
+Adding goto-destructor code on jump to pc167
+Adding goto-destructor code on jump to pc151
+Adding goto-destructor code on jump to pc78
+Adding goto-destructor code on jump to pc135
+Adding goto-destructor code on jump to pc135
+Adding goto-destructor code on jump to pc145
+Adding goto-destructor code on jump to pc151
+Adding goto-destructor code on jump to pc183
+Adding goto-destructor code on jump to pc210
+Adding goto-destructor code on jump to pc233
+Adding goto-destructor code on jump to pc55
+Adding goto-destructor code on jump to pc101
+Adding goto-destructor code on jump to pc158
+Adding goto-destructor code on jump to pc92
+Adding goto-destructor code on jump to pc86
+Adding goto-destructor code on jump to pc145
+Adding goto-destructor code on jump to pc139
+Adding goto-destructor code on jump to pc145
+Adding goto-destructor code on jump to pc152
+Adding goto-destructor code on jump to pc181
+Adding goto-destructor code on jump to pc217
+Adding goto-destructor code on jump to pc217
+Adding goto-destructor code on jump to pc256
+Adding goto-destructor code on jump to pc111
+Adding goto-destructor code on jump to pc89
+Adding goto-destructor code on jump to pc83
+Adding goto-destructor code on jump to pc105
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Partial Inlining
+Generic Property Instrumentation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(IFI)V */
+        // 0 no location
+        struct java.lang.IllegalArgumentException *new_tmp0;
+        // 1 no location
+        struct java::array[reference] *return_tmp1;
+        // 2 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *new_tmp2;
+        // 3 file ConcurrentHashMap.java line 586
+        // Labels: pc0
+        (void *)this . edu.emory.mathcs.backport.java.util.AbstractMap.<init>:()V();
+        // 4 file ConcurrentHashMap.java line 587
+        IF (IEEE_FLOAT_EQUAL(+NAN, loadFactor) || IEEE_FLOAT_EQUAL(+NAN, 0.000000f) ? -1 : (IEEE_FLOAT_EQUAL(loadFactor, 0.000000f) ? 0 : (loadFactor < 0.000000f ? -1 : 1))) <= 0 THEN GOTO 1
+        // 5 file ConcurrentHashMap.java line 587
+        // Labels: pc10
+        SKIP
+        // 6 file ConcurrentHashMap.java line 587
+        IF initialCapacity < 0 THEN GOTO 1
+        // 7 file ConcurrentHashMap.java line 587
+        // Labels: pc14
+        SKIP
+        // 8 file ConcurrentHashMap.java line 587
+        IF concurrencyLevel > 0 THEN GOTO 2
+        // 9 file ConcurrentHashMap.java line 588
+        // Labels: pc18
+     1: new_tmp0 = MALLOC(struct java.lang.IllegalArgumentException, 5L);
+        // 10 file ConcurrentHashMap.java line 588
+        *new_tmp0 = { .@class_identifier="java::java.lang.IllegalArgumentException",
+    .@lock=FALSE };
+        // 11 file ConcurrentHashMap.java line 588
+        (void *)new_tmp0 . java.lang.IllegalArgumentException.<init>:()V();
+        // 12 file ConcurrentHashMap.java line 588
+        ASSERT !(new_tmp0 == null) // throwing null in new_tmp0
+        // 13 file ConcurrentHashMap.java line 588
+        THROW: throw(new_tmp0)
+        // 14 file ConcurrentHashMap.java line 590
+        // Labels: pc26
+     2: SKIP
+        // 15 file ConcurrentHashMap.java line 590
+        IF concurrencyLevel <= 65536 THEN GOTO 3
+        // 16 file ConcurrentHashMap.java line 591
+        // Labels: pc32
+        concurrencyLevel = 65536;
+        // 17 no location
+        // Labels: pc35
+     3: int sshift;
+        // 18 file ConcurrentHashMap.java line 594
+        // Labels: pc35$
+        sshift = 0;
+        // 19 file ConcurrentHashMap.java line 595
+        ssize = 1;
+        // 20 no location
+        // Labels: pc41
+        int ssize;
+        // 21 file ConcurrentHashMap.java line 596
+        // Labels: pc41$
+     4: SKIP
+        // 22 file ConcurrentHashMap.java line 596
+        IF ssize >= concurrencyLevel THEN GOTO 5
+        // 23 file ConcurrentHashMap.java line 597
+        // Labels: pc47
+        sshift = sshift + (int)1;
+        // 24 file ConcurrentHashMap.java line 598
+        ssize = ssize << 1;
+        // 25 file ConcurrentHashMap.java line 598
+        GOTO 4
+        // 26 file ConcurrentHashMap.java line 600
+        // Labels: pc59
+     5: ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segmentShift = (int)32 - sshift;
+        // 27 file ConcurrentHashMap.java line 601
+        ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segmentMask = ssize - 1;
+        // 28 file ConcurrentHashMap.java line 602
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.newArray:(I)[Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(ssize);
+        // 29 file ConcurrentHashMap.java line 602
+        return_tmp1 = NONDET(struct java::array[reference] *);
+        // 30 file ConcurrentHashMap.java line 602
+        ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments = return_tmp1;
+        // 31 file ConcurrentHashMap.java line 604
+        IF initialCapacity <= 1073741824 THEN GOTO 6
+        // 32 file ConcurrentHashMap.java line 605
+        // Labels: pc91
+        initialCapacity = 1073741824;
+        // 33 no location
+        // Labels: pc94
+     6: int c;
+        // 34 file ConcurrentHashMap.java line 606
+        // Labels: pc94$
+        c = initialCapacity / ssize;
+        // 35 file ConcurrentHashMap.java line 607
+        IF c * ssize >= initialCapacity THEN GOTO 7
+        // 36 file ConcurrentHashMap.java line 608
+        // Labels: pc109
+        c = c + (int)1;
+        // 37 file ConcurrentHashMap.java line 609
+        // Labels: pc112
+     7: cap = 1;
+        // 38 no location
+        // Labels: pc115
+        int cap;
+        // 39 file ConcurrentHashMap.java line 610
+        // Labels: pc115$
+     8: SKIP
+        // 40 file ConcurrentHashMap.java line 610
+        IF cap >= c THEN GOTO 9
+        // 41 file ConcurrentHashMap.java line 611
+        // Labels: pc122
+        cap = cap << 1;
+        // 42 file ConcurrentHashMap.java line 611
+        GOTO 8
+        // 43 file ConcurrentHashMap.java line 613
+        // Labels: pc131
+     9: i = 0;
+        // 44 no location
+        // Labels: pc134
+        int i;
+        // 45 file ConcurrentHashMap.java line 613
+        // Labels: pc134$
+    10: IF !(i >= ((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->length) THEN GOTO 11
+        // 46 file ConcurrentHashMap.java line 613
+        dead i;
+        // 47 file ConcurrentHashMap.java line 613
+        GOTO 12
+        // 48 file ConcurrentHashMap.java line 614
+        // Labels: pc144
+    11: new_tmp2 = MALLOC(struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment, 5L);
+        // 49 file ConcurrentHashMap.java line 614
+        *new_tmp2 = { .@class_identifier="java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment",
+    .@lock=FALSE };
+        // 50 file ConcurrentHashMap.java line 614
+        (void *)new_tmp2 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.<init>:(IF)V(cap, loadFactor);
+        // 51 file ConcurrentHashMap.java line 614
+        ((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->data[i] = (void *)new_tmp2;
+        // 52 file ConcurrentHashMap.java line 613
+        i = i + (int)1;
+        // 53 file ConcurrentHashMap.java line 613
+        GOTO 10
+        // 54 file ConcurrentHashMap.java line 615
+        // Labels: pc167
+    12: dead cap;
+        // 55 file ConcurrentHashMap.java line 615
+        dead c;
+        // 56 file ConcurrentHashMap.java line 615
+        dead ssize;
+        // 57 file ConcurrentHashMap.java line 615
+        dead sshift;
+        // 58 file ConcurrentHashMap.java line 615
+        dead new_tmp2;
+        // 59 file ConcurrentHashMap.java line 615
+        dead return_tmp1;
+        // 60 file ConcurrentHashMap.java line 615
+        dead new_tmp0;
+        // 61 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.putAll() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.putAll:(Ljava/util/Map;)V */
+        // 62 no location
+        struct java.util.Set *return_tmp0;
+        // 63 no location
+        struct java.util.Iterator *return_tmp1;
+        // 64 no location
+        bool return_tmp2;
+        // 65 no location
+        struct java.lang.Object *return_tmp3;
+        // 66 no location
+        struct java.lang.Object *return_tmp4;
+        // 67 no location
+        struct java.lang.Object *return_tmp5;
+        // 68 no location
+        struct java.lang.Object *return_tmp6;
+        // 69 file ConcurrentHashMap.java line 909
+        // Labels: pc0
+        (void *)m . java.util.Map.entrySet:()Ljava/util/Set;();
+        // 70 file ConcurrentHashMap.java line 909
+        return_tmp0 = NONDET(struct java.util.Set *);
+        // 71 file ConcurrentHashMap.java line 909
+        (void *)return_tmp0 . java.util.Set.iterator:()Ljava/util/Iterator;();
+        // 72 file ConcurrentHashMap.java line 909
+        return_tmp1 = NONDET(struct java.util.Iterator *);
+        // 73 file ConcurrentHashMap.java line 909
+        it = return_tmp1;
+        // 74 no location
+        // Labels: pc12
+        struct java.util.Iterator *it;
+        // 75 file ConcurrentHashMap.java line 909
+        // Labels: pc12$
+     1: (void *)it . java.util.Iterator.hasNext:()Z();
+        // 76 file ConcurrentHashMap.java line 909
+        return_tmp2 = NONDET(bool);
+        // 77 file ConcurrentHashMap.java line 909
+        IF !((int)return_tmp2 == 0) THEN GOTO 2
+        // 78 file ConcurrentHashMap.java line 909
+        dead it;
+        // 79 file ConcurrentHashMap.java line 909
+        GOTO 3
+        // 80 no location
+        // Labels: pc21
+     2: struct java.util.Map$Entry *e;
+        // 81 file ConcurrentHashMap.java line 910
+        (void *)it . java.util.Iterator.next:()Ljava/lang/Object;();
+        // 82 file ConcurrentHashMap.java line 910
+        return_tmp3 = NONDET(struct java.lang.Object *);
+        // 83 file ConcurrentHashMap.java line 910
+        e = (struct java.util.Map$Entry *)return_tmp3;
+        // 84 file ConcurrentHashMap.java line 911
+        (void *)e . java.util.Map$Entry.getKey:()Ljava/lang/Object;();
+        // 85 file ConcurrentHashMap.java line 911
+        return_tmp4 = NONDET(struct java.lang.Object *);
+        // 86 file ConcurrentHashMap.java line 911
+        (void *)e . java.util.Map$Entry.getValue:()Ljava/lang/Object;();
+        // 87 file ConcurrentHashMap.java line 911
+        return_tmp5 = NONDET(struct java.lang.Object *);
+        // 88 file ConcurrentHashMap.java line 911
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;(return_tmp4, return_tmp5);
+        // 89 file ConcurrentHashMap.java line 911
+        return_tmp6 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;#return_value;
+        // 90 file ConcurrentHashMap.java line 911
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;#return_value;
+        // 91 file ConcurrentHashMap.java line 911
+        dead e;
+        // 92 file ConcurrentHashMap.java line 911
+        GOTO 1
+        // 93 file ConcurrentHashMap.java line 913
+        // Labels: pc51
+     3: dead return_tmp6;
+        // 94 file ConcurrentHashMap.java line 913
+        dead return_tmp5;
+        // 95 file ConcurrentHashMap.java line 913
+        dead return_tmp4;
+        // 96 file ConcurrentHashMap.java line 913
+        dead return_tmp3;
+        // 97 file ConcurrentHashMap.java line 913
+        dead return_tmp2;
+        // 98 file ConcurrentHashMap.java line 913
+        dead return_tmp1;
+        // 99 file ConcurrentHashMap.java line 913
+        dead return_tmp0;
+        // 100 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I */
+        // 101 file ConcurrentHashMap.java line 162
+        // Labels: pc0
+        h = h + (h << (int)15 ^ (int)-12931);
+        // 102 file ConcurrentHashMap.java line 163
+        h = h ^ (unsigned int)h >> (unsigned int)(int)10;
+        // 103 file ConcurrentHashMap.java line 164
+        h = h + (h << 3);
+        // 104 file ConcurrentHashMap.java line 165
+        h = h ^ (unsigned int)h >> (unsigned int)(int)6;
+        // 105 file ConcurrentHashMap.java line 166
+        h = h + (h << 2) + (h << (int)14);
+        // 106 file ConcurrentHashMap.java line 167
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value = h ^ (unsigned int)h >> (unsigned int)(int)16;
+        // 107 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment; */
+        // 108 file ConcurrentHashMap.java line 176
+        // Labels: pc0
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value = (struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *)((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->data[(unsigned int)hash >> (unsigned int)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segmentShift & ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segmentMask];
+        // 109 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z */
+        // 110 no location
+        void *anonlocal::10a;
+        // 111 no location
+        void *anonlocal::11a;
+        // 112 no location
+        struct java.lang.NullPointerException *new_tmp0;
+        // 113 no location
+        struct java::array[int] *newarray_tmp1;
+        // 114 no location
+        bool return_tmp2;
+        // 115 no location
+        bool return_tmp3;
+        // 116 no location
+        void *$stack_tmp4;
+        // 117 file ConcurrentHashMap.java line 799
+        // Labels: pc0
+        SKIP
+        // 118 file ConcurrentHashMap.java line 799
+        IF (void *)(void *)value != null THEN GOTO 1
+        // 119 file ConcurrentHashMap.java line 800
+        // Labels: pc4
+        new_tmp0 = MALLOC(struct java.lang.NullPointerException, 5L);
+        // 120 file ConcurrentHashMap.java line 800
+        *new_tmp0 = { .@class_identifier="java::java.lang.NullPointerException",
+    .@lock=FALSE };
+        // 121 file ConcurrentHashMap.java line 800
+        (void *)new_tmp0 . java.lang.NullPointerException.<init>:()V();
+        // 122 file ConcurrentHashMap.java line 800
+        ASSERT !(new_tmp0 == null) // throwing null in new_tmp0
+        // 123 file ConcurrentHashMap.java line 800
+        THROW: throw(new_tmp0)
+        // 124 no location
+        // Labels: pc12
+     1: struct java::array[reference] *mc;
+        // 125 no location
+        struct java::array[reference] *segments;
+        // 126 file ConcurrentHashMap.java line 804
+        // Labels: pc12$
+        segments = ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments;
+        // 127 file ConcurrentHashMap.java line 805
+        newarray_tmp1 = MALLOC(struct java::array[int], 17L);
+        // 128 file ConcurrentHashMap.java line 805
+        newarray_tmp1->length = ((struct java::array[reference] *)(void *)segments)->length;
+        // 129 file ConcurrentHashMap.java line 805
+        newarray_tmp1->data = irep("(\"side_effect\" \"type\" (\"pointer\" \"\" (\"signedbv\" \"width\" (\"32\"))) \"statement\" (\"cpp_new[]\") \"size\" (\"member\" \"\" (\"dereference\" \"\" (\"typecast\" \"\" (\"typecast\" \"\" (\"symbol\" \"type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment\") \"#base_name\" (\"edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment\")) \"#reference\" (\"1\")))) \"identifier\" (\"java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z::17::segments\") \"#base_name\" (\"segments\")) \"type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\"))) \"type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\"))))) \"type\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\")))) \"type\" (\"signedbv\" \"width\" (\"32\")) \"component_name\" (\"length\")))");
+        // 130 file ConcurrentHashMap.java line 805
+        ARRAY_SET(newarray_tmp1->data, 0);
+        // 131 file ConcurrentHashMap.java line 805
+        mc = (struct java::array[reference] *)newarray_tmp1;
+        // 132 file ConcurrentHashMap.java line 808
+        k = 0;
+        // 133 no location
+        // Labels: pc25
+        int k;
+        // 134 file ConcurrentHashMap.java line 808
+        // Labels: pc25$
+     2: IF !(k >= 2) THEN GOTO 3
+        // 135 file ConcurrentHashMap.java line 808
+        dead k;
+        // 136 file ConcurrentHashMap.java line 808
+        GOTO 16
+        // 137 no location
+        // Labels: pc31
+     3: int mcsum;
+        // 138 no location
+        int sum;
+        // 139 file ConcurrentHashMap.java line 809
+        // Labels: pc31$
+        sum = 0;
+        // 140 file ConcurrentHashMap.java line 810
+        mcsum = 0;
+        // 141 file ConcurrentHashMap.java line 811
+        i = 0;
+        // 142 no location
+        // Labels: pc40
+        int i;
+        // 143 file ConcurrentHashMap.java line 811
+        // Labels: pc40$
+     4: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 5
+        // 144 file ConcurrentHashMap.java line 811
+        dead i;
+        // 145 file ConcurrentHashMap.java line 811
+        GOTO 8
+        // 146 no location
+        // Labels: pc47
+     5: int c;
+        // 147 file ConcurrentHashMap.java line 812
+        // Labels: pc47$
+        c = NONDET(int);
+        // 148 file ConcurrentHashMap.java line 813
+        ((struct java::array[int] *)(void *)mc)->data[i] = NONDET(int);
+        // 149 file ConcurrentHashMap.java line 813
+        mcsum = mcsum + NONDET(int);
+        // 150 file ConcurrentHashMap.java line 814
+        ((struct java::array[reference] *)(void *)segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.containsValue:(Ljava/lang/Object;)Z((struct java.lang.Object *)(void *)value);
+        // 151 file ConcurrentHashMap.java line 814
+        return_tmp2 = NONDET(bool);
+        // 152 file ConcurrentHashMap.java line 814
+        IF !((int)return_tmp2 == 0) THEN GOTO 6
+        // 153 file ConcurrentHashMap.java line 814
+        dead c;
+        // 154 file ConcurrentHashMap.java line 814
+        GOTO 7
+        // 155 file ConcurrentHashMap.java line 815
+        // Labels: pc84
+     6: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z#return_value = (bool)1;
+        // 156 file ConcurrentHashMap.java line 815
+        dead c;
+        // 157 file ConcurrentHashMap.java line 815
+        dead i;
+        // 158 file ConcurrentHashMap.java line 815
+        dead sum;
+        // 159 file ConcurrentHashMap.java line 815
+        dead mcsum;
+        // 160 file ConcurrentHashMap.java line 815
+        dead k;
+        // 161 file ConcurrentHashMap.java line 815
+        dead segments;
+        // 162 file ConcurrentHashMap.java line 815
+        dead mc;
+        // 163 file ConcurrentHashMap.java line 815
+        dead $stack_tmp4;
+        // 164 file ConcurrentHashMap.java line 815
+        dead return_tmp3;
+        // 165 file ConcurrentHashMap.java line 815
+        dead return_tmp2;
+        // 166 file ConcurrentHashMap.java line 815
+        dead newarray_tmp1;
+        // 167 file ConcurrentHashMap.java line 815
+        dead new_tmp0;
+        // 168 file ConcurrentHashMap.java line 815
+        dead anonlocal::11a;
+        // 169 file ConcurrentHashMap.java line 815
+        dead anonlocal::10a;
+        // 170 file ConcurrentHashMap.java line 815
+        GOTO 31
+        // 171 file ConcurrentHashMap.java line 811
+        // Labels: pc86
+     7: i = i + (int)1;
+        // 172 file ConcurrentHashMap.java line 811
+        GOTO 4
+        // 173 no location
+        // Labels: pc92
+     8: bool cleanSweep;
+        // 174 file ConcurrentHashMap.java line 817
+        // Labels: pc92$
+        cleanSweep = (bool)1;
+        // 175 file ConcurrentHashMap.java line 818
+        IF mcsum == 0 THEN GOTO 13
+        // 176 file ConcurrentHashMap.java line 819
+        // Labels: pc100
+        i = 0;
+        // 177 no location
+        // Labels: pc103
+        int i;
+        // 178 file ConcurrentHashMap.java line 819
+        // Labels: pc103$
+     9: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 10
+        // 179 file ConcurrentHashMap.java line 819
+        dead i;
+        // 180 file ConcurrentHashMap.java line 819
+        GOTO 13
+        // 181 no location
+        // Labels: pc110
+    10: int c;
+        // 182 file ConcurrentHashMap.java line 820
+        // Labels: pc110$
+        c = NONDET(int);
+        // 183 file ConcurrentHashMap.java line 821
+        IF !(((struct java::array[int] *)(void *)mc)->data[i] == NONDET(int)) THEN GOTO 11
+        // 184 file ConcurrentHashMap.java line 821
+        dead c;
+        // 185 file ConcurrentHashMap.java line 821
+        GOTO 12
+        // 186 file ConcurrentHashMap.java line 822
+        // Labels: pc133
+    11: cleanSweep = (bool)0;
+        // 187 file ConcurrentHashMap.java line 823
+        dead c;
+        // 188 file ConcurrentHashMap.java line 823
+        dead i;
+        // 189 file ConcurrentHashMap.java line 823
+        GOTO 13
+        // 190 file ConcurrentHashMap.java line 819
+        // Labels: pc139
+    12: i = i + (int)1;
+        // 191 file ConcurrentHashMap.java line 819
+        GOTO 9
+        // 192 file ConcurrentHashMap.java line 827
+        // Labels: pc145
+    13: IF !((int)cleanSweep == 0) THEN GOTO 14
+        // 193 file ConcurrentHashMap.java line 827
+        dead cleanSweep;
+        // 194 file ConcurrentHashMap.java line 827
+        dead sum;
+        // 195 file ConcurrentHashMap.java line 827
+        dead mcsum;
+        // 196 file ConcurrentHashMap.java line 827
+        GOTO 15
+        // 197 file ConcurrentHashMap.java line 828
+        // Labels: pc150
+    14: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z#return_value = (bool)0;
+        // 198 file ConcurrentHashMap.java line 828
+        dead cleanSweep;
+        // 199 file ConcurrentHashMap.java line 828
+        dead sum;
+        // 200 file ConcurrentHashMap.java line 828
+        dead mcsum;
+        // 201 file ConcurrentHashMap.java line 828
+        dead k;
+        // 202 file ConcurrentHashMap.java line 828
+        dead segments;
+        // 203 file ConcurrentHashMap.java line 828
+        dead mc;
+        // 204 file ConcurrentHashMap.java line 828
+        dead $stack_tmp4;
+        // 205 file ConcurrentHashMap.java line 828
+        dead return_tmp3;
+        // 206 file ConcurrentHashMap.java line 828
+        dead return_tmp2;
+        // 207 file ConcurrentHashMap.java line 828
+        dead newarray_tmp1;
+        // 208 file ConcurrentHashMap.java line 828
+        dead new_tmp0;
+        // 209 file ConcurrentHashMap.java line 828
+        dead anonlocal::11a;
+        // 210 file ConcurrentHashMap.java line 828
+        dead anonlocal::10a;
+        // 211 file ConcurrentHashMap.java line 828
+        GOTO 31
+        // 212 file ConcurrentHashMap.java line 808
+        // Labels: pc152
+    15: k = k + (int)1;
+        // 213 file ConcurrentHashMap.java line 808
+        GOTO 2
+        // 214 file ConcurrentHashMap.java line 831
+        // Labels: pc158
+    16: i = 0;
+        // 215 no location
+        // Labels: pc161
+        int i;
+        // 216 file ConcurrentHashMap.java line 831
+        // Labels: pc161$
+    17: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 18
+        // 217 file ConcurrentHashMap.java line 831
+        dead i;
+        // 218 file ConcurrentHashMap.java line 831
+        GOTO 19
+        // 219 file ConcurrentHashMap.java line 832
+        // Labels: pc168
+    18: ((struct java::array[reference] *)(void *)segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.lock:()V();
+        // 220 file ConcurrentHashMap.java line 831
+        i = i + (int)1;
+        // 221 file ConcurrentHashMap.java line 831
+        GOTO 17
+        // 222 no location
+        // Labels: pc181
+    19: bool found;
+        // 223 file ConcurrentHashMap.java line 833
+        // Labels: pc181$
+        found = (bool)0;
+        // 224 file ConcurrentHashMap.java line 835
+        i = 0;
+        // 225 no location
+        // Labels: pc187
+        int i;
+        // 226 file ConcurrentHashMap.java line 835
+        // Labels: pc187$
+    20: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 21
+        // 227 file ConcurrentHashMap.java line 835
+        dead i;
+        // 228 file ConcurrentHashMap.java line 835
+        GOTO 23
+        // 229 file ConcurrentHashMap.java line 836
+        // Labels: pc194
+    21: ((struct java::array[reference] *)(void *)segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.containsValue:(Ljava/lang/Object;)Z((struct java.lang.Object *)(void *)value);
+        // 230 file ConcurrentHashMap.java line 836
+        return_tmp3 = NONDET(bool);
+        // 231 file ConcurrentHashMap.java line 836
+        IF (int)return_tmp3 == 0 THEN GOTO 22
+        // 232 file ConcurrentHashMap.java line 837
+        // Labels: pc205
+        found = (bool)1;
+        // 233 file ConcurrentHashMap.java line 838
+        dead i;
+        // 234 file ConcurrentHashMap.java line 838
+        GOTO 23
+        // 235 file ConcurrentHashMap.java line 835
+        // Labels: pc211
+    22: i = i + (int)1;
+        // 236 file ConcurrentHashMap.java line 835
+        GOTO 20
+        // 237 no location
+        // Labels: pc217
+    23: $stack_tmp4 = irep("(\"constant\" \"type\" (\"pointer\" \"\" (\"empty\") \"width\" (\"64\")) \"value\" (\"0000000000000000000000000000000000000000000000000000000011011100\"))");
+        // 238 file ConcurrentHashMap.java line 841
+        GOTO 26
+        // 239 file ConcurrentHashMap.java line 844
+        // Labels: pc220
+    24: GOTO 30
+        // 240 file ConcurrentHashMap.java line 842
+        // Labels: pc228
+    25: ASSERT !(anonlocal::10a == null) // throwing null in anonlocal::10a
+        // 241 file ConcurrentHashMap.java line 842
+        THROW: throw(anonlocal::10a)
+        // 242 file ConcurrentHashMap.java line 842
+        // Labels: pc231
+    26: anonlocal::11a = (void *)$stack_tmp4;
+        // 243 file ConcurrentHashMap.java line 842
+        i = 0;
+        // 244 no location
+        // Labels: pc236
+        int i;
+        // 245 file ConcurrentHashMap.java line 842
+        // Labels: pc236$
+    27: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 28
+        // 246 file ConcurrentHashMap.java line 842
+        dead i;
+        // 247 file ConcurrentHashMap.java line 842
+        GOTO 29
+        // 248 file ConcurrentHashMap.java line 843
+        // Labels: pc243
+    28: ((struct java::array[reference] *)(void *)segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.unlock:()V();
+        // 249 file ConcurrentHashMap.java line 842
+        i = i + (int)1;
+        // 250 file ConcurrentHashMap.java line 842
+        GOTO 27
+        // 251 file ConcurrentHashMap.java line 842
+        // Labels: pc256
+    29: SKIP
+        // 252 file ConcurrentHashMap.java line 842
+        IF anonlocal::11a == irep("(\"constant\" \"type\" (\"pointer\" \"\" (\"empty\") \"width\" (\"64\")) \"value\" (\"0000000000000000000000000000000000000000000000000000000011011100\"))") THEN GOTO 24
+        // 253 file ConcurrentHashMap.java line 842
+        GOTO 25
+        // 254 file ConcurrentHashMap.java line 845
+        // Labels: pc258
+    30: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z#return_value = (bool)(int)found;
+        // 255 file ConcurrentHashMap.java line 845
+        dead found;
+        // 256 file ConcurrentHashMap.java line 845
+        dead segments;
+        // 257 file ConcurrentHashMap.java line 845
+        dead mc;
+        // 258 file ConcurrentHashMap.java line 845
+        dead $stack_tmp4;
+        // 259 file ConcurrentHashMap.java line 845
+        dead return_tmp3;
+        // 260 file ConcurrentHashMap.java line 845
+        dead return_tmp2;
+        // 261 file ConcurrentHashMap.java line 845
+        dead newarray_tmp1;
+        // 262 file ConcurrentHashMap.java line 845
+        dead new_tmp0;
+        // 263 file ConcurrentHashMap.java line 845
+        dead anonlocal::11a;
+        // 264 file ConcurrentHashMap.java line 845
+        dead anonlocal::10a;
+        // 265 no location
+    31: END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; */
+        // 266 no location
+        struct java.lang.NullPointerException *new_tmp0;
+        // 267 no location
+        int return_tmp1;
+        // 268 no location
+        int return_tmp2;
+        // 269 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp3;
+        // 270 no location
+        struct java.lang.Object *return_tmp4;
+        // 271 file ConcurrentHashMap.java line 881
+        // Labels: pc0
+        SKIP
+        // 272 file ConcurrentHashMap.java line 881
+        IF (void *)(void *)value != null THEN GOTO 1
+        // 273 file ConcurrentHashMap.java line 882
+        // Labels: pc4
+        new_tmp0 = MALLOC(struct java.lang.NullPointerException, 5L);
+        // 274 file ConcurrentHashMap.java line 882
+        *new_tmp0 = { .@class_identifier="java::java.lang.NullPointerException",
+    .@lock=FALSE };
+        // 275 file ConcurrentHashMap.java line 882
+        (void *)new_tmp0 . java.lang.NullPointerException.<init>:()V();
+        // 276 file ConcurrentHashMap.java line 882
+        ASSERT !(new_tmp0 == null) // throwing null in new_tmp0
+        // 277 file ConcurrentHashMap.java line 882
+        THROW: throw(new_tmp0)
+        // 278 no location
+        // Labels: pc12
+     1: int hash;
+        // 279 file ConcurrentHashMap.java line 883
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 280 file ConcurrentHashMap.java line 883
+        return_tmp1 = NONDET(int);
+        // 281 file ConcurrentHashMap.java line 883
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp1);
+        // 282 file ConcurrentHashMap.java line 883
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 283 file ConcurrentHashMap.java line 883
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 284 file ConcurrentHashMap.java line 883
+        hash = return_tmp2;
+        // 285 file ConcurrentHashMap.java line 884
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 286 file ConcurrentHashMap.java line 884
+        return_tmp3 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 287 file ConcurrentHashMap.java line 884
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 288 file ConcurrentHashMap.java line 884
+        (void *)return_tmp3 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.put:(Ljava/lang/Object;ILjava/lang/Object;Z)Ljava/lang/Object;((struct java.lang.Object *)(void *)key, hash, (struct java.lang.Object *)(void *)value, (bool)0);
+        // 289 file ConcurrentHashMap.java line 884
+        return_tmp4 = NONDET(struct java.lang.Object *);
+        // 290 file ConcurrentHashMap.java line 884
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;#return_value = return_tmp4;
+        // 291 file ConcurrentHashMap.java line 884
+        dead hash;
+        // 292 file ConcurrentHashMap.java line 884
+        dead return_tmp4;
+        // 293 file ConcurrentHashMap.java line 884
+        dead return_tmp3;
+        // 294 file ConcurrentHashMap.java line 884
+        dead return_tmp2;
+        // 295 file ConcurrentHashMap.java line 884
+        dead return_tmp1;
+        // 296 file ConcurrentHashMap.java line 884
+        dead new_tmp0;
+        // 297 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(IF)V */
+        // 298 file ConcurrentHashMap.java line 632
+        // Labels: pc0
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(IFI)V(initialCapacity, loadFactor, (int)16);
+        // 299 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(I)V */
+        // 300 file ConcurrentHashMap.java line 645
+        // Labels: pc0
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(IFI)V(initialCapacity, 7.500000e-1f, (int)16);
+        // 301 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:()V */
+        // 302 file ConcurrentHashMap.java line 653
+        // Labels: pc0
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(IFI)V((int)16, 7.500000e-1f, (int)16);
+        // 303 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(Ljava/util/Map;)V */
+        // 304 no location
+        int return_tmp0;
+        // 305 no location
+        int return_tmp1;
+        // 306 file ConcurrentHashMap.java line 665
+        // Labels: pc0
+        (void *)m . java.util.Map.size:()I();
+        // 307 file ConcurrentHashMap.java line 665
+        return_tmp0 = NONDET(int);
+        // 308 file ConcurrentHashMap.java line 665
+        java.lang.Math.max:(II)I((int)((float)return_tmp0 / 7.500000e-1f) + 1, (int)16);
+        // 309 file ConcurrentHashMap.java line 665
+        return_tmp1 = NONDET(int);
+        // 310 file ConcurrentHashMap.java line 665
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.<init>:(IFI)V(return_tmp1, 7.500000e-1f, (int)16);
+        // 311 file ConcurrentHashMap.java line 668
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.putAll:(Ljava/util/Map;)V((struct java.util.Map *)(void *)m);
+        // 312 file ConcurrentHashMap.java line 669
+        dead return_tmp1;
+        // 313 file ConcurrentHashMap.java line 669
+        dead return_tmp0;
+        // 314 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.isEmpty() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.isEmpty:()Z */
+        // 315 no location
+        struct java::array[int] *newarray_tmp0;
+        // 316 no location
+        int mcsum;
+        // 317 no location
+        struct java::array[reference] *mc;
+        // 318 no location
+        struct java::array[reference] *segments;
+        // 319 file ConcurrentHashMap.java line 677
+        // Labels: pc0
+        segments = ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments;
+        // 320 file ConcurrentHashMap.java line 687
+        newarray_tmp0 = MALLOC(struct java::array[int], 17L);
+        // 321 file ConcurrentHashMap.java line 687
+        newarray_tmp0->length = ((struct java::array[reference] *)(void *)segments)->length;
+        // 322 file ConcurrentHashMap.java line 687
+        newarray_tmp0->data = irep("(\"side_effect\" \"type\" (\"pointer\" \"\" (\"signedbv\" \"width\" (\"32\"))) \"statement\" (\"cpp_new[]\") \"size\" (\"member\" \"\" (\"dereference\" \"\" (\"typecast\" \"\" (\"typecast\" \"\" (\"symbol\" \"type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment\") \"#base_name\" (\"edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment\")) \"#reference\" (\"1\")))) \"identifier\" (\"java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.isEmpty:()Z::5::segments\") \"#base_name\" (\"segments\")) \"type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\"))) \"type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\"))))) \"type\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\")))) \"type\" (\"signedbv\" \"width\" (\"32\")) \"component_name\" (\"length\")))");
+        // 323 file ConcurrentHashMap.java line 687
+        ARRAY_SET(newarray_tmp0->data, 0);
+        // 324 file ConcurrentHashMap.java line 687
+        mc = (struct java::array[reference] *)newarray_tmp0;
+        // 325 file ConcurrentHashMap.java line 688
+        mcsum = 0;
+        // 326 file ConcurrentHashMap.java line 689
+        i = 0;
+        // 327 no location
+        // Labels: pc15
+        int i;
+        // 328 file ConcurrentHashMap.java line 689
+        // Labels: pc15$
+     1: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 2
+        // 329 file ConcurrentHashMap.java line 689
+        dead i;
+        // 330 file ConcurrentHashMap.java line 689
+        GOTO 4
+        // 331 file ConcurrentHashMap.java line 690
+        // Labels: pc22
+     2: SKIP
+        // 332 file ConcurrentHashMap.java line 690
+        IF NONDET(int) == 0 THEN GOTO 3
+        // 333 file ConcurrentHashMap.java line 691
+        // Labels: pc32
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.isEmpty:()Z#return_value = (bool)0;
+        // 334 file ConcurrentHashMap.java line 691
+        dead i;
+        // 335 file ConcurrentHashMap.java line 691
+        dead segments;
+        // 336 file ConcurrentHashMap.java line 691
+        dead mc;
+        // 337 file ConcurrentHashMap.java line 691
+        dead mcsum;
+        // 338 file ConcurrentHashMap.java line 691
+        dead newarray_tmp0;
+        // 339 file ConcurrentHashMap.java line 691
+        GOTO 10
+        // 340 file ConcurrentHashMap.java line 693
+        // Labels: pc34
+     3: ((struct java::array[int] *)(void *)mc)->data[i] = NONDET(int);
+        // 341 file ConcurrentHashMap.java line 693
+        mcsum = mcsum + NONDET(int);
+        // 342 file ConcurrentHashMap.java line 689
+        i = i + (int)1;
+        // 343 file ConcurrentHashMap.java line 689
+        GOTO 1
+        // 344 file ConcurrentHashMap.java line 698
+        // Labels: pc55
+     4: SKIP
+        // 345 file ConcurrentHashMap.java line 698
+        IF mcsum == 0 THEN GOTO 9
+        // 346 file ConcurrentHashMap.java line 699
+        // Labels: pc59
+        i = 0;
+        // 347 no location
+        // Labels: pc62
+        int i;
+        // 348 file ConcurrentHashMap.java line 699
+        // Labels: pc62$
+     5: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 6
+        // 349 file ConcurrentHashMap.java line 699
+        dead i;
+        // 350 file ConcurrentHashMap.java line 699
+        GOTO 9
+        // 351 file ConcurrentHashMap.java line 700
+        // Labels: pc69
+     6: SKIP
+        // 352 file ConcurrentHashMap.java line 700
+        IF NONDET(int) != 0 THEN GOTO 7
+        // 353 file ConcurrentHashMap.java line 700
+        // Labels: pc79
+        SKIP
+        // 354 file ConcurrentHashMap.java line 700
+        IF ((struct java::array[int] *)(void *)mc)->data[i] == NONDET(int) THEN GOTO 8
+        // 355 file ConcurrentHashMap.java line 702
+        // Labels: pc93
+     7: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.isEmpty:()Z#return_value = (bool)0;
+        // 356 file ConcurrentHashMap.java line 702
+        dead i;
+        // 357 file ConcurrentHashMap.java line 702
+        dead segments;
+        // 358 file ConcurrentHashMap.java line 702
+        dead mc;
+        // 359 file ConcurrentHashMap.java line 702
+        dead mcsum;
+        // 360 file ConcurrentHashMap.java line 702
+        dead newarray_tmp0;
+        // 361 file ConcurrentHashMap.java line 702
+        GOTO 10
+        // 362 file ConcurrentHashMap.java line 699
+        // Labels: pc95
+     8: i = i + (int)1;
+        // 363 file ConcurrentHashMap.java line 699
+        GOTO 5
+        // 364 file ConcurrentHashMap.java line 705
+        // Labels: pc101
+     9: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.isEmpty:()Z#return_value = (bool)1;
+        // 365 file ConcurrentHashMap.java line 705
+        dead segments;
+        // 366 file ConcurrentHashMap.java line 705
+        dead mc;
+        // 367 file ConcurrentHashMap.java line 705
+        dead mcsum;
+        // 368 file ConcurrentHashMap.java line 705
+        dead newarray_tmp0;
+        // 369 no location
+    10: END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.size() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.size:()I */
+        // 370 no location
+        struct java::array[int] *newarray_tmp0;
+        // 371 no location
+        struct java::array[reference] *mc;
+        // 372 no location
+        long check;
+        // 373 no location
+        long sum;
+        // 374 no location
+        struct java::array[reference] *segments;
+        // 375 file ConcurrentHashMap.java line 716
+        // Labels: pc0
+        segments = ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments;
+        // 376 file ConcurrentHashMap.java line 717
+        sum = 0L;
+        // 377 file ConcurrentHashMap.java line 718
+        check = 0L;
+        // 378 file ConcurrentHashMap.java line 719
+        newarray_tmp0 = MALLOC(struct java::array[int], 17L);
+        // 379 file ConcurrentHashMap.java line 719
+        newarray_tmp0->length = ((struct java::array[reference] *)(void *)segments)->length;
+        // 380 file ConcurrentHashMap.java line 719
+        newarray_tmp0->data = irep("(\"side_effect\" \"type\" (\"pointer\" \"\" (\"signedbv\" \"width\" (\"32\"))) \"statement\" (\"cpp_new[]\") \"size\" (\"member\" \"\" (\"dereference\" \"\" (\"typecast\" \"\" (\"typecast\" \"\" (\"symbol\" \"type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment\") \"#base_name\" (\"edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment\")) \"#reference\" (\"1\")))) \"identifier\" (\"java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.size:()I::5::segments\") \"#base_name\" (\"segments\")) \"type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\"))) \"type\" (\"pointer\" \"\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\"))))) \"type\" (\"symbol\" \"identifier\" (\"java::array[reference]\") \"#base_name\" (\"array[reference]\") \"#element_type\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\")))) \"type\" (\"signedbv\" \"width\" (\"32\")) \"component_name\" (\"length\")))");
+        // 381 file ConcurrentHashMap.java line 719
+        ARRAY_SET(newarray_tmp0->data, 0);
+        // 382 file ConcurrentHashMap.java line 719
+        mc = (struct java::array[reference] *)newarray_tmp0;
+        // 383 file ConcurrentHashMap.java line 722
+        k = 0;
+        // 384 no location
+        // Labels: pc19
+        int k;
+        // 385 file ConcurrentHashMap.java line 722
+        // Labels: pc19$
+     1: IF !(k >= 2) THEN GOTO 2
+        // 386 file ConcurrentHashMap.java line 722
+        dead k;
+        // 387 file ConcurrentHashMap.java line 722
+        GOTO 12
+        // 388 no location
+        // Labels: pc25
+     2: int mcsum;
+        // 389 file ConcurrentHashMap.java line 723
+        // Labels: pc25$
+        check = 0L;
+        // 390 file ConcurrentHashMap.java line 724
+        sum = 0L;
+        // 391 file ConcurrentHashMap.java line 725
+        mcsum = 0;
+        // 392 file ConcurrentHashMap.java line 726
+        i = 0;
+        // 393 no location
+        // Labels: pc36
+        int i;
+        // 394 file ConcurrentHashMap.java line 726
+        // Labels: pc36$
+     3: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 4
+        // 395 file ConcurrentHashMap.java line 726
+        dead i;
+        // 396 file ConcurrentHashMap.java line 726
+        GOTO 5
+        // 397 file ConcurrentHashMap.java line 727
+        // Labels: pc43
+     4: sum = sum + (long)NONDET(int);
+        // 398 file ConcurrentHashMap.java line 728
+        ((struct java::array[int] *)(void *)mc)->data[i] = NONDET(int);
+        // 399 file ConcurrentHashMap.java line 728
+        mcsum = mcsum + NONDET(int);
+        // 400 file ConcurrentHashMap.java line 726
+        i = i + (int)1;
+        // 401 file ConcurrentHashMap.java line 726
+        GOTO 3
+        // 402 file ConcurrentHashMap.java line 730
+        // Labels: pc78
+     5: SKIP
+        // 403 file ConcurrentHashMap.java line 730
+        IF mcsum == 0 THEN GOTO 9
+        // 404 file ConcurrentHashMap.java line 731
+        // Labels: pc83
+        i = 0;
+        // 405 no location
+        // Labels: pc86
+        int i;
+        // 406 file ConcurrentHashMap.java line 731
+        // Labels: pc86$
+     6: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 7
+        // 407 file ConcurrentHashMap.java line 731
+        dead i;
+        // 408 file ConcurrentHashMap.java line 731
+        GOTO 9
+        // 409 file ConcurrentHashMap.java line 732
+        // Labels: pc93
+     7: check = check + (long)NONDET(int);
+        // 410 file ConcurrentHashMap.java line 733
+        IF ((struct java::array[int] *)(void *)mc)->data[i] == NONDET(int) THEN GOTO 8
+        // 411 file ConcurrentHashMap.java line 734
+        // Labels: pc121
+        check = -1L;
+        // 412 file ConcurrentHashMap.java line 735
+        dead i;
+        // 413 file ConcurrentHashMap.java line 735
+        GOTO 9
+        // 414 file ConcurrentHashMap.java line 731
+        // Labels: pc129
+     8: i = i + (int)1;
+        // 415 file ConcurrentHashMap.java line 731
+        GOTO 6
+        // 416 file ConcurrentHashMap.java line 739
+        // Labels: pc135
+     9: IF !((check == sum ? 0 : (check > sum ? 1 : -1)) != 0) THEN GOTO 10
+        // 417 file ConcurrentHashMap.java line 739
+        dead mcsum;
+        // 418 file ConcurrentHashMap.java line 739
+        GOTO 11
+        // 419 file ConcurrentHashMap.java line 740
+    10: dead mcsum;
+        // 420 file ConcurrentHashMap.java line 740
+        dead k;
+        // 421 file ConcurrentHashMap.java line 740
+        // Labels: pc142
+        GOTO 12
+        // 422 file ConcurrentHashMap.java line 722
+        // Labels: pc145
+    11: k = k + (int)1;
+        // 423 file ConcurrentHashMap.java line 722
+        GOTO 1
+        // 424 file ConcurrentHashMap.java line 742
+        // Labels: pc151
+    12: SKIP
+        // 425 file ConcurrentHashMap.java line 742
+        IF (check == sum ? 0 : (check > sum ? 1 : -1)) == 0 THEN GOTO 21
+        // 426 file ConcurrentHashMap.java line 743
+        // Labels: pc158
+        sum = 0L;
+        // 427 file ConcurrentHashMap.java line 744
+        i = 0;
+        // 428 no location
+        // Labels: pc163
+        int i;
+        // 429 file ConcurrentHashMap.java line 744
+        // Labels: pc163$
+    13: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 14
+        // 430 file ConcurrentHashMap.java line 744
+        dead i;
+        // 431 file ConcurrentHashMap.java line 744
+        GOTO 15
+        // 432 file ConcurrentHashMap.java line 745
+        // Labels: pc170
+    14: ((struct java::array[reference] *)(void *)segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.lock:()V();
+        // 433 file ConcurrentHashMap.java line 744
+        i = i + (int)1;
+        // 434 file ConcurrentHashMap.java line 744
+        GOTO 13
+        // 435 file ConcurrentHashMap.java line 746
+        // Labels: pc183
+    15: i = 0;
+        // 436 no location
+        // Labels: pc186
+        int i;
+        // 437 file ConcurrentHashMap.java line 746
+        // Labels: pc186$
+    16: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 17
+        // 438 file ConcurrentHashMap.java line 746
+        dead i;
+        // 439 file ConcurrentHashMap.java line 746
+        GOTO 18
+        // 440 file ConcurrentHashMap.java line 747
+        // Labels: pc193
+    17: sum = sum + (long)NONDET(int);
+        // 441 file ConcurrentHashMap.java line 746
+        i = i + (int)1;
+        // 442 file ConcurrentHashMap.java line 746
+        GOTO 16
+        // 443 file ConcurrentHashMap.java line 748
+        // Labels: pc210
+    18: i = 0;
+        // 444 no location
+        // Labels: pc213
+        int i;
+        // 445 file ConcurrentHashMap.java line 748
+        // Labels: pc213$
+    19: IF !(i >= ((struct java::array[reference] *)(void *)segments)->length) THEN GOTO 20
+        // 446 file ConcurrentHashMap.java line 748
+        dead i;
+        // 447 file ConcurrentHashMap.java line 748
+        GOTO 21
+        // 448 file ConcurrentHashMap.java line 749
+        // Labels: pc220
+    20: ((struct java::array[reference] *)(void *)segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.unlock:()V();
+        // 449 file ConcurrentHashMap.java line 748
+        i = i + (int)1;
+        // 450 file ConcurrentHashMap.java line 748
+        GOTO 19
+        // 451 file ConcurrentHashMap.java line 751
+        // Labels: pc233
+    21: SKIP
+        // 452 file ConcurrentHashMap.java line 751
+        IF (sum == 2147483647L ? 0 : (sum > 2147483647L ? 1 : -1)) <= 0 THEN GOTO 22
+        // 453 file ConcurrentHashMap.java line 752
+        // Labels: pc241
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.size:()I#return_value = 2147483647;
+        // 454 file ConcurrentHashMap.java line 752
+        dead segments;
+        // 455 file ConcurrentHashMap.java line 752
+        dead sum;
+        // 456 file ConcurrentHashMap.java line 752
+        dead check;
+        // 457 file ConcurrentHashMap.java line 752
+        dead mc;
+        // 458 file ConcurrentHashMap.java line 752
+        dead newarray_tmp0;
+        // 459 file ConcurrentHashMap.java line 752
+        GOTO 23
+        // 460 file ConcurrentHashMap.java line 754
+        // Labels: pc244
+    22: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.size:()I#return_value = (int)sum;
+        // 461 file ConcurrentHashMap.java line 754
+        dead segments;
+        // 462 file ConcurrentHashMap.java line 754
+        dead sum;
+        // 463 file ConcurrentHashMap.java line 754
+        dead check;
+        // 464 file ConcurrentHashMap.java line 754
+        dead mc;
+        // 465 file ConcurrentHashMap.java line 754
+        dead newarray_tmp0;
+        // 466 no location
+    23: END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.get() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.get:(Ljava/lang/Object;)Ljava/lang/Object; */
+        // 467 no location
+        int return_tmp0;
+        // 468 no location
+        int return_tmp1;
+        // 469 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp2;
+        // 470 no location
+        struct java.lang.Object *return_tmp3;
+        // 471 no location
+        int hash;
+        // 472 file ConcurrentHashMap.java line 769
+        // Labels: pc0
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 473 file ConcurrentHashMap.java line 769
+        return_tmp0 = NONDET(int);
+        // 474 file ConcurrentHashMap.java line 769
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp0);
+        // 475 file ConcurrentHashMap.java line 769
+        return_tmp1 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 476 file ConcurrentHashMap.java line 769
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 477 file ConcurrentHashMap.java line 769
+        hash = return_tmp1;
+        // 478 file ConcurrentHashMap.java line 770
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 479 file ConcurrentHashMap.java line 770
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 480 file ConcurrentHashMap.java line 770
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 481 file ConcurrentHashMap.java line 770
+        (void *)return_tmp2 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.get:(Ljava/lang/Object;I)Ljava/lang/Object;((struct java.lang.Object *)(void *)key, hash);
+        // 482 file ConcurrentHashMap.java line 770
+        return_tmp3 = NONDET(struct java.lang.Object *);
+        // 483 file ConcurrentHashMap.java line 770
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.get:(Ljava/lang/Object;)Ljava/lang/Object;#return_value = return_tmp3;
+        // 484 file ConcurrentHashMap.java line 770
+        dead hash;
+        // 485 file ConcurrentHashMap.java line 770
+        dead return_tmp3;
+        // 486 file ConcurrentHashMap.java line 770
+        dead return_tmp2;
+        // 487 file ConcurrentHashMap.java line 770
+        dead return_tmp1;
+        // 488 file ConcurrentHashMap.java line 770
+        dead return_tmp0;
+        // 489 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsKey() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsKey:(Ljava/lang/Object;)Z */
+        // 490 no location
+        int return_tmp0;
+        // 491 no location
+        int return_tmp1;
+        // 492 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp2;
+        // 493 no location
+        bool return_tmp3;
+        // 494 no location
+        int hash;
+        // 495 file ConcurrentHashMap.java line 783
+        // Labels: pc0
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 496 file ConcurrentHashMap.java line 783
+        return_tmp0 = NONDET(int);
+        // 497 file ConcurrentHashMap.java line 783
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp0);
+        // 498 file ConcurrentHashMap.java line 783
+        return_tmp1 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 499 file ConcurrentHashMap.java line 783
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 500 file ConcurrentHashMap.java line 783
+        hash = return_tmp1;
+        // 501 file ConcurrentHashMap.java line 784
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 502 file ConcurrentHashMap.java line 784
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 503 file ConcurrentHashMap.java line 784
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 504 file ConcurrentHashMap.java line 784
+        (void *)return_tmp2 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.containsKey:(Ljava/lang/Object;I)Z((struct java.lang.Object *)(void *)key, hash);
+        // 505 file ConcurrentHashMap.java line 784
+        return_tmp3 = NONDET(bool);
+        // 506 file ConcurrentHashMap.java line 784
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsKey:(Ljava/lang/Object;)Z#return_value = (bool)(int)return_tmp3;
+        // 507 file ConcurrentHashMap.java line 784
+        dead hash;
+        // 508 file ConcurrentHashMap.java line 784
+        dead return_tmp3;
+        // 509 file ConcurrentHashMap.java line 784
+        dead return_tmp2;
+        // 510 file ConcurrentHashMap.java line 784
+        dead return_tmp1;
+        // 511 file ConcurrentHashMap.java line 784
+        dead return_tmp0;
+        // 512 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.contains() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.contains:(Ljava/lang/Object;)Z */
+        // 513 no location
+        bool return_tmp0;
+        // 514 file ConcurrentHashMap.java line 864
+        // Labels: pc0
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z((struct java.lang.Object *)(void *)value);
+        // 515 file ConcurrentHashMap.java line 864
+        return_tmp0 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z#return_value;
+        // 516 file ConcurrentHashMap.java line 864
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.containsValue:(Ljava/lang/Object;)Z#return_value;
+        // 517 file ConcurrentHashMap.java line 864
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.contains:(Ljava/lang/Object;)Z#return_value = (bool)(int)return_tmp0;
+        // 518 file ConcurrentHashMap.java line 864
+        dead return_tmp0;
+        // 519 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.putIfAbsent() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.putIfAbsent:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; */
+        // 520 no location
+        struct java.lang.NullPointerException *new_tmp0;
+        // 521 no location
+        int return_tmp1;
+        // 522 no location
+        int return_tmp2;
+        // 523 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp3;
+        // 524 no location
+        struct java.lang.Object *return_tmp4;
+        // 525 file ConcurrentHashMap.java line 895
+        // Labels: pc0
+        SKIP
+        // 526 file ConcurrentHashMap.java line 895
+        IF (void *)(void *)value != null THEN GOTO 1
+        // 527 file ConcurrentHashMap.java line 896
+        // Labels: pc4
+        new_tmp0 = MALLOC(struct java.lang.NullPointerException, 5L);
+        // 528 file ConcurrentHashMap.java line 896
+        *new_tmp0 = { .@class_identifier="java::java.lang.NullPointerException",
+    .@lock=FALSE };
+        // 529 file ConcurrentHashMap.java line 896
+        (void *)new_tmp0 . java.lang.NullPointerException.<init>:()V();
+        // 530 file ConcurrentHashMap.java line 896
+        ASSERT !(new_tmp0 == null) // throwing null in new_tmp0
+        // 531 file ConcurrentHashMap.java line 896
+        THROW: throw(new_tmp0)
+        // 532 no location
+        // Labels: pc12
+     1: int hash;
+        // 533 file ConcurrentHashMap.java line 897
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 534 file ConcurrentHashMap.java line 897
+        return_tmp1 = NONDET(int);
+        // 535 file ConcurrentHashMap.java line 897
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp1);
+        // 536 file ConcurrentHashMap.java line 897
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 537 file ConcurrentHashMap.java line 897
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 538 file ConcurrentHashMap.java line 897
+        hash = return_tmp2;
+        // 539 file ConcurrentHashMap.java line 898
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 540 file ConcurrentHashMap.java line 898
+        return_tmp3 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 541 file ConcurrentHashMap.java line 898
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 542 file ConcurrentHashMap.java line 898
+        (void *)return_tmp3 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.put:(Ljava/lang/Object;ILjava/lang/Object;Z)Ljava/lang/Object;((struct java.lang.Object *)(void *)key, hash, (struct java.lang.Object *)(void *)value, (bool)1);
+        // 543 file ConcurrentHashMap.java line 898
+        return_tmp4 = NONDET(struct java.lang.Object *);
+        // 544 file ConcurrentHashMap.java line 898
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.putIfAbsent:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;#return_value = return_tmp4;
+        // 545 file ConcurrentHashMap.java line 898
+        dead hash;
+        // 546 file ConcurrentHashMap.java line 898
+        dead return_tmp4;
+        // 547 file ConcurrentHashMap.java line 898
+        dead return_tmp3;
+        // 548 file ConcurrentHashMap.java line 898
+        dead return_tmp2;
+        // 549 file ConcurrentHashMap.java line 898
+        dead return_tmp1;
+        // 550 file ConcurrentHashMap.java line 898
+        dead new_tmp0;
+        // 551 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.remove() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.remove:(Ljava/lang/Object;)Ljava/lang/Object; */
+        // 552 no location
+        int return_tmp0;
+        // 553 no location
+        int return_tmp1;
+        // 554 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp2;
+        // 555 no location
+        struct java.lang.Object *return_tmp3;
+        // 556 no location
+        int hash;
+        // 557 file ConcurrentHashMap.java line 925
+        // Labels: pc0
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 558 file ConcurrentHashMap.java line 925
+        return_tmp0 = NONDET(int);
+        // 559 file ConcurrentHashMap.java line 925
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp0);
+        // 560 file ConcurrentHashMap.java line 925
+        return_tmp1 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 561 file ConcurrentHashMap.java line 925
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 562 file ConcurrentHashMap.java line 925
+        hash = return_tmp1;
+        // 563 file ConcurrentHashMap.java line 926
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 564 file ConcurrentHashMap.java line 926
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 565 file ConcurrentHashMap.java line 926
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 566 file ConcurrentHashMap.java line 926
+        (void *)return_tmp2 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.remove:(Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;((struct java.lang.Object *)(void *)key, hash, (struct java.lang.Object *)null);
+        // 567 file ConcurrentHashMap.java line 926
+        return_tmp3 = NONDET(struct java.lang.Object *);
+        // 568 file ConcurrentHashMap.java line 926
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.remove:(Ljava/lang/Object;)Ljava/lang/Object;#return_value = return_tmp3;
+        // 569 file ConcurrentHashMap.java line 926
+        dead hash;
+        // 570 file ConcurrentHashMap.java line 926
+        dead return_tmp3;
+        // 571 file ConcurrentHashMap.java line 926
+        dead return_tmp2;
+        // 572 file ConcurrentHashMap.java line 926
+        dead return_tmp1;
+        // 573 file ConcurrentHashMap.java line 926
+        dead return_tmp0;
+        // 574 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.remove() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.remove:(Ljava/lang/Object;Ljava/lang/Object;)Z */
+        // 575 no location
+        int return_tmp0;
+        // 576 no location
+        int return_tmp1;
+        // 577 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp2;
+        // 578 no location
+        struct java.lang.Object *return_tmp3;
+        // 579 no location
+        int $stack_tmp4;
+        // 580 file ConcurrentHashMap.java line 935
+        // Labels: pc0
+        SKIP
+        // 581 file ConcurrentHashMap.java line 935
+        IF (void *)(void *)value != null THEN GOTO 1
+        // 582 file ConcurrentHashMap.java line 936
+        // Labels: pc4
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.remove:(Ljava/lang/Object;Ljava/lang/Object;)Z#return_value = (bool)0;
+        // 583 file ConcurrentHashMap.java line 936
+        dead $stack_tmp4;
+        // 584 file ConcurrentHashMap.java line 936
+        dead return_tmp3;
+        // 585 file ConcurrentHashMap.java line 936
+        dead return_tmp2;
+        // 586 file ConcurrentHashMap.java line 936
+        dead return_tmp1;
+        // 587 file ConcurrentHashMap.java line 936
+        dead return_tmp0;
+        // 588 file ConcurrentHashMap.java line 936
+        GOTO 4
+        // 589 no location
+        // Labels: pc6
+     1: int hash;
+        // 590 file ConcurrentHashMap.java line 937
+        // Labels: pc6$
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 591 file ConcurrentHashMap.java line 937
+        return_tmp0 = NONDET(int);
+        // 592 file ConcurrentHashMap.java line 937
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp0);
+        // 593 file ConcurrentHashMap.java line 937
+        return_tmp1 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 594 file ConcurrentHashMap.java line 937
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 595 file ConcurrentHashMap.java line 937
+        hash = return_tmp1;
+        // 596 file ConcurrentHashMap.java line 938
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 597 file ConcurrentHashMap.java line 938
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 598 file ConcurrentHashMap.java line 938
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 599 file ConcurrentHashMap.java line 938
+        (void *)return_tmp2 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.remove:(Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;((struct java.lang.Object *)(void *)key, hash, (struct java.lang.Object *)(void *)value);
+        // 600 file ConcurrentHashMap.java line 938
+        return_tmp3 = NONDET(struct java.lang.Object *);
+        // 601 file ConcurrentHashMap.java line 938
+        IF (void *)return_tmp3 == null THEN GOTO 2
+        // 602 no location
+        // Labels: pc28
+        $stack_tmp4 = 1;
+        // 603 file ConcurrentHashMap.java line 938
+        GOTO 3
+        // 604 file ConcurrentHashMap.java line 938
+        // Labels: pc32
+     2: SKIP
+        // 605 no location
+        $stack_tmp4 = 0;
+        // 606 file ConcurrentHashMap.java line 938
+        // Labels: pc33
+     3: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.remove:(Ljava/lang/Object;Ljava/lang/Object;)Z#return_value = (bool)$stack_tmp4;
+        // 607 file ConcurrentHashMap.java line 938
+        dead hash;
+        // 608 file ConcurrentHashMap.java line 938
+        dead $stack_tmp4;
+        // 609 file ConcurrentHashMap.java line 938
+        dead return_tmp3;
+        // 610 file ConcurrentHashMap.java line 938
+        dead return_tmp2;
+        // 611 file ConcurrentHashMap.java line 938
+        dead return_tmp1;
+        // 612 file ConcurrentHashMap.java line 938
+        dead return_tmp0;
+        // 613 no location
+     4: END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.replace() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.replace:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Z */
+        // 614 no location
+        struct java.lang.NullPointerException *new_tmp0;
+        // 615 no location
+        int return_tmp1;
+        // 616 no location
+        int return_tmp2;
+        // 617 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp3;
+        // 618 no location
+        bool return_tmp4;
+        // 619 file ConcurrentHashMap.java line 947
+        // Labels: pc0
+        SKIP
+        // 620 file ConcurrentHashMap.java line 947
+        IF (void *)(void *)oldValue == null THEN GOTO 1
+        // 621 file ConcurrentHashMap.java line 947
+        // Labels: pc4
+        SKIP
+        // 622 file ConcurrentHashMap.java line 947
+        IF (void *)(void *)newValue != null THEN GOTO 2
+        // 623 file ConcurrentHashMap.java line 948
+        // Labels: pc8
+     1: new_tmp0 = MALLOC(struct java.lang.NullPointerException, 5L);
+        // 624 file ConcurrentHashMap.java line 948
+        *new_tmp0 = { .@class_identifier="java::java.lang.NullPointerException",
+    .@lock=FALSE };
+        // 625 file ConcurrentHashMap.java line 948
+        (void *)new_tmp0 . java.lang.NullPointerException.<init>:()V();
+        // 626 file ConcurrentHashMap.java line 948
+        ASSERT !(new_tmp0 == null) // throwing null in new_tmp0
+        // 627 file ConcurrentHashMap.java line 948
+        THROW: throw(new_tmp0)
+        // 628 no location
+        // Labels: pc16
+     2: int hash;
+        // 629 file ConcurrentHashMap.java line 949
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 630 file ConcurrentHashMap.java line 949
+        return_tmp1 = NONDET(int);
+        // 631 file ConcurrentHashMap.java line 949
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp1);
+        // 632 file ConcurrentHashMap.java line 949
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 633 file ConcurrentHashMap.java line 949
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 634 file ConcurrentHashMap.java line 949
+        hash = return_tmp2;
+        // 635 file ConcurrentHashMap.java line 950
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 636 file ConcurrentHashMap.java line 950
+        return_tmp3 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 637 file ConcurrentHashMap.java line 950
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 638 file ConcurrentHashMap.java line 950
+        (void *)return_tmp3 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.replace:(Ljava/lang/Object;ILjava/lang/Object;Ljava/lang/Object;)Z((struct java.lang.Object *)(void *)key, hash, (struct java.lang.Object *)(void *)oldValue, (struct java.lang.Object *)(void *)newValue);
+        // 639 file ConcurrentHashMap.java line 950
+        return_tmp4 = NONDET(bool);
+        // 640 file ConcurrentHashMap.java line 950
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.replace:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Z#return_value = (bool)(int)return_tmp4;
+        // 641 file ConcurrentHashMap.java line 950
+        dead hash;
+        // 642 file ConcurrentHashMap.java line 950
+        dead return_tmp4;
+        // 643 file ConcurrentHashMap.java line 950
+        dead return_tmp3;
+        // 644 file ConcurrentHashMap.java line 950
+        dead return_tmp2;
+        // 645 file ConcurrentHashMap.java line 950
+        dead return_tmp1;
+        // 646 file ConcurrentHashMap.java line 950
+        dead new_tmp0;
+        // 647 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.replace() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.replace:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; */
+        // 648 no location
+        struct java.lang.NullPointerException *new_tmp0;
+        // 649 no location
+        int return_tmp1;
+        // 650 no location
+        int return_tmp2;
+        // 651 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *return_tmp3;
+        // 652 no location
+        struct java.lang.Object *return_tmp4;
+        // 653 file ConcurrentHashMap.java line 961
+        // Labels: pc0
+        SKIP
+        // 654 file ConcurrentHashMap.java line 961
+        IF (void *)(void *)value != null THEN GOTO 1
+        // 655 file ConcurrentHashMap.java line 962
+        // Labels: pc4
+        new_tmp0 = MALLOC(struct java.lang.NullPointerException, 5L);
+        // 656 file ConcurrentHashMap.java line 962
+        *new_tmp0 = { .@class_identifier="java::java.lang.NullPointerException",
+    .@lock=FALSE };
+        // 657 file ConcurrentHashMap.java line 962
+        (void *)new_tmp0 . java.lang.NullPointerException.<init>:()V();
+        // 658 file ConcurrentHashMap.java line 962
+        ASSERT !(new_tmp0 == null) // throwing null in new_tmp0
+        // 659 file ConcurrentHashMap.java line 962
+        THROW: throw(new_tmp0)
+        // 660 no location
+        // Labels: pc12
+     1: int hash;
+        // 661 file ConcurrentHashMap.java line 963
+        (void *)key . java.lang.Object.hashCode:()I();
+        // 662 file ConcurrentHashMap.java line 963
+        return_tmp1 = NONDET(int);
+        // 663 file ConcurrentHashMap.java line 963
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I(return_tmp1);
+        // 664 file ConcurrentHashMap.java line 963
+        return_tmp2 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 665 file ConcurrentHashMap.java line 963
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.hash:(I)I#return_value;
+        // 666 file ConcurrentHashMap.java line 963
+        hash = return_tmp2;
+        // 667 file ConcurrentHashMap.java line 964
+        (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;(hash);
+        // 668 file ConcurrentHashMap.java line 964
+        return_tmp3 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 669 file ConcurrentHashMap.java line 964
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.segmentFor:(I)Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$Segment;#return_value;
+        // 670 file ConcurrentHashMap.java line 964
+        (void *)return_tmp3 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.replace:(Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;((struct java.lang.Object *)(void *)key, hash, (struct java.lang.Object *)(void *)value);
+        // 671 file ConcurrentHashMap.java line 964
+        return_tmp4 = NONDET(struct java.lang.Object *);
+        // 672 file ConcurrentHashMap.java line 964
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.replace:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;#return_value = return_tmp4;
+        // 673 file ConcurrentHashMap.java line 964
+        dead hash;
+        // 674 file ConcurrentHashMap.java line 964
+        dead return_tmp4;
+        // 675 file ConcurrentHashMap.java line 964
+        dead return_tmp3;
+        // 676 file ConcurrentHashMap.java line 964
+        dead return_tmp2;
+        // 677 file ConcurrentHashMap.java line 964
+        dead return_tmp1;
+        // 678 file ConcurrentHashMap.java line 964
+        dead new_tmp0;
+        // 679 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.clear() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.clear:()V */
+        // 680 file ConcurrentHashMap.java line 971
+        // Labels: pc0
+        i = 0;
+        // 681 no location
+        // Labels: pc2
+        int i;
+        // 682 file ConcurrentHashMap.java line 971
+        // Labels: pc2$
+     1: IF !(i >= ((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->length) THEN GOTO 2
+        // 683 file ConcurrentHashMap.java line 971
+        dead i;
+        // 684 file ConcurrentHashMap.java line 971
+        GOTO 3
+        // 685 file ConcurrentHashMap.java line 972
+        // Labels: pc11
+     2: ((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.clear:()V();
+        // 686 file ConcurrentHashMap.java line 971
+        i = i + (int)1;
+        // 687 file ConcurrentHashMap.java line 971
+        GOTO 1
+        // 688 file ConcurrentHashMap.java line 973
+        // Labels: pc26
+     3: GOTO 4
+        // 689 no location
+     4: END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.keySet() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.keySet:()Ljava/util/Set; */
+        // 690 no location
+        void *$stack_tmp0;
+        // 691 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeySet *new_tmp1;
+        // 692 no location
+        struct java.util.Set *ks;
+        // 693 file ConcurrentHashMap.java line 992
+        // Labels: pc0
+        ks = ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->keySet;
+        // 694 file ConcurrentHashMap.java line 993
+        IF (void *)(void *)ks == null THEN GOTO 1
+        // 695 no location
+        // Labels: pc9
+        $stack_tmp0 = (void *)ks;
+        // 696 file ConcurrentHashMap.java line 993
+        GOTO 2
+        // 697 file ConcurrentHashMap.java line 993
+        // Labels: pc13
+     1: new_tmp1 = MALLOC(struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeySet, 5L);
+        // 698 file ConcurrentHashMap.java line 993
+        *new_tmp1 = { .@class_identifier="java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeySet",
+    .@lock=FALSE };
+        // 699 file ConcurrentHashMap.java line 993
+        (void *)new_tmp1 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeySet.<init>:(Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap;)V((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this);
+        // 700 no location
+        $stack_tmp0 = (void *)new_tmp1;
+        // 701 file ConcurrentHashMap.java line 993
+        ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->keySet = (struct java.util.Set *)new_tmp1;
+        // 702 file ConcurrentHashMap.java line 993
+        // Labels: pc26
+     2: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.keySet:()Ljava/util/Set;#return_value = (struct java.util.Set *)$stack_tmp0;
+        // 703 file ConcurrentHashMap.java line 993
+        dead ks;
+        // 704 file ConcurrentHashMap.java line 993
+        dead new_tmp1;
+        // 705 file ConcurrentHashMap.java line 993
+        dead $stack_tmp0;
+        // 706 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.values() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.values:()Ljava/util/Collection; */
+        // 707 no location
+        void *$stack_tmp0;
+        // 708 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Values *new_tmp1;
+        // 709 no location
+        struct java.util.Collection *vs;
+        // 710 file ConcurrentHashMap.java line 1013
+        // Labels: pc0
+        vs = ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->values;
+        // 711 file ConcurrentHashMap.java line 1014
+        IF (void *)(void *)vs == null THEN GOTO 1
+        // 712 no location
+        // Labels: pc9
+        $stack_tmp0 = (void *)vs;
+        // 713 file ConcurrentHashMap.java line 1014
+        GOTO 2
+        // 714 file ConcurrentHashMap.java line 1014
+        // Labels: pc13
+     1: new_tmp1 = MALLOC(struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Values, 5L);
+        // 715 file ConcurrentHashMap.java line 1014
+        *new_tmp1 = { .@class_identifier="java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Values",
+    .@lock=FALSE };
+        // 716 file ConcurrentHashMap.java line 1014
+        (void *)new_tmp1 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Values.<init>:(Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap;)V((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this);
+        // 717 no location
+        $stack_tmp0 = (void *)new_tmp1;
+        // 718 file ConcurrentHashMap.java line 1014
+        ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->values = (struct java.util.Collection *)new_tmp1;
+        // 719 file ConcurrentHashMap.java line 1014
+        // Labels: pc26
+     2: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.values:()Ljava/util/Collection;#return_value = (struct java.util.Collection *)$stack_tmp0;
+        // 720 file ConcurrentHashMap.java line 1014
+        dead vs;
+        // 721 file ConcurrentHashMap.java line 1014
+        dead new_tmp1;
+        // 722 file ConcurrentHashMap.java line 1014
+        dead $stack_tmp0;
+        // 723 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.entrySet() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.entrySet:()Ljava/util/Set; */
+        // 724 no location
+        void *$stack_tmp0;
+        // 725 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$EntrySet *new_tmp1;
+        // 726 no location
+        struct java.util.Set *es;
+        // 727 file ConcurrentHashMap.java line 1034
+        // Labels: pc0
+        es = ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->entrySet;
+        // 728 file ConcurrentHashMap.java line 1035
+        IF (void *)(void *)es == null THEN GOTO 1
+        // 729 no location
+        // Labels: pc9
+        $stack_tmp0 = (void *)es;
+        // 730 file ConcurrentHashMap.java line 1035
+        GOTO 2
+        // 731 file ConcurrentHashMap.java line 1035
+        // Labels: pc13
+     1: new_tmp1 = MALLOC(struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$EntrySet, 5L);
+        // 732 file ConcurrentHashMap.java line 1035
+        *new_tmp1 = { .@class_identifier="java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$EntrySet",
+    .@lock=FALSE };
+        // 733 file ConcurrentHashMap.java line 1035
+        (void *)new_tmp1 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$EntrySet.<init>:(Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap;)V((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this);
+        // 734 no location
+        $stack_tmp0 = (void *)new_tmp1;
+        // 735 file ConcurrentHashMap.java line 1035
+        ((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->entrySet = (struct java.util.Set *)new_tmp1;
+        // 736 file ConcurrentHashMap.java line 1035
+        // Labels: pc26
+     2: edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.entrySet:()Ljava/util/Set;#return_value = (struct java.util.Set *)$stack_tmp0;
+        // 737 file ConcurrentHashMap.java line 1035
+        dead es;
+        // 738 file ConcurrentHashMap.java line 1035
+        dead new_tmp1;
+        // 739 file ConcurrentHashMap.java line 1035
+        dead $stack_tmp0;
+        // 740 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.keys() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.keys:()Ljava/util/Enumeration; */
+        // 741 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeyIterator *new_tmp0;
+        // 742 file ConcurrentHashMap.java line 1045
+        // Labels: pc0
+        new_tmp0 = MALLOC(struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeyIterator, 5L);
+        // 743 file ConcurrentHashMap.java line 1045
+        *new_tmp0 = { .@class_identifier="java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeyIterator",
+    .@lock=FALSE };
+        // 744 file ConcurrentHashMap.java line 1045
+        (void *)new_tmp0 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$KeyIterator.<init>:(Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap;)V((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this);
+        // 745 file ConcurrentHashMap.java line 1045
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.keys:()Ljava/util/Enumeration;#return_value = (struct java.util.Enumeration *)new_tmp0;
+        // 746 file ConcurrentHashMap.java line 1045
+        dead new_tmp0;
+        // 747 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.elements() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.elements:()Ljava/util/Enumeration; */
+        // 748 no location
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$ValueIterator *new_tmp0;
+        // 749 file ConcurrentHashMap.java line 1055
+        // Labels: pc0
+        new_tmp0 = MALLOC(struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$ValueIterator, 5L);
+        // 750 file ConcurrentHashMap.java line 1055
+        *new_tmp0 = { .@class_identifier="java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$ValueIterator",
+    .@lock=FALSE };
+        // 751 file ConcurrentHashMap.java line 1055
+        (void *)new_tmp0 . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$ValueIterator.<init>:(Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap;)V((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this);
+        // 752 file ConcurrentHashMap.java line 1055
+        edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.elements:()Ljava/util/Enumeration;#return_value = (struct java.util.Enumeration *)new_tmp0;
+        // 753 file ConcurrentHashMap.java line 1055
+        dead new_tmp0;
+        // 754 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.writeObject() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.writeObject:(Ljava/io/ObjectOutputStream;)V */
+        // 755 file ConcurrentHashMap.java line 1231
+        // Labels: pc0
+        (void *)s . java.io.ObjectOutputStream.defaultWriteObject:()V();
+        // 756 file ConcurrentHashMap.java line 1233
+        k = 0;
+        // 757 no location
+        // Labels: pc6
+        int k;
+        // 758 file ConcurrentHashMap.java line 1233
+        // Labels: pc6$
+     1: IF !(k >= ((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->length) THEN GOTO 2
+        // 759 file ConcurrentHashMap.java line 1233
+        dead k;
+        // 760 file ConcurrentHashMap.java line 1233
+        GOTO 9
+        // 761 no location
+        // Labels: pc15
+     2: struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *seg;
+        // 762 no location
+        // Labels: pc15$
+        struct java::array[reference] *tab;
+        // 763 file ConcurrentHashMap.java line 1234
+        // Labels: pc15$$
+        seg = (struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment *)((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->data[k];
+        // 764 file ConcurrentHashMap.java line 1235
+        (void *)seg . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.lock:()V();
+        // 765 file ConcurrentHashMap.java line 1237
+        tab = NONDET(struct java::array[reference] *);
+        // 766 file ConcurrentHashMap.java line 1238
+        i = 0;
+        // 767 no location
+        // Labels: pc35
+        int i;
+        // 768 file ConcurrentHashMap.java line 1238
+        // Labels: pc35$
+     3: IF !(i >= ((struct java::array[reference] *)(void *)tab)->length) THEN GOTO 4
+        // 769 file ConcurrentHashMap.java line 1238
+        dead i;
+        // 770 file ConcurrentHashMap.java line 1238
+        dead tab;
+        // 771 file ConcurrentHashMap.java line 1238
+        GOTO 8
+        // 772 file ConcurrentHashMap.java line 1239
+        // Labels: pc43
+     4: e = (struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$HashEntry *)((struct java::array[reference] *)(void *)tab)->data[i];
+        // 773 no location
+        // Labels: pc50
+        struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$HashEntry *e;
+        // 774 file ConcurrentHashMap.java line 1239
+        // Labels: pc50$
+     5: IF !((void *)(void *)e == null) THEN GOTO 6
+        // 775 file ConcurrentHashMap.java line 1239
+        dead e;
+        // 776 file ConcurrentHashMap.java line 1239
+        GOTO 7
+        // 777 file ConcurrentHashMap.java line 1240
+        // Labels: pc55
+     6: (void *)s . java.io.ObjectOutputStream.writeObject:(Ljava/lang/Object;)V(NONDET(struct java.lang.Object *));
+        // 778 file ConcurrentHashMap.java line 1241
+        (void *)s . java.io.ObjectOutputStream.writeObject:(Ljava/lang/Object;)V(NONDET(struct java.lang.Object *));
+        // 779 file ConcurrentHashMap.java line 1239
+        e = NONDET(struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$HashEntry *);
+        // 780 file ConcurrentHashMap.java line 1239
+        GOTO 5
+        // 781 file ConcurrentHashMap.java line 1238
+        // Labels: pc83
+     7: i = i + (int)1;
+        // 782 file ConcurrentHashMap.java line 1238
+        GOTO 3
+        // 783 file ConcurrentHashMap.java line 1245
+        // Labels: pc89
+     8: (void *)seg . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.unlock:()V();
+        // 784 file ConcurrentHashMap.java line 1246
+        dead seg;
+        // 785 file ConcurrentHashMap.java line 1233
+        // Labels: pc105
+        k = k + (int)1;
+        // 786 file ConcurrentHashMap.java line 1233
+        GOTO 1
+        // 787 file ConcurrentHashMap.java line 1248
+        // Labels: pc111
+     9: (void *)s . java.io.ObjectOutputStream.writeObject:(Ljava/lang/Object;)V((struct java.lang.Object *)null);
+        // 788 file ConcurrentHashMap.java line 1249
+        (void *)s . java.io.ObjectOutputStream.writeObject:(Ljava/lang/Object;)V((struct java.lang.Object *)null);
+        // 789 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.readObject() /* java::edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.readObject:(Ljava/io/ObjectInputStream;)V */
+        // 790 no location
+        struct java::array[reference] *newarray_tmp0;
+        // 791 no location
+        struct java.lang.Object *return_tmp1;
+        // 792 no location
+        struct java.lang.Object *return_tmp2;
+        // 793 no location
+        struct java.lang.Object *return_tmp3;
+        // 794 file ConcurrentHashMap.java line 1259
+        // Labels: pc0
+        (void *)s . java.io.ObjectInputStream.defaultReadObject:()V();
+        // 795 file ConcurrentHashMap.java line 1262
+        i = 0;
+        // 796 no location
+        // Labels: pc6
+        int i;
+        // 797 file ConcurrentHashMap.java line 1262
+        // Labels: pc6$
+     1: IF !(i >= ((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->length) THEN GOTO 2
+        // 798 file ConcurrentHashMap.java line 1262
+        dead i;
+        // 799 file ConcurrentHashMap.java line 1262
+        GOTO 3
+        // 800 file ConcurrentHashMap.java line 1263
+        // Labels: pc15
+     2: newarray_tmp0 = MALLOC(struct java::array[reference], 17L);
+        // 801 file ConcurrentHashMap.java line 1263
+        newarray_tmp0->length = 1;
+        // 802 file ConcurrentHashMap.java line 1263
+        newarray_tmp0->data = irep("(\"side_effect\" \"type\" (\"pointer\" \"\" (\"pointer\" \"\" (\"empty\") \"#reference\" (\"1\"))) \"statement\" (\"cpp_new[]\") \"size\" (\"constant\" \"type\" (\"signedbv\" \"width\" (\"32\")) \"value\" (\"00000000000000000000000000000001\")))");
+        // 803 file ConcurrentHashMap.java line 1263
+        ARRAY_SET(newarray_tmp0->data, null);
+        // 804 file ConcurrentHashMap.java line 1263
+        ((struct java::array[reference] *)((struct edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap *)(void *)this)->segments)->data[i] . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap$Segment.setTable:([Ledu/emory/mathcs/backport/java/util/concurrent/ConcurrentHashMap$HashEntry;)V(newarray_tmp0);
+        // 805 file ConcurrentHashMap.java line 1262
+        i = i + (int)1;
+        // 806 file ConcurrentHashMap.java line 1262
+        GOTO 1
+        // 807 no location
+        // Labels: pc34
+     3: struct java.lang.Object *value;
+        // 808 no location
+        struct java.lang.Object *key;
+        // 809 file ConcurrentHashMap.java line 1268
+        // Labels: pc34$
+     4: (void *)s . java.io.ObjectInputStream.readObject:()Ljava/lang/Object;();
+        // 810 file ConcurrentHashMap.java line 1268
+        return_tmp1 = NONDET(struct java.lang.Object *);
+        // 811 file ConcurrentHashMap.java line 1268
+        key = return_tmp1;
+        // 812 file ConcurrentHashMap.java line 1269
+        (void *)s . java.io.ObjectInputStream.readObject:()Ljava/lang/Object;();
+        // 813 file ConcurrentHashMap.java line 1269
+        return_tmp2 = NONDET(struct java.lang.Object *);
+        // 814 file ConcurrentHashMap.java line 1269
+        value = return_tmp2;
+        // 815 file ConcurrentHashMap.java line 1270
+        IF (void *)(void *)key != null THEN GOTO 5
+        // 816 file ConcurrentHashMap.java line 1271
+        dead key;
+        // 817 file ConcurrentHashMap.java line 1271
+        dead value;
+        // 818 file ConcurrentHashMap.java line 1271
+        // Labels: pc48
+        GOTO 6
+        // 819 file ConcurrentHashMap.java line 1272
+        // Labels: pc51
+     5: (void *)this . edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;((struct java.lang.Object *)(void *)key, (struct java.lang.Object *)(void *)value);
+        // 820 file ConcurrentHashMap.java line 1272
+        return_tmp3 = edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;#return_value;
+        // 821 file ConcurrentHashMap.java line 1272
+        dead edu.emory.mathcs.backport.java.util.concurrent.ConcurrentHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;#return_value;
+        // 822 file ConcurrentHashMap.java line 1272
+        GOTO 4
+        // 823 file ConcurrentHashMap.java line 1274
+        // Labels: pc61
+     6: dead return_tmp3;
+        // 824 file ConcurrentHashMap.java line 1274
+        dead return_tmp2;
+        // 825 file ConcurrentHashMap.java line 1274
+        dead return_tmp1;
+        // 826 file ConcurrentHashMap.java line 1274
+        dead newarray_tmp0;
+        // 827 no location
+        END_FUNCTION
+EXIT=0
+SIGNAL=0

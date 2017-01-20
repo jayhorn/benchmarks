@@ -1,0 +1,34 @@
+CBMC version 5.6 64-bit x86_64 macos
+Parsing boolean2.class
+Java main class: boolean2
+failed to load class `java.lang.Class'
+failed to load class `java.lang.AssertionError'
+failed to load class `java.lang.Object'
+Converting
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+**** WARNING: no body for function java::java.lang.Class.desiredAssertionStatus:()Z
+**** WARNING: no body for function java::java.lang.AssertionError.<init>:()V
+size of program expression: 91 steps
+simple slicing removed 10 assignments
+Generated 1 VCC(s), 1 remaining after simplification
+Passing problem to propositional reduction
+converting SSA
+Running propositional reduction
+Post-processing
+Solving with MiniSAT 2.2.1 with simplifier
+386 variables, 132 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime decision procedure: 0.001s
+
+** Results:
+[assertion.1] assertion at file boolean2.java line 6: SUCCESS
+
+** 0 of 1 failed (1 iteration)
+VERIFICATION SUCCESSFUL
+EXIT=0
+SIGNAL=0

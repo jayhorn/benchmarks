@@ -1,0 +1,75 @@
+CBMC version 5.6 64-bit x86_64 macos
+Parsing test.class
+Java main class: test
+failed to load class `java.lang.Object'
+Converting
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Partial Inlining
+Generic Property Instrumentation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+_start /* _start */
+        // 0 no location
+        __CPROVER_initialize();
+        // 1 no location
+        test.main:()V();
+        // 2 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test.test() /* java::test.<init>:()V */
+        // 3 
+        // Labels: pc0
+        (void *)this . java.lang.Object.<init>:()V();
+        // 4 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test.main() /* java::test.main:()V */
+        // 5 no location
+        void *anonlocal::0a;
+        // 6 no location
+        void *anonlocal::3a;
+        // 7 no location
+        // Labels: pc0
+        GOTO 2
+        // 8 no location
+        // Labels: pc3
+     1: anonlocal::0a = (void *)irep("(\"constant\" \"type\" (\"pointer\" \"\" (\"empty\") \"width\" (\"64\")) \"value\" (\"0000000000000000000000000000000000000000000000000000000000001001\"))");
+        // 9 
+        IF anonlocal::0a == irep("(\"constant\" \"type\" (\"pointer\" \"\" (\"empty\") \"width\" (\"64\")) \"value\" (\"0000000000000000000000000000000000000000000000000000000000001001\"))") THEN GOTO 3
+        // 10 
+        GOTO 4
+        // 11 no location
+        // Labels: pc6
+     2: GOTO 1
+        // 12 no location
+        // Labels: pc9
+     3: GOTO 5
+        // 13 no location
+        // Labels: pc12
+     4: dead anonlocal::3a;
+        // 14 no location
+        dead anonlocal::0a;
+        // 15 no location
+        GOTO 6
+        // 16 no location
+        // Labels: pc13
+     5: anonlocal::3a = (void *)irep("(\"constant\" \"type\" (\"pointer\" \"\" (\"empty\") \"width\" (\"64\")) \"value\" (\"0000000000000000000000000000000000000000000000000000000000001100\"))");
+        // 17 
+        IF anonlocal::3a == irep("(\"constant\" \"type\" (\"pointer\" \"\" (\"empty\") \"width\" (\"64\")) \"value\" (\"0000000000000000000000000000000000000000000000000000000000001001\"))") THEN GOTO 3
+        // 18 
+        GOTO 4
+        // 19 no location
+     6: END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+__CPROVER_initialize /* __CPROVER_initialize */
+        // 20 no location
+        __CPROVER_rounding_mode = 0;
+        // 21 no location
+        END_FUNCTION
+EXIT=0
+SIGNAL=0

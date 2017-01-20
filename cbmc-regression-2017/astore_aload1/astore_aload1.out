@@ -1,0 +1,121 @@
+CBMC version 5.6 64-bit x86_64 macos
+Parsing astore_aload1.class
+Java main class: astore_aload1
+failed to load class `java.lang.String'
+failed to load class `java.lang.Class'
+failed to load class `java.lang.AssertionError'
+failed to load class `java.lang.Object'
+Converting
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+**** WARNING: no body for function java::java.lang.Class.desiredAssertionStatus:()Z
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 1 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 2 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 3 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 4 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 5 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 6 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 7 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 8 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 9 file astore_aload1.java line 15 thread 0
+Unwinding loop java::astore_aload1.main:([Ljava/lang/String;)V.0 iteration 10 file astore_aload1.java line 15 thread 0
+**** WARNING: no body for function java::java.lang.AssertionError.<init>:()V
+size of program expression: 1900 steps
+simple slicing removed 8 assignments
+Generated 77 VCC(s), 77 remaining after simplification
+Passing problem to propositional reduction
+converting SSA
+Running propositional reduction
+Post-processing
+Solving with MiniSAT 2.2.1 with simplifier
+75217 variables, 112611 clauses
+SAT checker inconsistent: instance is UNSATISFIABLE
+Runtime decision procedure: 0.123s
+
+** Results:
+[assertion.1] assertion at file astore_aload1.java line 30: SUCCESS
+[assertion.2] assertion at file astore_aload1.java line 31: SUCCESS
+[assertion.3] assertion at file astore_aload1.java line 32: SUCCESS
+[assertion.4] assertion at file astore_aload1.java line 33: SUCCESS
+[assertion.5] assertion at file astore_aload1.java line 34: SUCCESS
+[assertion.6] assertion at file astore_aload1.java line 35: SUCCESS
+[assertion.7] assertion at file astore_aload1.java line 36: SUCCESS
+[assertion.8] assertion at file astore_aload1.java line 37: SUCCESS
+[assertion.9] assertion at file astore_aload1.java line 38: SUCCESS
+[assertion.10] assertion at file astore_aload1.java line 39: SUCCESS
+[assertion.11] assertion at file astore_aload1.java line 40: SUCCESS
+[assertion.12] assertion at file astore_aload1.java line 41: SUCCESS
+[assertion.13] assertion at file astore_aload1.java line 42: SUCCESS
+[assertion.14] assertion at file astore_aload1.java line 43: SUCCESS
+[assertion.15] assertion at file astore_aload1.java line 44: SUCCESS
+[assertion.16] assertion at file astore_aload1.java line 45: SUCCESS
+[assertion.17] assertion at file astore_aload1.java line 46: SUCCESS
+[assertion.18] assertion at file astore_aload1.java line 47: SUCCESS
+[assertion.19] assertion at file astore_aload1.java line 48: SUCCESS
+[assertion.20] assertion at file astore_aload1.java line 49: SUCCESS
+[assertion.21] assertion at file astore_aload1.java line 50: SUCCESS
+[assertion.22] assertion at file astore_aload1.java line 51: SUCCESS
+[assertion.23] assertion at file astore_aload1.java line 52: SUCCESS
+[assertion.24] assertion at file astore_aload1.java line 53: SUCCESS
+[assertion.25] assertion at file astore_aload1.java line 54: SUCCESS
+[assertion.26] assertion at file astore_aload1.java line 55: SUCCESS
+[assertion.27] assertion at file astore_aload1.java line 56: SUCCESS
+[assertion.28] assertion at file astore_aload1.java line 57: SUCCESS
+[assertion.29] assertion at file astore_aload1.java line 58: SUCCESS
+[assertion.30] assertion at file astore_aload1.java line 59: SUCCESS
+[assertion.31] assertion at file astore_aload1.java line 60: SUCCESS
+[assertion.32] assertion at file astore_aload1.java line 61: SUCCESS
+[assertion.33] assertion at file astore_aload1.java line 62: SUCCESS
+[assertion.34] assertion at file astore_aload1.java line 63: SUCCESS
+[assertion.35] assertion at file astore_aload1.java line 64: SUCCESS
+[assertion.36] assertion at file astore_aload1.java line 65: SUCCESS
+[assertion.37] assertion at file astore_aload1.java line 66: SUCCESS
+[assertion.38] assertion at file astore_aload1.java line 67: SUCCESS
+[assertion.39] assertion at file astore_aload1.java line 68: SUCCESS
+[assertion.40] assertion at file astore_aload1.java line 69: SUCCESS
+[assertion.41] assertion at file astore_aload1.java line 70: SUCCESS
+[assertion.42] assertion at file astore_aload1.java line 71: SUCCESS
+[assertion.43] assertion at file astore_aload1.java line 72: SUCCESS
+[assertion.44] assertion at file astore_aload1.java line 73: SUCCESS
+[assertion.45] assertion at file astore_aload1.java line 74: SUCCESS
+[assertion.46] assertion at file astore_aload1.java line 75: SUCCESS
+[assertion.47] assertion at file astore_aload1.java line 76: SUCCESS
+[assertion.48] assertion at file astore_aload1.java line 77: SUCCESS
+[assertion.49] assertion at file astore_aload1.java line 78: SUCCESS
+[assertion.50] assertion at file astore_aload1.java line 79: SUCCESS
+[assertion.51] assertion at file astore_aload1.java line 80: SUCCESS
+[assertion.52] assertion at file astore_aload1.java line 81: SUCCESS
+[assertion.53] assertion at file astore_aload1.java line 82: SUCCESS
+[assertion.54] assertion at file astore_aload1.java line 83: SUCCESS
+[assertion.55] assertion at file astore_aload1.java line 84: SUCCESS
+[assertion.56] assertion at file astore_aload1.java line 85: SUCCESS
+[assertion.57] assertion at file astore_aload1.java line 86: SUCCESS
+[assertion.58] assertion at file astore_aload1.java line 87: SUCCESS
+[assertion.59] assertion at file astore_aload1.java line 88: SUCCESS
+[assertion.60] assertion at file astore_aload1.java line 89: SUCCESS
+[assertion.61] assertion at file astore_aload1.java line 90: SUCCESS
+[assertion.62] assertion at file astore_aload1.java line 91: SUCCESS
+[assertion.63] assertion at file astore_aload1.java line 92: SUCCESS
+[assertion.64] assertion at file astore_aload1.java line 93: SUCCESS
+[assertion.65] assertion at file astore_aload1.java line 94: SUCCESS
+[assertion.66] assertion at file astore_aload1.java line 95: SUCCESS
+[assertion.67] assertion at file astore_aload1.java line 96: SUCCESS
+[assertion.68] assertion at file astore_aload1.java line 97: SUCCESS
+[assertion.69] assertion at file astore_aload1.java line 98: SUCCESS
+[assertion.70] assertion at file astore_aload1.java line 99: SUCCESS
+[assertion.71] assertion at file astore_aload1.java line 100: SUCCESS
+[assertion.72] assertion at file astore_aload1.java line 101: SUCCESS
+[assertion.73] assertion at file astore_aload1.java line 102: SUCCESS
+[assertion.74] assertion at file astore_aload1.java line 103: SUCCESS
+[assertion.75] assertion at file astore_aload1.java line 104: SUCCESS
+[assertion.76] assertion at file astore_aload1.java line 105: SUCCESS
+[assertion.77] assertion at file astore_aload1.java line 106: SUCCESS
+
+** 0 of 77 failed (1 iteration)
+VERIFICATION SUCCESSFUL
+EXIT=0
+SIGNAL=0

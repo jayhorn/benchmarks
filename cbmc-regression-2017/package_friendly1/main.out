@@ -1,0 +1,77 @@
+CBMC version 5.6 64-bit x86_64 macos
+Parsing package_friendly1.class
+Java main class: package_friendly1
+failed to load class `java.lang.Object'
+Parsing package_friendly2.class
+Java main class: package_friendly2
+failed to load class `java.lang.Object'
+Parsing main.class
+Java main class: main
+failed to load class `java.lang.String'
+failed to load class `java.lang.Object'
+Converting
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Partial Inlining
+Generic Property Instrumentation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+_start /* _start */
+        // 0 no location
+        __CPROVER_initialize();
+        // 1 no location
+        tmp_object_factory$1.@java.lang.Object.@class_identifier = "java::java::array[reference]";
+        // 2 no location
+        tmp_object_factory$1.@java.lang.Object.@lock = FALSE;
+        // 3 no location
+        tmp_object_factory$1.length = NONDET(int);
+        // 4 no location
+        INPUT("arg0a", &tmp_object_factory$1);
+        // 5 no location
+        main.main:([Ljava/lang/String;)V(&tmp_object_factory$1);
+        // 6 no location
+        OUTPUT("arg0a", &tmp_object_factory$1);
+        // 7 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+main.main() /* java::main.<init>:()V */
+        // 8 file main.java line 1
+        // Labels: pc0
+        (void *)this . java.lang.Object.<init>:()V();
+        // 9 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+main.main() /* java::main.main:([Ljava/lang/String;)V */
+        // 10 file main.java line 3
+        // Labels: pc0
+        GOTO 1
+        // 11 no location
+     1: END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+package_friendly2.package_friendly2() /* java::package_friendly2.<init>:()V */
+        // 12 file package_friendly1.java line 5
+        // Labels: pc0
+        (void *)this . java.lang.Object.<init>:()V();
+        // 13 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+package_friendly2.operation2() /* java::package_friendly2.operation2:()I */
+        // 14 file package_friendly1.java line 7
+        // Labels: pc0
+        package_friendly2.operation2:()I#return_value = (int)999;
+        // 15 no location
+        END_FUNCTION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+__CPROVER_initialize /* __CPROVER_initialize */
+        // 16 no location
+        __CPROVER_rounding_mode = 0;
+        // 17 no location
+        END_FUNCTION
+EXIT=0
+SIGNAL=0

@@ -1,0 +1,6 @@
+CBMC version 5.6 64-bit x86_64 macos
+Parsing some_jar.jar
+No support for reading JAR files
+PARSING ERROR
+EXIT=6
+SIGNAL=0
