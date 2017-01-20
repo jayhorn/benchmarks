@@ -1,5 +1,11 @@
 public class virtual5 {
 
+  public static void main(String args[]){
+	parent p = new parent();
+	child c = new child();
+	test(p, c);
+  }
+
   public static void test(parent p, child c) {
 
     if(p==null)
