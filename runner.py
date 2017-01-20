@@ -417,14 +417,13 @@ def runJayHorn(dr, args):
                 print e
             if cresult == 0:
                 eldarica_result, spacer_result, eldarica_time, spacer_time = jayhorn(build_dir, args)
-                print spacer_result
                 eldarica_st = processResult(prog, bench_name, eldarica_result, "Eldarica", eldarica_time)
                 spacer_st = processResult(prog, bench_name, spacer_result, "Spacer", spacer_time)
                 eldarica_stats.update(eldarica_st)
                 spacer_stats.update(spacer_st)
 
 	    else:
-		st = processResult(prog, bench_name, "COMPILATION ERROR", '', total_time)
+		st = processResult(prog, bench_name, "COMPILATION ERROR", '', 'ERR')
                 eldarica_stats.update(st)
                 spacer_stats.update(st)
         if debug: print "---------------------"
