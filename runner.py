@@ -21,7 +21,7 @@ Tools
 """
 JPF = "./jpf-travis/jpf-core/build/RunJPF.jar"
 
-CBMC = "./cbmc/src/cbmc"
+CBMC = "../cbmc/src/cbmc"
 
 INFER = "infer"
 
