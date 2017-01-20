@@ -671,6 +671,7 @@ def analysis(stats):
     el_safe, el_unsafe, sp_safe, sp_unsafe, total = 0, 0, 0, 0, 0
     el_imprecise, el_unsound, sp_imprecise, sp_unsound = 0, 0, 0, 0
     el_timeout, sp_timeout = 0, 0
+    error_case = ""
     csv = "Benchmark, Expected, JayHorn-Eldarica-Answer, JayHorn-Spacer-Answer, JayHorn-Eldarica-Time, JayHorn-Spacer-Time\n"
     for bench, results in stats.iteritems():
         for (ek,ev), (sk,sv) in zip(results["jayhorn-eldarica"].items(), results["jayhorn-spacer"].items()):
@@ -688,9 +689,7 @@ def analysis(stats):
             elif ev["result"] == "TIMEOUT":
                 el_timeout +=1
             else:
-                print "UNK----"
-                print ev
-                print "-------"
+                error_case += "Eldarica: " +  sk + "\n"
             if sv["result"] == "SAFE" and sv["expected"] == "SAFE":
                 sp_safe +=1 #correct case
             elif sv["result"] == "UNSAFE" and sv["expected"] == "UNSAFE":
@@ -702,10 +701,7 @@ def analysis(stats):
             elif sv["result"] == "TIMEOUT":
                 sp_timeout +=1
             else:
-                print "--UNK-----"
-                print sk, sv
-
-
+                error_case += "SPACER: " +  sk + "\n"
     print csv
     print "TOTAL ... " + str(total)
     print "Eldarica SAFE ... " + str(el_safe)
@@ -718,6 +714,8 @@ def analysis(stats):
     print "Spacer UNSOUND ... " + str(sp_unsound)
     print "Spacer IMPRECISE ... " + str(sp_imprecise)
     print "Spacer TIMEOUT ... " + str(sp_timeout)
+    print "   ---- TO BE CHECKED ----- "
+    print error_case
 
 def scatterPlot(stats):
     print "Making scatter Plot ... "
