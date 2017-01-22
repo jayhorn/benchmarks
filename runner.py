@@ -141,11 +141,12 @@ def runBench(args):
         infer_stat, cpa_stat = dict(), dict()
         if args.infer: infer_stat = runInfer(args, d)
         if args.cpa: cpa_stat = runCpa(args, d)
-        eldarica_result, spacer_result = runJayHorn(d,args)
-        stats.update({str(d):{"infer":infer_stat,
-                              "jayhorn-eldarica":eldarica_result,
-                              "jayhorn-spacer": spacer_result,
-                              "cpa": cpa_stat}})
+        print cpa_stat
+        # eldarica_result, spacer_result = runJayHorn(d,args)
+        # stats.update({str(d):{"infer":infer_stat,
+        #                       "jayhorn-eldarica":eldarica_result,
+        #                       "jayhorn-spacer": spacer_result,
+        #                       "cpa": cpa_stat}})
     if args.plot:
         scatterPlot(stats)
         save_obj(stats, args.save_name)
