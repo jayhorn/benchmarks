@@ -31,24 +31,12 @@ before_install:
   
 install:
   - echo ".... Installing JAYHORN .... "
-  - git clone https://github.com/jayhorn/jayhorn
-  - ls
-  - cd jayhorn
-  - ls
-  - git checkout devel
-  - cd jayhorn
-  - ls
-  - ./gradlew jar
-  - ls build/libs/
-  - cd ../..
-  - java -jar jayhorn/jayhorn/build/libs/jayhorn.jar -h
   - echo ".... Installing CBMC .... "
 
  
 
 script:   
    - echo "    RUNNING JAYHORN ON Benchmarks   "
-   - ls jayhorn/jayhorn/build/libs
 
    
 after_success:
